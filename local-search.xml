@@ -394,9 +394,9 @@
     
     <tags>
       
-      <tag>Bug</tag>
-      
       <tag>hadoop</tag>
+      
+      <tag>Bug</tag>
       
     </tags>
     
@@ -864,33 +864,6 @@
   
   
   <entry>
-    <title>爬取bilibili视频排行榜信息</title>
-    <link href="/2020/09/17/pa-chong/pa-qu-bilibili-shi-pin-pai-xing-bang-xin-xi/"/>
-    <url>/2020/09/17/pa-chong/pa-qu-bilibili-shi-pin-pai-xing-bang-xin-xi/</url>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="爬取bilibili视频排行榜信息"><a href="#爬取bilibili视频排行榜信息" class="headerlink" title="爬取bilibili视频排行榜信息"></a>爬取bilibili视频排行榜信息</h1><figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">from</span> lxml <span class="hljs-keyword">import</span> etree<br><span class="hljs-keyword">import</span> xlwt<br><br>res=requests.get(<span class="hljs-string">&quot;https://www.bilibili.com/ranking/all/0/0/30&quot;</span>)<br>html=etree.HTML(res.text)<br>rank=html.xpath(<span class="hljs-string">&#x27;//li[@class=&quot;rank-item&quot;]/@data-rank&#x27;</span>)<br>href=html.xpath(<span class="hljs-string">&#x27;//li[@class=&quot;rank-item&quot;]/div[2]/div[2]/a/@href&#x27;</span>)<br>title=html.xpath(<span class="hljs-string">&#x27;//li[@class=&quot;rank-item&quot;]/div[2]/div[2]/a/text()&#x27;</span>)<br>liulan=html.xpath(<span class="hljs-string">&#x27;//li[@class=&quot;rank-item&quot;]/div[2]/div[2]/div[1]/span[1]/text()&#x27;</span>)<br>danmu=html.xpath(<span class="hljs-string">&#x27;//li[@class=&quot;rank-item&quot;]/div[2]/div[2]/div[1]/span[2]/text()&#x27;</span>)<br>up=html.xpath(<span class="hljs-string">&#x27;//li[@class=&quot;rank-item&quot;]/div[2]/div[2]/div[1]/a/span/text()&#x27;</span>)<br>score=html.xpath(<span class="hljs-string">&#x27;//li[@class=&quot;rank-item&quot;]/div[2]/div[2]/div[2]/div/text()&#x27;</span>)<br><br><span class="hljs-built_in">list</span>=<span class="hljs-built_in">list</span>(<span class="hljs-built_in">zip</span>(rank,href,title,liulan,danmu,up,score))<br><br>wbook=xlwt.Workbook()<br>wsheet=wbook.add_sheet(<span class="hljs-string">&quot;sheet1&quot;</span>)<br>wsheet.write(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,label=<span class="hljs-string">&quot;排名&quot;</span>)<br>wsheet.write(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,label=<span class="hljs-string">&quot;链接&quot;</span>)<br>wsheet.write(<span class="hljs-number">0</span>,<span class="hljs-number">2</span>,label=<span class="hljs-string">&quot;标题&quot;</span>)<br>wsheet.write(<span class="hljs-number">0</span>,<span class="hljs-number">3</span>,label=<span class="hljs-string">&quot;播放量&quot;</span>)<br>wsheet.write(<span class="hljs-number">0</span>,<span class="hljs-number">4</span>,label=<span class="hljs-string">&quot;弹幕数&quot;</span>)<br>wsheet.write(<span class="hljs-number">0</span>,<span class="hljs-number">5</span>,label=<span class="hljs-string">&quot;up&quot;</span>)<br>wsheet.write(<span class="hljs-number">0</span>,<span class="hljs-number">6</span>,label=<span class="hljs-string">&quot;综合得分&quot;</span>)<br><br><span class="hljs-keyword">for</span> i,j <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(<span class="hljs-built_in">list</span>):<br>    wsheet.write(i+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,j[<span class="hljs-number">0</span>])<br>    wsheet.write(i+<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,j[<span class="hljs-number">1</span>])<br>    wsheet.write(i+<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,j[<span class="hljs-number">2</span>])<br>    wsheet.write(i+<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,j[<span class="hljs-number">3</span>])<br>    wsheet.write(i+<span class="hljs-number">1</span>,<span class="hljs-number">4</span>,j[<span class="hljs-number">4</span>])<br>    wsheet.write(i+<span class="hljs-number">1</span>,<span class="hljs-number">5</span>,j[<span class="hljs-number">5</span>])<br>    wsheet.write(i+<span class="hljs-number">1</span>,<span class="hljs-number">6</span>,j[<span class="hljs-number">6</span>])<br><br>wbook.save(<span class="hljs-string">&quot;rank.xls&quot;</span>)<br></code></pre></div></td></tr></table></figure><p><img src="https://s1.ax1x.com/2020/08/10/aHcaDJ.png" alt="aHcaDJ.png"></p><p><a href="https://github.com/xiaojiaenen/blogtalk/issues/14">1</a> 条评论</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>python</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>爬虫</tag>
-      
-      <tag>bilibili</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>爬取vmgirls美女图片</title>
     <link href="/2020/09/17/pa-chong/pa-qu-vmgirls-mei-nu-tu-pian/"/>
     <url>/2020/09/17/pa-chong/pa-qu-vmgirls-mei-nu-tu-pian/</url>
@@ -910,6 +883,33 @@
       <tag>爬虫</tag>
       
       <tag>美女图片</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>爬取bilibili视频排行榜信息</title>
+    <link href="/2020/09/17/pa-chong/pa-qu-bilibili-shi-pin-pai-xing-bang-xin-xi/"/>
+    <url>/2020/09/17/pa-chong/pa-qu-bilibili-shi-pin-pai-xing-bang-xin-xi/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="爬取bilibili视频排行榜信息"><a href="#爬取bilibili视频排行榜信息" class="headerlink" title="爬取bilibili视频排行榜信息"></a>爬取bilibili视频排行榜信息</h1><figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">from</span> lxml <span class="hljs-keyword">import</span> etree<br><span class="hljs-keyword">import</span> xlwt<br><br>res=requests.get(<span class="hljs-string">&quot;https://www.bilibili.com/ranking/all/0/0/30&quot;</span>)<br>html=etree.HTML(res.text)<br>rank=html.xpath(<span class="hljs-string">&#x27;//li[@class=&quot;rank-item&quot;]/@data-rank&#x27;</span>)<br>href=html.xpath(<span class="hljs-string">&#x27;//li[@class=&quot;rank-item&quot;]/div[2]/div[2]/a/@href&#x27;</span>)<br>title=html.xpath(<span class="hljs-string">&#x27;//li[@class=&quot;rank-item&quot;]/div[2]/div[2]/a/text()&#x27;</span>)<br>liulan=html.xpath(<span class="hljs-string">&#x27;//li[@class=&quot;rank-item&quot;]/div[2]/div[2]/div[1]/span[1]/text()&#x27;</span>)<br>danmu=html.xpath(<span class="hljs-string">&#x27;//li[@class=&quot;rank-item&quot;]/div[2]/div[2]/div[1]/span[2]/text()&#x27;</span>)<br>up=html.xpath(<span class="hljs-string">&#x27;//li[@class=&quot;rank-item&quot;]/div[2]/div[2]/div[1]/a/span/text()&#x27;</span>)<br>score=html.xpath(<span class="hljs-string">&#x27;//li[@class=&quot;rank-item&quot;]/div[2]/div[2]/div[2]/div/text()&#x27;</span>)<br><br><span class="hljs-built_in">list</span>=<span class="hljs-built_in">list</span>(<span class="hljs-built_in">zip</span>(rank,href,title,liulan,danmu,up,score))<br><br>wbook=xlwt.Workbook()<br>wsheet=wbook.add_sheet(<span class="hljs-string">&quot;sheet1&quot;</span>)<br>wsheet.write(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,label=<span class="hljs-string">&quot;排名&quot;</span>)<br>wsheet.write(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,label=<span class="hljs-string">&quot;链接&quot;</span>)<br>wsheet.write(<span class="hljs-number">0</span>,<span class="hljs-number">2</span>,label=<span class="hljs-string">&quot;标题&quot;</span>)<br>wsheet.write(<span class="hljs-number">0</span>,<span class="hljs-number">3</span>,label=<span class="hljs-string">&quot;播放量&quot;</span>)<br>wsheet.write(<span class="hljs-number">0</span>,<span class="hljs-number">4</span>,label=<span class="hljs-string">&quot;弹幕数&quot;</span>)<br>wsheet.write(<span class="hljs-number">0</span>,<span class="hljs-number">5</span>,label=<span class="hljs-string">&quot;up&quot;</span>)<br>wsheet.write(<span class="hljs-number">0</span>,<span class="hljs-number">6</span>,label=<span class="hljs-string">&quot;综合得分&quot;</span>)<br><br><span class="hljs-keyword">for</span> i,j <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(<span class="hljs-built_in">list</span>):<br>    wsheet.write(i+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,j[<span class="hljs-number">0</span>])<br>    wsheet.write(i+<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,j[<span class="hljs-number">1</span>])<br>    wsheet.write(i+<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,j[<span class="hljs-number">2</span>])<br>    wsheet.write(i+<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,j[<span class="hljs-number">3</span>])<br>    wsheet.write(i+<span class="hljs-number">1</span>,<span class="hljs-number">4</span>,j[<span class="hljs-number">4</span>])<br>    wsheet.write(i+<span class="hljs-number">1</span>,<span class="hljs-number">5</span>,j[<span class="hljs-number">5</span>])<br>    wsheet.write(i+<span class="hljs-number">1</span>,<span class="hljs-number">6</span>,j[<span class="hljs-number">6</span>])<br><br>wbook.save(<span class="hljs-string">&quot;rank.xls&quot;</span>)<br></code></pre></div></td></tr></table></figure><p><img src="https://s1.ax1x.com/2020/08/10/aHcaDJ.png" alt="aHcaDJ.png"></p><p><a href="https://github.com/xiaojiaenen/blogtalk/issues/14">1</a> 条评论</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>爬虫</tag>
+      
+      <tag>bilibili</tag>
       
     </tags>
     
