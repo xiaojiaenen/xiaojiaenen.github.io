@@ -1,0 +1,614 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.jpg">
+  <link rel="icon" type="image/png" href="/img/avatar.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="xiaojia">
+  <meta name="keywords" content="">
+  <title>单链表 - xiaojia&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"xiaojiaenen.gitee.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":false,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"65ec8a1f3fda6260ef20740c571d6461","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>xiaojia's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/29.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="单链表">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      xiaojia
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-09-17 16:42" pubdate>
+        2020年9月17日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      63
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">单链表</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：12 天前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h1><h3 id="链表-LinkedList-介绍"><a href="#链表-LinkedList-介绍" class="headerlink" title="链表(LinkedList)介绍"></a>链表(LinkedList)介绍</h3><ul>
+<li>链表是有序的列表</li>
+<li>链表是以节点的方式来存储,是链式存储</li>
+<li>每个节点包含 data 域， next 域：指向下一个节点.</li>
+<li>链表的<strong>各个节点不一定是连续存储</strong>.</li>
+<li>链表分带头节点的链表和没有头节点的链表，根据实际的需求来确定</li>
+</ul>
+<h5 id="添加（创建）"><a href="#添加（创建）" class="headerlink" title="添加（创建）"></a>添加（创建）</h5><ul>
+<li>先创建一个head头节点，作用是表示单链表的头</li>
+<li>后面每添加一个节点，就直接加入到链表的最后</li>
+</ul>
+<h5 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h5><ul>
+<li>通过一个辅助变量遍历，帮助遍历整个链表</li>
+</ul>
+<h6 id="使用带head头的单向链表实现-–水浒英雄排行榜管理"><a href="#使用带head头的单向链表实现-–水浒英雄排行榜管理" class="headerlink" title="使用带head头的单向链表实现 –水浒英雄排行榜管理"></a>使用带head头的<strong>单向链表</strong>实现 –水浒英雄排行榜管理</h6><ul>
+<li>完成对英雄人物的<strong>增删改查</strong>操作， 注: <strong>删除和修改</strong>,<strong>查找</strong></li>
+<li>第一种方法在添加英雄时，直接添加到链表的尾部</li>
+<li>第二种方式在添加英雄时，根据排名将英雄插入到指定位置<br>(如果有这个排名，则添加失败，并给出提示)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//第一种方式</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingleLinkedListDemo</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">//先创建节点</span><br>        HeroNode hero1=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">1</span>,<span class="hljs-string">&quot;宋江&quot;</span>,<span class="hljs-string">&quot;及时雨&quot;</span>);<br>        HeroNode hero2=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">2</span>,<span class="hljs-string">&quot;卢俊义&quot;</span>,<span class="hljs-string">&quot;玉麒麟&quot;</span>);<br>        HeroNode hero3=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">3</span>,<span class="hljs-string">&quot;吴用&quot;</span>,<span class="hljs-string">&quot;智多星&quot;</span>);<br>        HeroNode hero4 = <span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">4</span>,<span class="hljs-string">&quot;林冲&quot;</span>,<span class="hljs-string">&quot;豹子头&quot;</span>);<br>        <span class="hljs-comment">//创建链表</span><br>        SingleLinkedList singleLinkedList = <span class="hljs-keyword">new</span> SingleLinkedList();<br>        singleLinkedList.add(hero1);<br>        singleLinkedList.add(hero2);<br>        singleLinkedList.add(hero3);<br>        singleLinkedList.add(hero4);<br>        singleLinkedList.list();<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//定义SingleLinkedList来管理英雄</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingleLinkedList</span></span>&#123;<br>    <span class="hljs-comment">//先初始化一个头节点，头结点不要动,不存放具体的数据</span><br>    <span class="hljs-keyword">private</span> HeroNode head=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">0</span>,<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;&quot;</span>);<br><br>    <span class="hljs-comment">//添加节点到单向链表</span><br>    <span class="hljs-comment">//思路，当不考虑编号顺序时</span><br>    <span class="hljs-comment">//1、找到当前链表的最后节点</span><br>    <span class="hljs-comment">//2、将最后这个节点的next指向新的节点</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(HeroNode heroNode)</span> </span>&#123;<br>        <span class="hljs-comment">//因为head节点不能动，因此我们需要一个辅助变量temp</span><br>        HeroNode temp=head;<br>        <span class="hljs-comment">//遍历链表，找到最后</span><br>        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-comment">//找到链表的最后</span><br>            <span class="hljs-keyword">if</span> (temp.next==<span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-comment">//如果没有找到最后，就将temp后移</span><br>            temp=temp.next;<br>        &#125;<br>        <span class="hljs-comment">//当退出while循环时，temp就指向了链表的最后</span><br>        <span class="hljs-comment">//将最后这个节点的next，指向新的节点</span><br>        temp.next=heroNode;<br>    &#125;<br>    <span class="hljs-comment">//显示链表【遍历】</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">list</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (head.next==<span class="hljs-keyword">null</span>) &#123;<br>            System.out.println(<span class="hljs-string">&quot;链表为空&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-comment">//因为头节点不能动，因此需要一个辅助变量来遍历</span><br>        HeroNode temp=head.next;<br>        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-comment">//判断是否到链表最后</span><br>            <span class="hljs-keyword">if</span> (temp==<span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-comment">//输出节点的信息</span><br>            System.out.println(temp);<br>            <span class="hljs-comment">//将temp后移</span><br>            temp=temp.next;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//定义HeroNode,每个HeroNode对象就是一个节点</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeroNode</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> no;<br>    <span class="hljs-keyword">public</span> String name;<br>    <span class="hljs-keyword">public</span> String nickname;<br>    <span class="hljs-keyword">public</span> HeroNode next;<span class="hljs-comment">//指向下一个节点</span><br>    <span class="hljs-comment">//构造器</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">HeroNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> no,String name,String nickname)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.no=no;<br>        <span class="hljs-keyword">this</span>.name=name;<br>        <span class="hljs-keyword">this</span>.nickname=nickname;<br>    &#125;<br>    <span class="hljs-comment">//为了显示方法，我们重写toString</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;HeroNode [no=&quot;</span> + no + <span class="hljs-string">&quot;, name=&quot;</span> + name + <span class="hljs-string">&quot;, nickname=&quot;</span> + nickname+ <span class="hljs-string">&quot;]&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h5 id="需要按照编号的顺序添加"><a href="#需要按照编号的顺序添加" class="headerlink" title="需要按照编号的顺序添加"></a>需要按照编号的顺序添加</h5><ul>
+<li>首先找到新添加的节点的位置，通过遍历</li>
+<li>新的节点.next=temp.next</li>
+<li>让temp.next=新的节点</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingleLinkedListDemo</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">//先创建节点</span><br>        HeroNode hero1=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">1</span>,<span class="hljs-string">&quot;宋江&quot;</span>,<span class="hljs-string">&quot;及时雨&quot;</span>);<br>        HeroNode hero2=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">2</span>,<span class="hljs-string">&quot;卢俊义&quot;</span>,<span class="hljs-string">&quot;玉麒麟&quot;</span>);<br>        HeroNode hero3=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">3</span>,<span class="hljs-string">&quot;吴用&quot;</span>,<span class="hljs-string">&quot;智多星&quot;</span>);<br>        HeroNode hero4 = <span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">4</span>,<span class="hljs-string">&quot;林冲&quot;</span>,<span class="hljs-string">&quot;豹子头&quot;</span>);<br>        <span class="hljs-comment">//创建链表</span><br>        SingleLinkedList singleLinkedList = <span class="hljs-keyword">new</span> SingleLinkedList();<br><span class="hljs-comment">//        singleLinkedList.add(hero1);</span><br><span class="hljs-comment">//        singleLinkedList.add(hero2);</span><br><span class="hljs-comment">//        singleLinkedList.add(hero3);</span><br><span class="hljs-comment">//        singleLinkedList.add(hero4);</span><br><br>        singleLinkedList.addByOrder(hero1);<br>        singleLinkedList.addByOrder(hero2);<br>        singleLinkedList.addByOrder(hero4);<br>        singleLinkedList.addByOrder(hero3);<br>        singleLinkedList.list();<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//定义SingleLinkedList来管理英雄</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingleLinkedList</span></span>&#123;<br>    <span class="hljs-comment">//先初始化一个头节点，头结点不要动,不存放具体的数据</span><br>    <span class="hljs-keyword">private</span> HeroNode head=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">0</span>,<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;&quot;</span>);<br><br>    <span class="hljs-comment">//添加节点到单向链表</span><br>    <span class="hljs-comment">//思路，当不考虑编号顺序时</span><br>    <span class="hljs-comment">//1、找到当前链表的最后节点</span><br>    <span class="hljs-comment">//2、将最后这个节点的next指向新的节点</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(HeroNode heroNode)</span> </span>&#123;<br>        <span class="hljs-comment">//因为head节点不能动，因此我们需要一个辅助变量temp</span><br>        HeroNode temp=head;<br>        <span class="hljs-comment">//遍历链表，找到最后</span><br>        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-comment">//找到链表的最后</span><br>            <span class="hljs-keyword">if</span> (temp.next==<span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-comment">//如果没有找到最后，就将temp后移</span><br>            temp=temp.next;<br>        &#125;<br>        <span class="hljs-comment">//当退出while循环时，temp就指向了链表的最后</span><br>        <span class="hljs-comment">//将最后这个节点的next，指向新的节点</span><br>        temp.next=heroNode;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addByOrder</span><span class="hljs-params">(HeroNode heroNode)</span> </span>&#123;<br>        <span class="hljs-comment">//因为头节点不能动，因此我们通过一个辅助变量来帮助找到添加的位置</span><br>        <span class="hljs-comment">//因为是单链表，我们找的temp是位于添加位置的前一个节点，否则不能插入</span><br>        HeroNode temp=head;<br>        <span class="hljs-keyword">boolean</span> flag=<span class="hljs-keyword">false</span>;<span class="hljs-comment">//标识添加的编号是否存在，默认为false</span><br>        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-keyword">if</span> (temp.next==<span class="hljs-keyword">null</span>) &#123;<span class="hljs-comment">//说明temp已经在链表的最后</span><br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (temp.next.no&gt;heroNode.no) &#123;<span class="hljs-comment">//位置找到，就在temp的后面插入</span><br>                <span class="hljs-keyword">break</span>;<br>            &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(temp.next.no==heroNode.no) &#123;<span class="hljs-comment">//说明希望添加的heroNode的编号已存在</span><br>                flag=<span class="hljs-keyword">true</span>;<span class="hljs-comment">//说明编号存在</span><br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            temp=temp.next;<span class="hljs-comment">//后移，遍历当前链表</span><br>        &#125;<br>        <span class="hljs-comment">//判断flag值</span><br>        <span class="hljs-keyword">if</span> (flag) &#123;<span class="hljs-comment">//不能添加，说明编号存在</span><br>            System.out.printf(<span class="hljs-string">&quot;准备插入的英雄的编号%d已经存在,不能添加\n&quot;</span>,heroNode.no);<br>        &#125;<span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">//添加到链表中,temp的后面</span><br>            heroNode.next=temp.next;<br>            temp.next=heroNode;<br>        &#125;<br>    &#125;<br><br><br>    <span class="hljs-comment">//显示链表【遍历】</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">list</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (head.next==<span class="hljs-keyword">null</span>) &#123;<br>            System.out.println(<span class="hljs-string">&quot;链表为空&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-comment">//因为头节点不能动，因此需要一个辅助变量来遍历</span><br>        HeroNode temp=head.next;<br>        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-comment">//判断是否到链表最后</span><br>            <span class="hljs-keyword">if</span> (temp==<span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-comment">//输出节点的信息</span><br>            System.out.println(temp);<br>            <span class="hljs-comment">//将temp后移</span><br>            temp=temp.next;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//定义HeroNode,每个HeroNode对象就是一个节点</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeroNode</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> no;<br>    <span class="hljs-keyword">public</span> String name;<br>    <span class="hljs-keyword">public</span> String nickname;<br>    <span class="hljs-keyword">public</span> HeroNode next;<span class="hljs-comment">//指向下一个节点</span><br>    <span class="hljs-comment">//构造器</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">HeroNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> no,String name,String nickname)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.no=no;<br>        <span class="hljs-keyword">this</span>.name=name;<br>        <span class="hljs-keyword">this</span>.nickname=nickname;<br>    &#125;<br>    <span class="hljs-comment">//为了显示方法，我们重写toString</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;HeroNode [no=&quot;</span> + no + <span class="hljs-string">&quot;, name=&quot;</span> + name + <span class="hljs-string">&quot;, nickname=&quot;</span> + nickname+ <span class="hljs-string">&quot;]&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h5 id="修改节点"><a href="#修改节点" class="headerlink" title="修改节点"></a>修改节点</h5><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingleLinkedListDemo</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">//先创建节点</span><br>        HeroNode hero1=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">1</span>,<span class="hljs-string">&quot;宋江&quot;</span>,<span class="hljs-string">&quot;及时雨&quot;</span>);<br>        HeroNode hero2=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">2</span>,<span class="hljs-string">&quot;卢俊义&quot;</span>,<span class="hljs-string">&quot;玉麒麟&quot;</span>);<br>        HeroNode hero3=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">3</span>,<span class="hljs-string">&quot;吴用&quot;</span>,<span class="hljs-string">&quot;智多星&quot;</span>);<br>        HeroNode hero4 = <span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">4</span>,<span class="hljs-string">&quot;林冲&quot;</span>,<span class="hljs-string">&quot;豹子头&quot;</span>);<br>        <span class="hljs-comment">//创建链表</span><br>        SingleLinkedList singleLinkedList = <span class="hljs-keyword">new</span> SingleLinkedList();<br><span class="hljs-comment">//        singleLinkedList.add(hero1);</span><br><span class="hljs-comment">//        singleLinkedList.add(hero2);</span><br><span class="hljs-comment">//        singleLinkedList.add(hero3);</span><br><span class="hljs-comment">//        singleLinkedList.add(hero4);</span><br><br>        singleLinkedList.addByOrder(hero1);<br>        singleLinkedList.addByOrder(hero2);<br>        singleLinkedList.addByOrder(hero4);<br>        singleLinkedList.addByOrder(hero3);<br>        System.out.println(<span class="hljs-string">&quot;修改前~~~&quot;</span>);<br>        singleLinkedList.list();<br><br>        <span class="hljs-comment">//测试修改节点的代码</span><br>        HeroNode newHeroNode=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">2</span>, <span class="hljs-string">&quot;小贾&quot;</span>, <span class="hljs-string">&quot;小贾嗯嗯&quot;</span>);<br>        singleLinkedList.update(newHeroNode);<br>        System.out.println(<span class="hljs-string">&quot;修改后~~~&quot;</span>);<br>        singleLinkedList.list();<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//定义SingleLinkedList来管理英雄</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingleLinkedList</span></span>&#123;<br>    <span class="hljs-comment">//先初始化一个头节点，头结点不要动,不存放具体的数据</span><br>    <span class="hljs-keyword">private</span> HeroNode head=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">0</span>,<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;&quot;</span>);<br><br>    <span class="hljs-comment">//添加节点到单向链表</span><br>    <span class="hljs-comment">//思路，当不考虑编号顺序时</span><br>    <span class="hljs-comment">//1、找到当前链表的最后节点</span><br>    <span class="hljs-comment">//2、将最后这个节点的next指向新的节点</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(HeroNode heroNode)</span> </span>&#123;<br>        <span class="hljs-comment">//因为head节点不能动，因此我们需要一个辅助变量temp</span><br>        HeroNode temp=head;<br>        <span class="hljs-comment">//遍历链表，找到最后</span><br>        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-comment">//找到链表的最后</span><br>            <span class="hljs-keyword">if</span> (temp.next==<span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-comment">//如果没有找到最后，就将temp后移</span><br>            temp=temp.next;<br>        &#125;<br>        <span class="hljs-comment">//当退出while循环时，temp就指向了链表的最后</span><br>        <span class="hljs-comment">//将最后这个节点的next，指向新的节点</span><br>        temp.next=heroNode;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addByOrder</span><span class="hljs-params">(HeroNode heroNode)</span> </span>&#123;<br>        <span class="hljs-comment">//因为头节点不能动，因此我们通过一个辅助变量来帮助找到添加的位置</span><br>        <span class="hljs-comment">//因为是单链表，我们找的temp是位于添加位置的前一个节点，否则不能插入</span><br>        HeroNode temp=head;<br>        <span class="hljs-keyword">boolean</span> flag=<span class="hljs-keyword">false</span>;<span class="hljs-comment">//标识添加的编号是否存在，默认为false</span><br>        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-keyword">if</span> (temp.next==<span class="hljs-keyword">null</span>) &#123;<span class="hljs-comment">//说明temp已经在链表的最后</span><br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (temp.next.no&gt;heroNode.no) &#123;<span class="hljs-comment">//位置找到，就在temp的后面插入</span><br>                <span class="hljs-keyword">break</span>;<br>            &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(temp.next.no==heroNode.no) &#123;<span class="hljs-comment">//说明希望添加的heroNode的编号已存在</span><br>                flag=<span class="hljs-keyword">true</span>;<span class="hljs-comment">//说明编号存在</span><br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            temp=temp.next;<span class="hljs-comment">//后移，遍历当前链表</span><br>        &#125;<br>        <span class="hljs-comment">//判断flag值</span><br>        <span class="hljs-keyword">if</span> (flag) &#123;<span class="hljs-comment">//不能添加，说明编号存在</span><br>            System.out.printf(<span class="hljs-string">&quot;准备插入的英雄的编号%d已经存在,不能添加\n&quot;</span>,heroNode.no);<br>        &#125;<span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">//添加到链表中,temp的后面</span><br>            heroNode.next=temp.next;<br>            temp.next=heroNode;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//修改节点的信息，根据no编号来修改，即no编号不能改</span><br>    <span class="hljs-comment">//1、根据newHreoNode的no来修改即可</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">update</span><span class="hljs-params">(HeroNode newHeroNode)</span> </span>&#123;<br>        <span class="hljs-comment">//判断是否为空</span><br>        <span class="hljs-keyword">if</span> (head.next==<span class="hljs-keyword">null</span>) &#123;<br>            System.out.println(<span class="hljs-string">&quot;链表为空~~~&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-comment">//找到需要修改的节点，根据no编号</span><br>        <span class="hljs-comment">//定义一个辅助变量</span><br>        HeroNode temp=head.next;<br>        <span class="hljs-keyword">boolean</span> flag=<span class="hljs-keyword">false</span>;<span class="hljs-comment">//表示是否找到该节点</span><br>        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-keyword">if</span> (temp==<span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<span class="hljs-comment">//已经遍历完毕</span><br>            &#125;<br>            <span class="hljs-keyword">if</span> (temp.no==newHeroNode.no) &#123;<br>                flag=<span class="hljs-keyword">true</span>;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            temp=temp.next;<br>        &#125;<br>        <span class="hljs-comment">//根据flag判断是否找到要修改的节点</span><br>        <span class="hljs-keyword">if</span> (flag) &#123;<br>            temp.name=newHeroNode.name;<br>            temp.nickname=newHeroNode.nickname;<br>        &#125;<span class="hljs-keyword">else</span> &#123;<span class="hljs-comment">//没有找到</span><br>            System.out.printf(<span class="hljs-string">&quot;没有找到编号%d的节点，不能修改\n&quot;</span>,newHeroNode.no);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//显示链表【遍历】</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">list</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (head.next==<span class="hljs-keyword">null</span>) &#123;<br>            System.out.println(<span class="hljs-string">&quot;链表为空&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-comment">//因为头节点不能动，因此需要一个辅助变量来遍历</span><br>        HeroNode temp=head.next;<br>        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-comment">//判断是否到链表最后</span><br>            <span class="hljs-keyword">if</span> (temp==<span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-comment">//输出节点的信息</span><br>            System.out.println(temp);<br>            <span class="hljs-comment">//将temp后移</span><br>            temp=temp.next;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//定义HeroNode,每个HeroNode对象就是一个节点</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeroNode</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> no;<br>    <span class="hljs-keyword">public</span> String name;<br>    <span class="hljs-keyword">public</span> String nickname;<br>    <span class="hljs-keyword">public</span> HeroNode next;<span class="hljs-comment">//指向下一个节点</span><br>    <span class="hljs-comment">//构造器</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">HeroNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> no,String name,String nickname)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.no=no;<br>        <span class="hljs-keyword">this</span>.name=name;<br>        <span class="hljs-keyword">this</span>.nickname=nickname;<br>    &#125;<br>    <span class="hljs-comment">//为了显示方法，我们重写toString</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;HeroNode [no=&quot;</span> + no + <span class="hljs-string">&quot;, name=&quot;</span> + name + <span class="hljs-string">&quot;, nickname=&quot;</span> + nickname+ <span class="hljs-string">&quot;]&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h5 id="从单链表中删除一个节点"><a href="#从单链表中删除一个节点" class="headerlink" title="从单链表中删除一个节点"></a>从单链表中删除一个节点</h5><ul>
+<li>先找到需要删除的这个节点的前一个节点temp</li>
+<li>temp.next=temp.next.next</li>
+<li>被删除的节点，将不会有其他引用指向，会被垃圾回收机制回收</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingleLinkedListDemo</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">//先创建节点</span><br>        HeroNode hero1=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">1</span>,<span class="hljs-string">&quot;宋江&quot;</span>,<span class="hljs-string">&quot;及时雨&quot;</span>);<br>        HeroNode hero2=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">2</span>,<span class="hljs-string">&quot;卢俊义&quot;</span>,<span class="hljs-string">&quot;玉麒麟&quot;</span>);<br>        HeroNode hero3=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">3</span>,<span class="hljs-string">&quot;吴用&quot;</span>,<span class="hljs-string">&quot;智多星&quot;</span>);<br>        HeroNode hero4 = <span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">4</span>,<span class="hljs-string">&quot;林冲&quot;</span>,<span class="hljs-string">&quot;豹子头&quot;</span>);<br>        <span class="hljs-comment">//创建链表</span><br>        SingleLinkedList singleLinkedList = <span class="hljs-keyword">new</span> SingleLinkedList();<br><span class="hljs-comment">//        singleLinkedList.add(hero1);</span><br><span class="hljs-comment">//        singleLinkedList.add(hero2);</span><br><span class="hljs-comment">//        singleLinkedList.add(hero3);</span><br><span class="hljs-comment">//        singleLinkedList.add(hero4);</span><br><br>        singleLinkedList.addByOrder(hero1);<br>        singleLinkedList.addByOrder(hero2);<br>        singleLinkedList.addByOrder(hero4);<br>        singleLinkedList.addByOrder(hero3);<br>        System.out.println(<span class="hljs-string">&quot;修改前~~~&quot;</span>);<br>        singleLinkedList.list();<br><br>        <span class="hljs-comment">//测试修改节点的代码</span><br>        HeroNode newHeroNode=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">2</span>, <span class="hljs-string">&quot;小贾&quot;</span>, <span class="hljs-string">&quot;小贾嗯嗯&quot;</span>);<br>        singleLinkedList.update(newHeroNode);<br>        System.out.println(<span class="hljs-string">&quot;修改后~~~&quot;</span>);<br>        singleLinkedList.list();<br><br>        <span class="hljs-comment">//删除一个节点</span><br>        singleLinkedList.del(<span class="hljs-number">2</span>);<br>        System.out.println(<span class="hljs-string">&quot;删除后~~~&quot;</span>);<br>        singleLinkedList.list();<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//定义SingleLinkedList来管理英雄</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingleLinkedList</span></span>&#123;<br>    <span class="hljs-comment">//先初始化一个头节点，头结点不要动,不存放具体的数据</span><br>    <span class="hljs-keyword">private</span> HeroNode head=<span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">0</span>,<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;&quot;</span>);<br><br>    <span class="hljs-comment">//添加节点到单向链表</span><br>    <span class="hljs-comment">//思路，当不考虑编号顺序时</span><br>    <span class="hljs-comment">//1、找到当前链表的最后节点</span><br>    <span class="hljs-comment">//2、将最后这个节点的next指向新的节点</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(HeroNode heroNode)</span> </span>&#123;<br>        <span class="hljs-comment">//因为head节点不能动，因此我们需要一个辅助变量temp</span><br>        HeroNode temp=head;<br>        <span class="hljs-comment">//遍历链表，找到最后</span><br>        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-comment">//找到链表的最后</span><br>            <span class="hljs-keyword">if</span> (temp.next==<span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-comment">//如果没有找到最后，就将temp后移</span><br>            temp=temp.next;<br>        &#125;<br>        <span class="hljs-comment">//当退出while循环时，temp就指向了链表的最后</span><br>        <span class="hljs-comment">//将最后这个节点的next，指向新的节点</span><br>        temp.next=heroNode;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addByOrder</span><span class="hljs-params">(HeroNode heroNode)</span> </span>&#123;<br>        <span class="hljs-comment">//因为头节点不能动，因此我们通过一个辅助变量来帮助找到添加的位置</span><br>        <span class="hljs-comment">//因为是单链表，我们找的temp是位于添加位置的前一个节点，否则不能插入</span><br>        HeroNode temp=head;<br>        <span class="hljs-keyword">boolean</span> flag=<span class="hljs-keyword">false</span>;<span class="hljs-comment">//标识添加的编号是否存在，默认为false</span><br>        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-keyword">if</span> (temp.next==<span class="hljs-keyword">null</span>) &#123;<span class="hljs-comment">//说明temp已经在链表的最后</span><br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (temp.next.no&gt;heroNode.no) &#123;<span class="hljs-comment">//位置找到，就在temp的后面插入</span><br>                <span class="hljs-keyword">break</span>;<br>            &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(temp.next.no==heroNode.no) &#123;<span class="hljs-comment">//说明希望添加的heroNode的编号已存在</span><br>                flag=<span class="hljs-keyword">true</span>;<span class="hljs-comment">//说明编号存在</span><br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            temp=temp.next;<span class="hljs-comment">//后移，遍历当前链表</span><br>        &#125;<br>        <span class="hljs-comment">//判断flag值</span><br>        <span class="hljs-keyword">if</span> (flag) &#123;<span class="hljs-comment">//不能添加，说明编号存在</span><br>            System.out.printf(<span class="hljs-string">&quot;准备插入的英雄的编号%d已经存在,不能添加\n&quot;</span>,heroNode.no);<br>        &#125;<span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">//添加到链表中,temp的后面</span><br>            heroNode.next=temp.next;<br>            temp.next=heroNode;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//修改节点的信息，根据no编号来修改，即no编号不能改</span><br>    <span class="hljs-comment">//1、根据newHreoNode的no来修改即可</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">update</span><span class="hljs-params">(HeroNode newHeroNode)</span> </span>&#123;<br>        <span class="hljs-comment">//判断是否为空</span><br>        <span class="hljs-keyword">if</span> (head.next==<span class="hljs-keyword">null</span>) &#123;<br>            System.out.println(<span class="hljs-string">&quot;链表为空~~~&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-comment">//找到需要修改的节点，根据no编号</span><br>        <span class="hljs-comment">//定义一个辅助变量</span><br>        HeroNode temp=head.next;<br>        <span class="hljs-keyword">boolean</span> flag=<span class="hljs-keyword">false</span>;<span class="hljs-comment">//表示是否找到该节点</span><br>        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-keyword">if</span> (temp==<span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<span class="hljs-comment">//已经遍历完毕</span><br>            &#125;<br>            <span class="hljs-keyword">if</span> (temp.no==newHeroNode.no) &#123;<br>                flag=<span class="hljs-keyword">true</span>;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            temp=temp.next;<br>        &#125;<br>        <span class="hljs-comment">//根据flag判断是否找到要修改的节点</span><br>        <span class="hljs-keyword">if</span> (flag) &#123;<br>            temp.name=newHeroNode.name;<br>            temp.nickname=newHeroNode.nickname;<br>        &#125;<span class="hljs-keyword">else</span> &#123;<span class="hljs-comment">//没有找到</span><br>            System.out.printf(<span class="hljs-string">&quot;没有找到编号%d的节点，不能修改\n&quot;</span>,newHeroNode.no);<br>        &#125;<br>    &#125;<br><br><br>    <span class="hljs-comment">//删除节点</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">del</span><span class="hljs-params">(<span class="hljs-keyword">int</span> no)</span> </span>&#123;<br>        HeroNode temp=head;<br>        <span class="hljs-keyword">boolean</span> flag=<span class="hljs-keyword">false</span>;<span class="hljs-comment">//标识是否找到</span><br>        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-keyword">if</span> (temp.next==<span class="hljs-keyword">null</span>) &#123;<span class="hljs-comment">//已经到链表最后</span><br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (temp.next.no==no) &#123;<br>                flag=<span class="hljs-keyword">true</span>;<span class="hljs-comment">//找到了待删除节点的前一个节点temp</span><br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            temp=temp.next;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (flag) &#123;<span class="hljs-comment">//找到</span><br>            <span class="hljs-comment">//可以删除</span><br>            temp.next=temp.next.next;<br>        &#125;<span class="hljs-keyword">else</span> &#123;<br>            System.out.printf(<span class="hljs-string">&quot;要删除的%d节点不存在&quot;</span>,no);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//显示链表【遍历】</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">list</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (head.next==<span class="hljs-keyword">null</span>) &#123;<br>            System.out.println(<span class="hljs-string">&quot;链表为空&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-comment">//因为头节点不能动，因此需要一个辅助变量来遍历</span><br>        HeroNode temp=head.next;<br>        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-comment">//判断是否到链表最后</span><br>            <span class="hljs-keyword">if</span> (temp==<span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-comment">//输出节点的信息</span><br>            System.out.println(temp);<br>            <span class="hljs-comment">//将temp后移</span><br>            temp=temp.next;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//定义HeroNode,每个HeroNode对象就是一个节点</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeroNode</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> no;<br>    <span class="hljs-keyword">public</span> String name;<br>    <span class="hljs-keyword">public</span> String nickname;<br>    <span class="hljs-keyword">public</span> HeroNode next;<span class="hljs-comment">//指向下一个节点</span><br>    <span class="hljs-comment">//构造器</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">HeroNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> no,String name,String nickname)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.no=no;<br>        <span class="hljs-keyword">this</span>.name=name;<br>        <span class="hljs-keyword">this</span>.nickname=nickname;<br>    &#125;<br>    <span class="hljs-comment">//为了显示方法，我们重写toString</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;HeroNode [no=&quot;</span> + no + <span class="hljs-string">&quot;, name=&quot;</span> + name + <span class="hljs-string">&quot;, nickname=&quot;</span> + nickname+ <span class="hljs-string">&quot;]&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h5 id="单链表的常见面试题有如下"><a href="#单链表的常见面试题有如下" class="headerlink" title="单链表的常见面试题有如下:"></a>单链表的常见面试题有如下:</h5><ul>
+<li>求单链表中有效节点的个数</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">// 方法：获取到单链表节点的有效个数（如果带头节点的链表，不统计）</span><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> head 链表的头节点</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> 返回的是有效节点的个数</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getLength</span><span class="hljs-params">(HeroNode head)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (head.next == <span class="hljs-keyword">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-keyword">int</span> length = <span class="hljs-number">0</span>;<br>    <span class="hljs-comment">// 定义一个辅助变量</span><br>    HeroNode cur = head.next;<br>    <span class="hljs-keyword">while</span> (cur != <span class="hljs-keyword">null</span>) &#123;<br>        length++;<br>        cur = cur.next;<span class="hljs-comment">// 遍历</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> length;<br><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<ul>
+<li>查找单链表中的倒数第k个结点 【新浪面试题】</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">// 查找单链表中的倒数第k个节点</span><br><span class="hljs-comment">// 思路：</span><br><span class="hljs-comment">// 1、编写一个方法接收head节点，同时接收一个index</span><br><span class="hljs-comment">// 2、index表示倒数第index个节点</span><br><span class="hljs-comment">// 3、先把链表从头到尾遍历一下，得到链表的总长度 getLength</span><br><span class="hljs-comment">// 4、得到size后，从链表的第一个开始遍历（size-index）个</span><br><span class="hljs-comment">// 5、如果找到，返回该节点，否则返回空</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> HeroNode <span class="hljs-title">findLastIndexNode</span><span class="hljs-params">(HeroNode head, <span class="hljs-keyword">int</span> index)</span> </span>&#123;<br>    <span class="hljs-comment">// 判断如果链表为空，返回null</span><br>    <span class="hljs-keyword">if</span> (head.next == <span class="hljs-keyword">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>    &#125;<br>    <span class="hljs-comment">// 第一次遍历得到链表的长度</span><br>    <span class="hljs-keyword">int</span> size = getLength(head);<br>    <span class="hljs-comment">// 第二次遍历</span><br>    <span class="hljs-comment">// 先做一个index校验</span><br>    <span class="hljs-keyword">if</span> (index &lt;= <span class="hljs-number">0</span> || index &gt; size) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>    &#125;<br>    <span class="hljs-comment">// 定义一个辅助变量</span><br>    HeroNode cur = head.next;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size - index; i++) &#123;<br>        cur = cur.next;<br>    &#125;<br>    <span class="hljs-keyword">return</span> cur;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<ul>
+<li>单链表的反转【腾讯面试题】<ul>
+<li>先定义一个新的链表reverseHead=new HeroNode();</li>
+<li>从头到尾遍历原来的链表，每遍历一个节点，就将其取出，并放在新的链表的reverseHead的最前端</li>
+<li>原来的链表的head.next=reverseHead.next</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">// 将单链表进行反转</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">reverseList</span><span class="hljs-params">(HeroNode head)</span> </span>&#123;<br>    <span class="hljs-comment">// 如果当前链表为空，或者只有一个节点，无需反转，直接返回</span><br>    <span class="hljs-keyword">if</span> (head.next == <span class="hljs-keyword">null</span> || head.next.next == <span class="hljs-keyword">null</span>) &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    HeroNode cur = head.next;<span class="hljs-comment">// 定义一个辅助变量，用来遍历原来的链表</span><br>    HeroNode next = <span class="hljs-keyword">null</span>;<span class="hljs-comment">// 指向当前节点的下一个节点</span><br>    HeroNode reverseHead = <span class="hljs-keyword">new</span> HeroNode(<span class="hljs-number">0</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);<br>    <span class="hljs-comment">// 遍历原来的链表，每遍历一个节点，就将其取出，并放在新的链表的reverseHead的最前端</span><br>    <span class="hljs-keyword">while</span> (cur != <span class="hljs-keyword">null</span>) &#123;<br>        next = cur.next;<span class="hljs-comment">// 先暂时保存当前节点的下一个节点，后面需要使用</span><br>        cur.next = reverseHead.next;<span class="hljs-comment">// 将cur的下一个节点指向新的链表的最前端</span><br>        reverseHead.next=cur;<span class="hljs-comment">//将cur连接到新的链表上</span><br>        cur = next;<span class="hljs-comment">// 让cur指向下一个节点</span><br>    &#125;<br>    <span class="hljs-comment">// 将head.next指向reverseHead.next，实现单链表的反转</span><br>    head.next = reverseHead.next;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<ul>
+<li>从尾到头打印单链表 【百度，要求方式1：反向遍历 。 方式2：Stack栈】<ul>
+<li>方式一：先将单链表进行反转操作，然后遍历即可，这样做的问题是会破坏原来的单链表的结构，不建议</li>
+<li>方式二：可以利用栈数据结构，将各个节点压入到栈中，利用栈的先进后出的特点，就可以实现逆序打印的效果</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//使用栈实现逆序打印单链表</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">reversePrint</span><span class="hljs-params">(HeroNode head)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (head.next==<span class="hljs-keyword">null</span>) &#123;<br>        <span class="hljs-keyword">return</span>;<span class="hljs-comment">//空链表</span><br>    &#125;<br>    <span class="hljs-comment">//创建一个栈，将各个节点压入栈</span><br>    Stack&lt;HeroNode&gt; stack = <span class="hljs-keyword">new</span> Stack&lt;HeroNode&gt;();<br>    HeroNode cur=head.next;<br>    <span class="hljs-comment">//将链表的所有节点压入栈中</span><br>    <span class="hljs-keyword">while</span>(cur!=<span class="hljs-keyword">null</span>) &#123;<br>        stack.push(cur);<br>        cur=cur.next;<br>    &#125;<br>    <span class="hljs-comment">//将栈中的节点进行打印，pop出栈</span><br>    <span class="hljs-keyword">while</span>(stack.size()&gt;<span class="hljs-number">0</span>) &#123;<br>        System.out.println(stack.pop());<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<ul>
+<li>合并两个有序的单链表，合并之后的链表依然有序</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">    <span class="hljs-comment">//合并两个有序链表</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">mergeLinkedList</span><span class="hljs-params">(HeroNode head1, HeroNode head2)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (head1.next == <span class="hljs-keyword">null</span> || head2.next == <span class="hljs-keyword">null</span>) &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    HeroNode newHead = <span class="hljs-keyword">new</span> HeroNode(-<span class="hljs-number">1</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);<br>    HeroNode cur1 = head1.next;<br>    HeroNode cur2 = head2.next;<br>    System.out.println(newHead);<br>    <span class="hljs-keyword">while</span> (cur1 != <span class="hljs-keyword">null</span> &amp;&amp; cur2 != <span class="hljs-keyword">null</span>) &#123;<br>        <span class="hljs-keyword">if</span> (cur1.no &lt;= cur2.no) &#123;<br>            newHead.next = cur1;<br>            newHead = cur1;<br>            cur1 = cur1.next;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            newHead.next = cur2;<br>            newHead = cur2;<br>            cur2 = cur2.next;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (cur1 == <span class="hljs-keyword">null</span>) &#123;<br>        newHead.next = cur2;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (cur2 == <span class="hljs-keyword">null</span>) &#123;<br>        newHead.next = cur1;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8D%95%E9%93%BE%E8%A1%A8/">单链表</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/09/17/python/jieba-fen-ci/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">jieba分词</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/09/17/shu-ju-jie-gou/pai-xu-suan-fa/">
+                        <span class="hidden-mobile">排序算法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "YVoeWdQs8oEPqmQBFWkV2m2u-gzGzoHsz",
+          app_key: "FUxImjP5RO4j7uOOAeBKAVtJ",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="/img/wechat.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;"><img src="/img/alipay.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://xiaojaienen.gitee.io" target="_blank" rel="nofollow noopener"><span>小贾</span></a> <i class="iconfont icon-love"></i> <a href="https://xiaojaienen.gitee.io" target="_blank" rel="nofollow noopener"><span>个人博客</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?65ec8a1f3fda6260ef20740c571d6461";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

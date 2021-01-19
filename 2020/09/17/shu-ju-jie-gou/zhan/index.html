@@ -1,0 +1,755 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.jpg">
+  <link rel="icon" type="image/png" href="/img/avatar.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="xiaojia">
+  <meta name="keywords" content="">
+  <title>栈 - xiaojia&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"xiaojiaenen.gitee.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":false,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"65ec8a1f3fda6260ef20740c571d6461","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>xiaojia's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/39.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="栈">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      xiaojia
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-09-17 16:42" pubdate>
+        2020年9月17日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      64
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">栈</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：12 天前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1><h3 id="栈-stack"><a href="#栈-stack" class="headerlink" title="栈(stack)"></a>栈(stack)</h3><ul>
+<li>栈是一个<strong>先入后出</strong>的有序列表</li>
+<li>栈是限制线性表中元素的插入和删除只能在线性表的同一端进行的一种特殊线性表。允许插入和删除的一端，为变化的一端，称为栈顶，另一端为固定的一端，称为栈底</li>
+<li>根据栈的定义可知，最先放入栈中的元素在栈底，最后放入的元素在栈顶，而删除元素刚好相反，最后放入的元素最先删除，最先放入的元素最后删除</li>
+</ul>
+<h5 id="栈的思路分析"><a href="#栈的思路分析" class="headerlink" title="栈的思路分析"></a>栈的思路分析</h5><ul>
+<li>使用数组来模拟栈</li>
+<li>定义一个top来表示栈顶，初始化为-1</li>
+<li>入栈的操作，当有数据加入到栈时，top++;stack[top]=value;</li>
+<li>出栈的操作，int value=stack[top];top–;return value;</li>
+</ul>
+<h6 id="数组模拟栈"><a href="#数组模拟栈" class="headerlink" title="数组模拟栈"></a>数组模拟栈</h6><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.Scanner;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArrayStackDemo</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        ArrayStack stack = <span class="hljs-keyword">new</span> ArrayStack(<span class="hljs-number">4</span>);<br>        String key = <span class="hljs-string">&quot;&quot;</span>;<br>        <span class="hljs-keyword">boolean</span> loop = <span class="hljs-keyword">true</span>;<span class="hljs-comment">// 控制是否退出菜单</span><br>        Scanner sc = <span class="hljs-keyword">new</span> Scanner(System.in);<br>        <span class="hljs-keyword">while</span> (loop) &#123;<br>            System.out.println(<span class="hljs-string">&quot;show:表示显示栈&quot;</span>);<br>            System.out.println(<span class="hljs-string">&quot;exit:退出程序&quot;</span>);<br>            System.out.println(<span class="hljs-string">&quot;push:表示添加数据到栈（入栈）&quot;</span>);<br>            System.out.println(<span class="hljs-string">&quot;pop:表示从栈取出数据（出栈）&quot;</span>);<br>            System.out.println(<span class="hljs-string">&quot;请输入你的选择：&quot;</span>);<br>            key = sc.next();<br>            <span class="hljs-keyword">switch</span> (key) &#123;<br>            <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;show&quot;</span>:<br>                stack.list();<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;push&quot;</span>:<br>                System.out.println(<span class="hljs-string">&quot;请输入一个数：&quot;</span>);<br>                <span class="hljs-keyword">int</span> value = sc.nextInt();<br>                stack.push(value);<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;pop&quot;</span>:<br>                <span class="hljs-keyword">try</span> &#123;<br>                    <span class="hljs-keyword">int</span> res = stack.pop();<br>                    System.out.printf(<span class="hljs-string">&quot;出栈的数据是%d\n&quot;</span>, res);<br>                &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                    System.out.println(e.getMessage());<br>                &#125;<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;exit&quot;</span>:<br>                sc.close();<br>                loop = <span class="hljs-keyword">false</span>;<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">default</span>:<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>        System.out.println(<span class="hljs-string">&quot;程序退出~&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArrayStack</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> maxSize;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> top;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] stack;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ArrayStack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> maxSize)</span> </span>&#123;<br>        top = -<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">this</span>.maxSize = maxSize;<br>        stack = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[maxSize];<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isFull</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> top == maxSize - <span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> top == -<span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (isFull()) &#123;<br>            System.out.println(<span class="hljs-string">&quot;栈满，不能添加数据~&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        top++;<br>        stack[top] = value;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (isEmpty()) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;栈空,没有数据~&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">int</span> value = stack[top];<br>        top--;<br>        <span class="hljs-keyword">return</span> value;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">list</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (isEmpty()) &#123;<br>            System.out.println(<span class="hljs-string">&quot;栈空，没有数据~&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = top; i &gt;= <span class="hljs-number">0</span>; i--) &#123;<br>            System.out.printf(<span class="hljs-string">&quot;stack[%d]=%d\n&quot;</span>, i, stack[i]);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h6 id="链表模拟栈"><a href="#链表模拟栈" class="headerlink" title="链表模拟栈"></a>链表模拟栈</h6><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkedListStackDemo</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        LinkedListStack stack = <span class="hljs-keyword">new</span> LinkedListStack();<br>        Node node1 = <span class="hljs-keyword">new</span> Node(<span class="hljs-number">10</span>);<br>        Node node2 = <span class="hljs-keyword">new</span> Node(<span class="hljs-number">20</span>);<br>        Node node3 = <span class="hljs-keyword">new</span> Node(<span class="hljs-number">30</span>);<br>        Node node4 = <span class="hljs-keyword">new</span> Node(<span class="hljs-number">40</span>);<br>        Node node5 = <span class="hljs-keyword">new</span> Node(<span class="hljs-number">50</span>);<br>        System.out.println(<span class="hljs-string">&quot;入栈~&quot;</span>);<br>        stack.push(node1);<br>        stack.push(node2);<br>        stack.push(node3);<br>        stack.push(node4);<br>        stack.push(node5);<br>        stack.list();<br>        System.out.println(<span class="hljs-string">&quot;出栈~&quot;</span>);<br>        System.out.println(stack.pop());<br>        System.out.println(stack.pop());<br>        System.out.println(stack.pop());<br>        System.out.println(stack.pop());<br>        System.out.println(stack.pop());<br>        stack.list();<br><br>    &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkedListStack</span> </span>&#123;<br>    Node head = <span class="hljs-keyword">new</span> Node(<span class="hljs-number">0</span>);<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(Node node)</span> </span>&#123;<br>        Node temp = head;<br>        <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-keyword">if</span> (temp.next == <span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            temp = temp.next;<br>        &#125;<br>        temp.next = node;<br>        node.pre = temp;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>&#123;<br>        Node temp = head;<br>        <span class="hljs-keyword">if</span> (temp.next == <span class="hljs-keyword">null</span>) &#123;<br>            System.out.println(<span class="hljs-string">&quot;栈空，没有数据~&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-keyword">if</span> (temp.next == <span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            temp = temp.next;<br>        &#125;<br>        <span class="hljs-keyword">int</span> value = temp.data;<br>        temp.pre.next = temp.next;<br>        <span class="hljs-keyword">return</span> value;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">list</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (head.next == <span class="hljs-keyword">null</span>) &#123;<br>            System.out.println(<span class="hljs-string">&quot;栈空&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        Node temp = head.next;<br>        <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-keyword">if</span> (temp == <span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            System.out.println(temp);<br>            temp = temp.next;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> data;<br>    <span class="hljs-keyword">public</span> Node next;<br>    <span class="hljs-keyword">public</span> Node pre;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Node</span><span class="hljs-params">(<span class="hljs-keyword">int</span> data)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.data = data;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Node [data=&quot;</span> + data + <span class="hljs-string">&quot;]&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h5 id="栈实现数学表达式的运算"><a href="#栈实现数学表达式的运算" class="headerlink" title="栈实现数学表达式的运算"></a>栈实现数学表达式的运算</h5><h6 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h6><ul>
+<li>通过一个index值（索引），来遍历表达式</li>
+<li>如果发现是一个数字，就直接入数栈</li>
+<li>如果发现扫描到的是一个符号，就分如下情况：<ul>
+<li>如果当前符号栈为空，就直接入栈</li>
+<li>如果符号栈有操作符，就进行比较<ul>
+<li>如果当前操作符优先级小于或等于栈中的操作符，就需要从数栈中pop出两个数，再从符号栈中pop出一个符号，进行运算，将得到的结果，入数栈。然后将当前操作符入符号栈</li>
+<li>如果当前操作符优先级大于栈中的操作符，就直接入符号栈</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>当表达式扫描完毕，就顺序的从数栈和符号栈中pop出相应的数和符号，并运行</li>
+<li>最后在数栈只有一个数字，就是表达式的结果</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Calculator</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        String expression = <span class="hljs-string">&quot;3-2*6-2&quot;</span>;<br>        <span class="hljs-comment">// 定义两个栈，一个数栈，另一个符号栈</span><br>        ArrayStack2 numStack = <span class="hljs-keyword">new</span> ArrayStack2(<span class="hljs-number">10</span>);<br>        ArrayStack2 operStack = <span class="hljs-keyword">new</span> ArrayStack2(<span class="hljs-number">10</span>);<br>        <span class="hljs-comment">// 定义需要的相关变量</span><br>        <span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;<span class="hljs-comment">// 用于扫描</span><br>        <span class="hljs-keyword">int</span> num1 = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">int</span> num2 = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">int</span> oper = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">char</span> ch = <span class="hljs-string">&#x27; &#x27;</span>;<span class="hljs-comment">// 将每次扫描得到的char保存到ch</span><br>        String keepNum = <span class="hljs-string">&quot;&quot;</span>;<span class="hljs-comment">// 用于拼接多位数</span><br>        <span class="hljs-comment">// 开始while循环的扫描expression</span><br>        <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-comment">// 依次得到expression的每一个字符</span><br>            ch = expression.substring(index, index + <span class="hljs-number">1</span>).charAt(<span class="hljs-number">0</span>);<br>            <span class="hljs-comment">// 判断ch是什么，然后作相应处理</span><br>            <span class="hljs-keyword">if</span> (operStack.isOper(ch)) &#123;<br>                <span class="hljs-keyword">if</span> (!operStack.isEmpty()) &#123;<br>                    <span class="hljs-keyword">if</span> (operStack.priority(ch) &lt;= operStack.priority(operStack.peek())) &#123;<br>                        num1 = numStack.pop();<br>                        num2 = numStack.pop();<br>                        oper = operStack.pop();<br>                        res = numStack.cal(num1, num2, oper);<br>                        <span class="hljs-comment">// 把运算的结果入数栈</span><br>                        numStack.push(res);<br>                        <span class="hljs-comment">// 然后将当前的操作符入符号栈</span><br>                        operStack.push(ch);<br>                    &#125; <span class="hljs-keyword">else</span> &#123;<br>                        operStack.push(ch);<br>                    &#125;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-comment">// 如果为空直接入栈</span><br>                    operStack.push(ch);<br>                &#125;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">// 如果是数，直接入数栈</span><br>                <span class="hljs-comment">// numStack.push(ch-48);</span><br>                <span class="hljs-comment">// 当处理多位数时，不能发现一个数就入数栈，也可能是多位数</span><br>                <span class="hljs-comment">// 在处理数时，需要向expression表达式的index后再看一位，如果是数，继续扫描，如果是符号才入栈</span><br>                <span class="hljs-comment">// 需要定义一个变量，用于拼接</span><br><br>                <span class="hljs-comment">// 处理多位数</span><br>                keepNum += ch;<br><br>                <span class="hljs-comment">// 如果ch已经是expression的最后一位，就直接入栈</span><br>                <span class="hljs-keyword">if</span> (index == expression.length() - <span class="hljs-number">1</span>) &#123;<br>                    numStack.push(Integer.parseInt(keepNum));<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-comment">// 判断下一个字符是不是数字，如果是数字，就继续扫描，如果是运算符，则入栈</span><br><br>                    <span class="hljs-keyword">if</span> (operStack.isOper(expression.substring(index + <span class="hljs-number">1</span>, index + <span class="hljs-number">2</span>).charAt(<span class="hljs-number">0</span>))) &#123;<br>                        <span class="hljs-comment">// 如果后一位是运算符，则入栈</span><br>                        numStack.push(Integer.parseInt(keepNum));<br>                        <span class="hljs-comment">// keepNum要清空</span><br>                        keepNum = <span class="hljs-string">&quot;&quot;</span>;<br>                    &#125;<br>                &#125;<br>            &#125;<br>            <span class="hljs-comment">// 让index+1，并判断是否扫描到expression最后</span><br>            index++;<br>            <span class="hljs-keyword">if</span> (index &gt;= expression.length()) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-comment">// 如果符号栈为空，则计算到最后的结果，数栈中只有一个数字</span><br>            <span class="hljs-keyword">if</span> (operStack.isEmpty()) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            num1 = numStack.pop();<br>            num2 = numStack.pop();<br>            oper = operStack.pop();<br>            res = numStack.cal(num1, num2, oper);<br>            numStack.push(res);<br>        &#125;<br>        System.out.printf(<span class="hljs-string">&quot;表达式%s=%d&quot;</span>, expression, numStack.pop());<br>    &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArrayStack2</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> maxSize;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> top;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] stack;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ArrayStack2</span><span class="hljs-params">(<span class="hljs-keyword">int</span> maxSize)</span> </span>&#123;<br>        top = -<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">this</span>.maxSize = maxSize;<br>        stack = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[maxSize];<br>    &#125;<br><br>    <span class="hljs-comment">// 增加一个方法，可以返回当前栈顶的值，但不是pop</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">peek</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> stack[top];<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isFull</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> top == maxSize - <span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isEmpty</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> top == -<span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (isFull()) &#123;<br>            System.out.println(<span class="hljs-string">&quot;栈满，不能添加数据~&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        top++;<br>        stack[top] = value;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (isEmpty()) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;栈空,没有数据~&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">int</span> value = stack[top];<br>        top--;<br>        <span class="hljs-keyword">return</span> value;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">list</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (isEmpty()) &#123;<br>            System.out.println(<span class="hljs-string">&quot;栈空，没有数据~&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = top; i &gt;= <span class="hljs-number">0</span>; i--) &#123;<br>            System.out.printf(<span class="hljs-string">&quot;stack[%d]=%d\n&quot;</span>, i, stack[i]);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 返回运算符优先级,优先级使用数字表示，数字越大，优先级越高</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">priority</span><span class="hljs-params">(<span class="hljs-keyword">int</span> oper)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (oper == <span class="hljs-string">&#x27;*&#x27;</span> || oper == <span class="hljs-string">&#x27;/&#x27;</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (oper == <span class="hljs-string">&#x27;+&#x27;</span> || oper == <span class="hljs-string">&#x27;-&#x27;</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<span class="hljs-comment">// 假定目前的表达式只有+,-,*,/</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isOper</span><span class="hljs-params">(<span class="hljs-keyword">char</span> val)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> val == <span class="hljs-string">&#x27;+&#x27;</span> || val == <span class="hljs-string">&#x27;-&#x27;</span> || val == <span class="hljs-string">&#x27;*&#x27;</span> || val == <span class="hljs-string">&#x27;/&#x27;</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// 计算方法</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">cal</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num1, <span class="hljs-keyword">int</span> num2, <span class="hljs-keyword">int</span> oper)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<span class="hljs-comment">// 用于存放计算结果</span><br>        <span class="hljs-keyword">switch</span> (oper) &#123;<br>        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;+&#x27;</span>:<br>            res = num2 + num1;<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;-&#x27;</span>:<br>            res = num2 - num1;<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;*&#x27;</span>:<br>            res = num2 * num1;<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;/&#x27;</span>:<br>            res = num2 / num1;<br>            <span class="hljs-keyword">break</span>;<br><br>        <span class="hljs-keyword">default</span>:<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h4 id="前缀表达式（波兰表达式）"><a href="#前缀表达式（波兰表达式）" class="headerlink" title="前缀表达式（波兰表达式）"></a>前缀表达式（波兰表达式）</h4><ul>
+<li>前缀表达式又称波兰式，<strong>前缀表达式的运算符位于操作数之前</strong></li>
+<li><strong>举例说明：</strong> (3+4)×5-6 对应的前缀表达式就是 <strong>- × + 3 4 5</strong> <strong>6</strong></li>
+</ul>
+<h5 id="前缀表达式的计算机求值"><a href="#前缀表达式的计算机求值" class="headerlink" title="前缀表达式的计算机求值"></a>前缀表达式的计算机求值</h5><p>从右至左扫描表达式，遇到数字时，将数字压入堆栈，遇到运算符时，弹出栈顶的两个数，用运算符对它们做相应的计算（栈顶元素 和 次顶元素），并将结果入栈；重复上述过程直到表达式最左端，最后运算得出的值即为表达式的结果</p>
+<p>例如: (3+4)×5-6 对应的前缀表达式就是 <strong>- × + 3 4 5</strong> <strong>6 ,</strong> <strong>针对前缀表达式求值步骤**</strong>如*<strong><em>下*</em></strong>:**</p>
+<ul>
+<li>从<strong>右至左扫描</strong>，将6、5、4、3压入堆栈</li>
+<li>遇到+运算符，因此弹出3和4（3为栈顶元素，4为次顶元素），计算出3+4的值，得7，再将7入栈</li>
+<li>接下来是×运算符，因此弹出7和5，计算出7×5=35，将35入栈</li>
+<li>最后是-运算符，计算出35-6的值，即29，由此得出最终结果</li>
+</ul>
+<h4 id="中缀表达式"><a href="#中缀表达式" class="headerlink" title="中缀表达式"></a>中缀表达式</h4><ul>
+<li>中缀表达式就是<strong>常见的运算表达式</strong>，如(3+4)×5-6</li>
+<li>中缀表达式的求值是我们人最熟悉的，但是对计算机来说却不好操作(前面我们讲的案例就能看的这个问题)，因此，在计算结果时，往往会将中缀表达式转成其它表达式来操作(一般转成后缀表达式.)</li>
+</ul>
+<h4 id="后缀表达式-逆波兰表达式"><a href="#后缀表达式-逆波兰表达式" class="headerlink" title="后缀表达式(逆波兰表达式)"></a>后缀表达式(逆波兰表达式)</h4><ul>
+<li>后缀表达式又称<strong>逆波兰表达式</strong>,与前缀表达式相似，只是运算符位于操作数之后</li>
+<li>中举例说明： (3+4)×5-6 对应的后缀表达式就是 <strong>3</strong> <strong>4 + 5 × 6</strong> <strong>–</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>正常的表达式</th>
+<th>逆波兰表达式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a+b</td>
+<td>a b +</td>
+</tr>
+<tr>
+<td>a+(b-c)</td>
+<td>a b c - +</td>
+</tr>
+<tr>
+<td>a+(b-c)*d</td>
+<td>a b c - d * +</td>
+</tr>
+<tr>
+<td>a+d*(b-c)</td>
+<td>a d b c - * +</td>
+</tr>
+<tr>
+<td>a=1+3</td>
+<td>a 1 3 + =</td>
+</tr>
+</tbody></table>
+<h5 id="后缀表达式的计算机求值"><a href="#后缀表达式的计算机求值" class="headerlink" title="后缀表达式的计算机求值"></a>后缀表达式的计算机求值</h5><p><strong>从左至右</strong>扫描表达式，遇到数字时，将数字压入堆栈，遇到运算符时，弹出栈顶的两个数，用运算符对它们做相应的计算（次顶元素 和 栈顶元素），并将结果入栈；重复上述过程直到表达式最右端，最后运算得出的值即为表达式的结果</p>
+<p>例如: (3+4)×5-6 对应的后缀表达式就是 <strong>3 4 + 5 × 6 -</strong> <strong>,</strong> <strong>针对后缀表达式求值步骤如:</strong></p>
+<p>1)从左至右扫描，将3和4压入堆栈；</p>
+<p>2)遇到+运算符，因此弹出4和3（4为栈顶元素，3为次顶元素），计算出3+4的值，得7，再将7入栈；</p>
+<p>3)将5入栈；</p>
+<p>4)接下来是×运算符，因此弹出5和7，计算出7×5=35，将35入栈；</p>
+<p>5)将6入栈；</p>
+<p>6)最后是-运算符，计算出35-6的值，即29，由此得出最终结果</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br><span class="hljs-keyword">import</span> java.util.Stack;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PolandNotation</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">// 先定义一个逆波兰表达式</span><br>        <span class="hljs-comment">// (3+4)*5-6--&gt;3 4 + 5 * 6 -</span><br>        String suffixExpression = <span class="hljs-string">&quot;30 4 + 5 * 6 -&quot;</span>;<br>        <span class="hljs-comment">// 思路：</span><br>        <span class="hljs-comment">// 先将34+5*6-放到ArrayList中</span><br>        <span class="hljs-comment">// 将ArrayList传递给一个方法，配合栈完成计算</span><br>        List&lt;String&gt; rpnList = getListString(suffixExpression);<br>        <span class="hljs-keyword">int</span> res=calculate(rpnList);<br>        System.out.println(<span class="hljs-string">&quot;计算结果是：&quot;</span>+res);<br>    &#125;<br><br>    <span class="hljs-comment">// 将这个逆波兰表达式，依次将数据和运算符放入到ArrayList中</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;String&gt; <span class="hljs-title">getListString</span><span class="hljs-params">(String suffixExpression)</span> </span>&#123;<br>        <span class="hljs-comment">// 将suffixExpression分割</span><br>        String[] split = suffixExpression.split(<span class="hljs-string">&quot; &quot;</span>);<br>        List&lt;String&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;String&gt;();<br>        <span class="hljs-keyword">for</span> (String ele : split) &#123;<br>            list.add(ele);<br>        &#125;<br>        <span class="hljs-keyword">return</span> list;<br>    &#125;<br><br>    <span class="hljs-comment">// 完成对逆波兰表达式的计算</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">calculate</span><span class="hljs-params">(List&lt;String&gt; ls)</span> </span>&#123;<br>        <span class="hljs-comment">// 创建个栈,只需要一个栈即可</span><br>        Stack&lt;String&gt; stack = <span class="hljs-keyword">new</span> Stack&lt;String&gt;();<br>        <span class="hljs-keyword">for</span> (String item : ls) &#123;<br>            <span class="hljs-comment">// 这里使用正则表达式取出数</span><br>            <span class="hljs-keyword">if</span> (item.matches(<span class="hljs-string">&quot;\\d+&quot;</span>)) &#123;<span class="hljs-comment">// 匹配多位数</span><br>                stack.push(item);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br><span class="hljs-comment">//                pop两个数进行计算，再入栈</span><br>                <span class="hljs-keyword">int</span> num2 = Integer.parseInt(stack.pop());<br>                <span class="hljs-keyword">int</span> num1 = Integer.parseInt(stack.pop());<br>                <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br>                <span class="hljs-keyword">if</span> (item.equals(<span class="hljs-string">&quot;+&quot;</span>)) &#123;<br>                    res = num1 + num2;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (item.equals(<span class="hljs-string">&quot;-&quot;</span>)) &#123;<br>                    res = num1 - num2;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (item.equals(<span class="hljs-string">&quot;*&quot;</span>)) &#123;<br>                    res = num1 * num2;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (item.equals(<span class="hljs-string">&quot;/&quot;</span>)) &#123;<br>                    res = num1 / num2;<br>                &#125;<span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;运算符有误&quot;</span>);<br>                &#125;<br>                <span class="hljs-comment">//把res入栈</span><br>                stack.push(res+<span class="hljs-string">&quot;&quot;</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">//最后留在stack中的数据是运算结果</span><br>        <span class="hljs-keyword">return</span> Integer.parseInt(stack.pop());<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h4 id="中缀表达式转后缀表达式"><a href="#中缀表达式转后缀表达式" class="headerlink" title="中缀表达式转后缀表达式"></a>中缀表达式转后缀表达式</h4><ul>
+<li>初始化两个栈：运算符栈s1和储存中间结果的栈s2；</li>
+<li>从左至右扫描中缀表达式；</li>
+<li>遇到操作数时，将其压s2；</li>
+<li>遇到运算符时，比较其与s1栈顶运算符的优先级：<ul>
+<li>如果s1为空，或栈顶运算符为左括号“(”，则直接将此运算符入栈；</li>
+<li>否则，若优先级比栈顶运算符的高，也将运算符压入s1；</li>
+<li>否则，将s1栈顶的运算符弹出并压入到s2中，再次转到(4-1)与s1中新的栈顶运算符相比较；</li>
+</ul>
+</li>
+<li>遇到括号时：<ul>
+<li>如果是左括号“(”，则直接压入s1</li>
+<li>如果是右括号“)”，则依次弹出s1栈顶的运算符，并压入s2，直到遇到左 括号为止，此时将这一对括号丢弃</li>
+</ul>
+</li>
+<li>重复步骤2至5，直到表达式的最右边</li>
+<li>将s1中剩余的运算符依次弹出并压入s2</li>
+<li>依次弹出s2中的元素并输出，<strong>结果的逆序即为中缀表达式对应的后缀表达式</strong></li>
+</ul>
+<p><strong>举例说明:</strong></p>
+<p><strong>将中缀表达式“1+((2+3)×4)-5”转换为后缀表达式的过程如下</strong></p>
+<p><strong>因此结果为 “1 2 3 + 4 × + 5</strong> <strong>–”</strong></p>
+<table>
+<thead>
+<tr>
+<th>扫描到的元素</th>
+<th>s2(栈底-&gt;栈顶)</th>
+<th>s1 (栈底-&gt;栈顶)</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>1</td>
+<td>空</td>
+<td>数字，直接入栈</td>
+</tr>
+<tr>
+<td>+</td>
+<td>1</td>
+<td>+</td>
+<td>s1为空，运算符直接入栈</td>
+</tr>
+<tr>
+<td>(</td>
+<td>1</td>
+<td>+ (</td>
+<td>左括号，直接入栈</td>
+</tr>
+<tr>
+<td>(</td>
+<td>1</td>
+<td>+ ( (</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1 2</td>
+<td>+ ( (</td>
+<td>数字</td>
+</tr>
+<tr>
+<td>+</td>
+<td>1 2</td>
+<td>+ ( ( +</td>
+<td>s1栈顶为左括号，运算符直接入栈</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1 2 3</td>
+<td>+ ( ( +</td>
+<td>数字</td>
+</tr>
+<tr>
+<td>)</td>
+<td>1 2 3 +</td>
+<td>+ (</td>
+<td>右括号，弹出运算符直至遇到左括号</td>
+</tr>
+<tr>
+<td>×</td>
+<td>1 2 3 +</td>
+<td>+ ( ×</td>
+<td>s1栈顶为左括号，运算符直接入栈</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1 2 3 + 4</td>
+<td>+ ( ×</td>
+<td>数字</td>
+</tr>
+<tr>
+<td>)</td>
+<td>1 2 3 + 4 ×</td>
+<td>+</td>
+<td>右括号，弹出运算符直至遇到左括号</td>
+</tr>
+<tr>
+<td>-</td>
+<td>1 2 3 + 4 × +</td>
+<td>-</td>
+<td>-与+优先级相同，因此弹出+，再压入-</td>
+</tr>
+<tr>
+<td>5</td>
+<td>1 2 3 + 4 × + 5</td>
+<td>-</td>
+<td>数字</td>
+</tr>
+<tr>
+<td>到达最右端</td>
+<td><strong>1 2 3 + 4 × + 5 -</strong></td>
+<td>空</td>
+<td>s1中剩余的运算符</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br><span class="hljs-keyword">import</span> java.util.Queue;<br><span class="hljs-keyword">import</span> java.util.Stack;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PolandNotation</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br><br>        <span class="hljs-comment">//完成将一个中缀表达式转后缀表达式的功能</span><br>        <span class="hljs-comment">//1.1+((2+3)*4)-5-&gt;转成1 2 3 + 4 * + 5 -</span><br>        <span class="hljs-comment">//2.因为直接对字符串进行操作不方便，因此先将这个字符串转成中缀表达式对应的List</span><br>        <span class="hljs-comment">//3.将得到的中缀表达式对应的List--&gt;后缀表达式对应的List</span><br>        String expression=<span class="hljs-string">&quot;1+((2+3)*4)-5&quot;</span>;<br>        List&lt;String&gt; infixExpressionList=toInfixExpressionList(expression);<br>        List&lt;String&gt; suffixExpressionList = parseSuffixExpressionList(infixExpressionList);<br>        <span class="hljs-comment">// 将ArrayList传递给一个方法，配合栈完成计算</span><br>        <span class="hljs-keyword">int</span> res=calculate(suffixExpressionList);<br>        System.out.println(expression+<span class="hljs-string">&quot;  --&gt;  &quot;</span>+suffixExpressionList);<br>        System.out.println(<span class="hljs-string">&quot;计算结果是：&quot;</span>+res);<br>    &#125;<br><br>    <span class="hljs-comment">//将得到的中缀表达式对应的List--&gt;后缀表达式对应的List</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;String&gt; <span class="hljs-title">parseSuffixExpressionList</span><span class="hljs-params">(List&lt;String&gt; ls)</span></span>&#123;<br>        Stack&lt;String&gt; s1=<span class="hljs-keyword">new</span> Stack&lt;String&gt;();<br><span class="hljs-comment">//        Stack&lt;String&gt; s1=new Stack&lt;String&gt;();</span><br>        <span class="hljs-comment">//说明：因为s2这个栈，在整个转换过程中，没有pop操作，而且后面还需要逆序输出</span><br>        <span class="hljs-comment">//因此比较麻烦，这里直接使用List&lt;String&gt;代替栈</span><br>        List&lt;String&gt; s2=<span class="hljs-keyword">new</span> ArrayList&lt;String&gt;();<br>        <span class="hljs-keyword">for</span> (String item : ls) &#123;<br>            <span class="hljs-comment">//如果是一个数，就入数栈</span><br>            <span class="hljs-keyword">if</span> (item.matches(<span class="hljs-string">&quot;\\d+&quot;</span>)) &#123;<br>                s2.add(item);<br>            &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (item.equals(<span class="hljs-string">&quot;(&quot;</span>)) &#123;<br>                s1.push(item);<br>            &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (item.equals(<span class="hljs-string">&quot;)&quot;</span>)) &#123;<br>                <span class="hljs-keyword">while</span>(!s1.peek().equals(<span class="hljs-string">&quot;(&quot;</span>)) &#123;<br>                    s2.add(s1.pop());<br>                &#125;<br>                s1.pop();<span class="hljs-comment">//将(弹出s1栈，消除小括号</span><br>            &#125;<span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">//当item的优先级小于等于栈顶运算符的优先级，将s1栈顶的运算符弹出并加入s2中，再次转到(4-1)与s1中新的栈顶运算符相比较</span><br>                <span class="hljs-keyword">while</span>(s1.size()!=<span class="hljs-number">0</span>&amp;&amp;Operation.getValue(s1.peek())&gt;=Operation.getValue(item)) &#123;<br>                    s2.add(s1.pop());<br>                &#125;<br>                <span class="hljs-comment">//还需要将item压入栈</span><br>                s1.push(item);<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">//将s1中剩余的运算符依次弹出并加入s2</span><br>        <span class="hljs-keyword">while</span>(s1.size()!=<span class="hljs-number">0</span>) &#123;<br>            s2.add(s1.pop());<br>        &#125;<br>        <span class="hljs-keyword">return</span> s2;<span class="hljs-comment">//注意因为是存放到List，因此按顺序输出就是对应的后缀表达式对应的List</span><br>    &#125;<br><br>    <span class="hljs-comment">//将中缀表达式转成对应的List</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;String&gt; <span class="hljs-title">toInfixExpressionList</span><span class="hljs-params">(String s)</span></span>&#123;<br>        <span class="hljs-comment">//定义一个List,存放中缀表达式对应的内容</span><br>        List&lt;String&gt; ls=<span class="hljs-keyword">new</span> ArrayList&lt;String&gt;();<br>        <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;<span class="hljs-comment">//指针，用于遍历中缀表达式字符串</span><br>        String str;<span class="hljs-comment">//对多位数的拼接</span><br>        <span class="hljs-keyword">char</span> c;<span class="hljs-comment">//每遍历一个字符，就放入c</span><br>        <span class="hljs-keyword">do</span> &#123;<br>            <span class="hljs-comment">//如果c是一个非数字，需要加入到ls</span><br>            <span class="hljs-keyword">if</span> ((c=s.charAt(i))&lt;<span class="hljs-number">48</span>||(c=s.charAt(i))&gt;<span class="hljs-number">57</span>) &#123;<br>                ls.add(<span class="hljs-string">&quot;&quot;</span>+c);<br>                i++;<br>            &#125;<span class="hljs-keyword">else</span> &#123;<span class="hljs-comment">//如果是数字，要考虑多位数</span><br>                str=<span class="hljs-string">&quot;&quot;</span>;<br>                <span class="hljs-keyword">while</span>(i&lt;s.length()&amp;&amp;(c=s.charAt(i))&gt;=<span class="hljs-number">48</span>&amp;&amp;(c=s.charAt(i))&lt;=<span class="hljs-number">57</span>) &#123;<br>                    str+=c;<br>                    i++;<br>                &#125;<br>                ls.add(str);<br>            &#125;<br>        &#125; <span class="hljs-keyword">while</span> (i&lt;s.length());<br>        <span class="hljs-keyword">return</span> ls;<br>    &#125;<br><br>    <span class="hljs-comment">// 完成对逆波兰表达式的计算</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">calculate</span><span class="hljs-params">(List&lt;String&gt; ls)</span> </span>&#123;<br>        <span class="hljs-comment">// 创建个栈,只需要一个栈即可</span><br>        Stack&lt;String&gt; stack = <span class="hljs-keyword">new</span> Stack&lt;String&gt;();<br>        <span class="hljs-keyword">for</span> (String item : ls) &#123;<br>            <span class="hljs-comment">// 这里使用正则表达式取出数</span><br>            <span class="hljs-keyword">if</span> (item.matches(<span class="hljs-string">&quot;\\d+&quot;</span>)) &#123;<span class="hljs-comment">// 匹配多位数</span><br>                stack.push(item);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br><span class="hljs-comment">//                pop两个数进行计算，再入栈</span><br>                <span class="hljs-keyword">int</span> num2 = Integer.parseInt(stack.pop());<br>                <span class="hljs-keyword">int</span> num1 = Integer.parseInt(stack.pop());<br>                <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br>                <span class="hljs-keyword">if</span> (item.equals(<span class="hljs-string">&quot;+&quot;</span>)) &#123;<br>                    res = num1 + num2;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (item.equals(<span class="hljs-string">&quot;-&quot;</span>)) &#123;<br>                    res = num1 - num2;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (item.equals(<span class="hljs-string">&quot;*&quot;</span>)) &#123;<br>                    res = num1 * num2;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (item.equals(<span class="hljs-string">&quot;/&quot;</span>)) &#123;<br>                    res = num1 / num2;<br>                &#125;<span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;运算符有误&quot;</span>);<br>                &#125;<br>                <span class="hljs-comment">//把res入栈</span><br>                stack.push(res+<span class="hljs-string">&quot;&quot;</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">//最后留在stack中的数据是运算结果</span><br>        <span class="hljs-keyword">return</span> Integer.parseInt(stack.pop());<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//编写一个类Operation，可以返回一个运算符对应的优先级</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Operation</span></span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> ADD=<span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> SUB=<span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> MUL=<span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> DIV=<span class="hljs-number">2</span>;<br><br>    <span class="hljs-comment">//写一个方法，返回对应的优先级数字</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getValue</span><span class="hljs-params">(String operation)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> result=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">switch</span> (operation) &#123;<br>        <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;+&quot;</span>:<br>            result=ADD;<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;-&quot;</span>:<br>            result=SUB;<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;*&quot;</span>:<br>            result=MUL;<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;/&quot;</span>:<br>            result=DIV;<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">default</span>:<br>            System.out.println(<span class="hljs-string">&quot;不存在该运算符&quot;</span>);<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%A0%88/">栈</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/09/17/shu-ju-jie-gou/pai-xu-suan-fa/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">排序算法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/09/17/shu-ju-jie-gou/xian-xing-jie-gou-yu-fei-xian-xing-jie-gou/">
+                        <span class="hidden-mobile">线性结构与非线性结构</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "YVoeWdQs8oEPqmQBFWkV2m2u-gzGzoHsz",
+          app_key: "FUxImjP5RO4j7uOOAeBKAVtJ",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="/img/wechat.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;"><img src="/img/alipay.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://xiaojaienen.gitee.io" target="_blank" rel="nofollow noopener"><span>小贾</span></a> <i class="iconfont icon-love"></i> <a href="https://xiaojaienen.gitee.io" target="_blank" rel="nofollow noopener"><span>个人博客</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?65ec8a1f3fda6260ef20740c571d6461";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
