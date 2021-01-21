@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.jpg">
+  <link rel="icon" type="image/png" href="/img/avatar.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="xiaojia">
+  <meta name="keywords" content="">
+  <title>MapReduce序列化案例 - xiaojia&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/dracula.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"xiaojia521.cn","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":false,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"65ec8a1f3fda6260ef20740c571d6461","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>xiaojia's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/35.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="MapReduce序列化案例">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      xiaojia
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-21 12:32" pubdate>
+        2021年1月21日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      645 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">MapReduce序列化案例</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：29 分钟前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h5 id="输入数据"><a href="#输入数据" class="headerlink" title="输入数据"></a><a href="/mr_data/data.txt" target="_blank">输入数据</a></h5><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">id</span>	手机号				ip				网址		上行流量	下行流量	请求状态<br><span class="hljs-attribute">1</span>   <span class="hljs-number">14530531269</span>    <span class="hljs-number">102.132.54.44</span>  www.ldbzo.ltd  <span class="hljs-number">1431</span>   <span class="hljs-number">1360</span>   <span class="hljs-number">404</span><br><span class="hljs-attribute">2</span>   <span class="hljs-number">17690836832</span>    <span class="hljs-number">88.58.44.150</span>   ftp.j.icu      <span class="hljs-number">1135</span>   <span class="hljs-number">718</span>    <span class="hljs-number">302</span><br></code></pre></div></td></tr></table></figure>
+<h5 id="FlowBean"><a href="#FlowBean" class="headerlink" title="FlowBean"></a>FlowBean</h5><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> flowsum;<br><br><span class="hljs-keyword">import</span> org.apache.hadoop.io.Writable;<br><br><span class="hljs-keyword">import</span> java.io.DataInput;<br><span class="hljs-keyword">import</span> java.io.DataOutput;<br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FlowBean</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Writable</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">long</span> upFlow;<span class="hljs-comment">//上行流量</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">long</span> downFlow;<span class="hljs-comment">//下行流量</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">long</span> sumFlow;<span class="hljs-comment">//总流量</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FlowBean</span><span class="hljs-params">()</span> </span>&#123;<br>    &#125;<span class="hljs-comment">//无参构造方法</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FlowBean</span><span class="hljs-params">(<span class="hljs-keyword">long</span> upFlow, <span class="hljs-keyword">long</span> downFlow)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.upFlow = upFlow;<br>        <span class="hljs-keyword">this</span>.downFlow = downFlow;<br>        sumFlow = upFlow + downFlow;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">long</span> <span class="hljs-title">getUpFlow</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> upFlow;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setUpFlow</span><span class="hljs-params">(<span class="hljs-keyword">long</span> upFlow)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.upFlow = upFlow;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">long</span> <span class="hljs-title">getDownFlow</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> downFlow;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setDownFlow</span><span class="hljs-params">(<span class="hljs-keyword">long</span> downFlow)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.downFlow = downFlow;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">long</span> <span class="hljs-title">getSumFlow</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> sumFlow;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setSumFlow</span><span class="hljs-params">(<span class="hljs-keyword">long</span> sumFlow)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.sumFlow = sumFlow;<br>    &#125;<br><br>    <span class="hljs-comment">//序列化方法</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">write</span><span class="hljs-params">(DataOutput out)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>        out.writeLong(upFlow);<br>        out.writeLong(downFlow);<br>        out.writeLong(sumFlow);<br>    &#125;<br><br>    <span class="hljs-comment">//反序列化方法</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">readFields</span><span class="hljs-params">(DataInput in)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>        upFlow=in.readLong();<br>        downFlow=in.readLong();<br>        sumFlow=in.readLong();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">set</span><span class="hljs-params">(<span class="hljs-keyword">long</span> upFlow,<span class="hljs-keyword">long</span> downFlow)</span></span>&#123;<br>        <span class="hljs-keyword">this</span>.upFlow=upFlow;<br>        <span class="hljs-keyword">this</span>.downFlow=downFlow;<br>        sumFlow=upFlow+downFlow;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> upFlow + <span class="hljs-string">&quot;\t&quot;</span> + downFlow + <span class="hljs-string">&quot;\t&quot;</span> + sumFlow;<br>    &#125;<br>&#125;<br><br></code></pre></div></td></tr></table></figure>
+<h5 id="FlowCountMapper"><a href="#FlowCountMapper" class="headerlink" title="FlowCountMapper"></a>FlowCountMapper</h5><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> flowsum;<br><br><span class="hljs-keyword">import</span> org.apache.hadoop.io.LongWritable;<br><span class="hljs-keyword">import</span> org.apache.hadoop.io.Text;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.Mapper;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FlowCountMapper</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Mapper</span>&lt;<span class="hljs-title">LongWritable</span>,<span class="hljs-title">Text</span>,<span class="hljs-title">Text</span>, <span class="hljs-title">FlowBean</span>&gt; </span>&#123;<br>    Text k=<span class="hljs-keyword">new</span> Text();<br>    FlowBean v=<span class="hljs-keyword">new</span> FlowBean();<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">map</span><span class="hljs-params">(LongWritable key, Text value, Context context)</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException </span>&#123;<br>        String line=value.toString();<br>        String[] fields=line.split(<span class="hljs-string">&quot;\t&quot;</span>);<br>        k.set(fields[<span class="hljs-number">1</span>]);<br>        <span class="hljs-keyword">long</span> upFlow=Long.parseLong(fields[fields.length-<span class="hljs-number">3</span>]);<br>        <span class="hljs-keyword">long</span> downFlow=Long.parseLong(fields[fields.length-<span class="hljs-number">2</span>]);<br>        v.setUpFlow(upFlow);<br>        v.setDownFlow(downFlow);<br>        context.write(k,v);<br><br>    &#125;<br>&#125;<br><br></code></pre></div></td></tr></table></figure>
+<h5 id="FlowCountReducer"><a href="#FlowCountReducer" class="headerlink" title="FlowCountReducer"></a>FlowCountReducer</h5><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> flowsum;<br><br><span class="hljs-keyword">import</span> org.apache.hadoop.io.Text;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.Reducer;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FlowCountReducer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Reducer</span>&lt;<span class="hljs-title">Text</span>,<span class="hljs-title">FlowBean</span>,<span class="hljs-title">Text</span>,<span class="hljs-title">FlowBean</span>&gt; </span>&#123;<br>    FlowBean flowBean=<span class="hljs-keyword">new</span> FlowBean();<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">reduce</span><span class="hljs-params">(Text key, Iterable&lt;FlowBean&gt; values, Context context)</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException </span>&#123;<br>        <span class="hljs-keyword">long</span> sum_upFlow=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">long</span> sum_downFlow=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(FlowBean flowBean:values)&#123;<br>            sum_upFlow+=flowBean.getUpFlow();<br>            sum_downFlow+=flowBean.getDownFlow();<br>        &#125;<br>        flowBean.set(sum_upFlow,sum_downFlow);<br>        context.write(key,flowBean);<br>    &#125;<br>&#125;<br><br></code></pre></div></td></tr></table></figure>
+<h5 id="FlowCountDriver"><a href="#FlowCountDriver" class="headerlink" title="FlowCountDriver"></a>FlowCountDriver</h5><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> flowsum;<br><br><span class="hljs-keyword">import</span> org.apache.hadoop.conf.Configuration;<br><span class="hljs-keyword">import</span> org.apache.hadoop.fs.FileSystem;<br><span class="hljs-keyword">import</span> org.apache.hadoop.fs.Path;<br><span class="hljs-keyword">import</span> org.apache.hadoop.io.Text;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.Job;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;<br><br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FlowCountDriver</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>        Configuration conf=<span class="hljs-keyword">new</span> Configuration();<br>        Job job=Job.getInstance(conf);<br>        job.setJarByClass(FlowCountDriver.class);<br>        job.setMapperClass(FlowCountMapper.class);<br>        job.setReducerClass(FlowCountReducer.class);<br>        job.setMapOutputKeyClass(Text.class);<br>        job.setMapOutputValueClass(FlowBean.class);<br>        job.setOutputKeyClass(Text.class);<br>        job.setOutputValueClass(FlowBean.class);<br>        FileSystem fs=FileSystem.get(conf);<br>        Path out=<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&quot;d://test/output&quot;</span>);<br>        <span class="hljs-keyword">if</span>(fs.exists(out))&#123;<br>            fs.delete(out,<span class="hljs-keyword">true</span>);<br>        &#125;<br>        FileInputFormat.setInputPaths(job,<span class="hljs-keyword">new</span> Path(<span class="hljs-string">&quot;d://test/input/*&quot;</span>));<br>        FileOutputFormat.setOutputPath(job,out);<br>        <span class="hljs-keyword">boolean</span> result = job.waitForCompletion(<span class="hljs-keyword">true</span>);<br>        System.exit(result?<span class="hljs-number">0</span>:<span class="hljs-number">1</span>);<br>    &#125;<br>&#125;<br><br></code></pre></div></td></tr></table></figure>
+<h5 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h5><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">13004073160</span>	<span class="hljs-number">1494</span>	<span class="hljs-number">75</span>	<span class="hljs-number">1569</span><br><span class="hljs-attribute">13022901544</span>	<span class="hljs-number">490</span>	<span class="hljs-number">1739</span>	<span class="hljs-number">2229</span><br><span class="hljs-attribute">13024422212</span>	<span class="hljs-number">1281</span>	<span class="hljs-number">1394</span>	<span class="hljs-number">2675</span><br><span class="hljs-attribute">13025000634</span>	<span class="hljs-number">874</span>	<span class="hljs-number">863</span>	<span class="hljs-number">1737</span><br><span class="hljs-attribute">13044775816</span>	<span class="hljs-number">1496</span>	<span class="hljs-number">1644</span>	<span class="hljs-number">3140</span><br><span class="hljs-attribute">13045176110</span>	<span class="hljs-number">1587</span>	<span class="hljs-number">1603</span>	<span class="hljs-number">3190</span><br><span class="hljs-attribute">13045696799</span>	<span class="hljs-number">1617</span>	<span class="hljs-number">1690</span>	<span class="hljs-number">3307</span><br><span class="hljs-attribute">13046838963</span>	<span class="hljs-number">166</span>	<span class="hljs-number">1480</span>	<span class="hljs-number">1646</span><br><span class="hljs-attribute">13049614982</span>	<span class="hljs-number">1159</span>	<span class="hljs-number">1096</span>	<span class="hljs-number">2255</span><br><span class="hljs-attribute">13058945986</span>	<span class="hljs-number">355</span>	<span class="hljs-number">1228</span>	<span class="hljs-number">1583</span><br><span class="hljs-attribute">13067031190</span>	<span class="hljs-number">59</span>	<span class="hljs-number">523</span>	<span class="hljs-number">582</span><br><span class="hljs-attribute">13068667095</span>	<span class="hljs-number">1856</span>	<span class="hljs-number">363</span>	<span class="hljs-number">2219</span><br><span class="hljs-attribute">13080199681</span>	<span class="hljs-number">963</span>	<span class="hljs-number">156</span>	<span class="hljs-number">1119</span><br><span class="hljs-attribute">13083433223</span>	<span class="hljs-number">1943</span>	<span class="hljs-number">574</span>	<span class="hljs-number">2517</span><br><span class="hljs-attribute">13087093131</span>	<span class="hljs-number">730</span>	<span class="hljs-number">231</span>	<span class="hljs-number">961</span><br><span class="hljs-attribute">13089835861</span>	<span class="hljs-number">104</span>	<span class="hljs-number">115</span>	<span class="hljs-number">219</span><br><span class="hljs-attribute">13120345600</span>	<span class="hljs-number">403</span>	<span class="hljs-number">1317</span>	<span class="hljs-number">1720</span><br><span class="hljs-attribute">13122159620</span>	<span class="hljs-number">857</span>	<span class="hljs-number">200</span>	<span class="hljs-number">1057</span><br><span class="hljs-attribute">13127085035</span>	<span class="hljs-number">1683</span>	<span class="hljs-number">1634</span>	<span class="hljs-number">3317</span><br><span class="hljs-attribute">13133388281</span>	<span class="hljs-number">248</span>	<span class="hljs-number">1916</span>	<span class="hljs-number">2164</span><br></code></pre></div></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/hadoop/">hadoop</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/hadoop/">hadoop</a>
+                    
+                      <a class="hover-with-bg" href="/tags/MapReduce/">MapReduce</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/af91d6ff.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">KeyValueTextInputFormat案例</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/c5ffda1d.html">
+                        <span class="hidden-mobile">爬取腾讯招聘和拉勾招聘信息</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "YVoeWdQs8oEPqmQBFWkV2m2u-gzGzoHsz",
+          app_key: "FUxImjP5RO4j7uOOAeBKAVtJ",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="/img/wechat.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:120px; height:120px;"><img src="/img/alipay.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:120px; height:120px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a target="_blank" href="https://www.xiaojia521.cn" rel="nofollow noopener noopener"><span>小贾</span></a> <i class="iconfont icon-love"></i> <a target="_blank" href="https://www.xiaojia521.cn" rel="nofollow noopener noopener"><span>个人博客</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?65ec8a1f3fda6260ef20740c571d6461";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.jpg">
+  <link rel="icon" type="image/png" href="/img/avatar.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="xiaojia">
+  <meta name="keywords" content="">
+  <title>图 - xiaojia&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/dracula.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"xiaojia521.cn","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":false,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"65ec8a1f3fda6260ef20740c571d6461","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>xiaojia's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/37.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="图">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      xiaojia
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-09-17 16:42" pubdate>
+        2020年9月17日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      34
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">图</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：14 天前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="图"><a href="#图" class="headerlink" title="图"></a>图</h1><h3 id="图基本介绍"><a href="#图基本介绍" class="headerlink" title="图基本介绍"></a>图基本介绍</h3><h4 id="为什么要有图"><a href="#为什么要有图" class="headerlink" title="为什么要有图"></a><strong>为什么要有图</strong></h4><ol>
+<li>前面我们学了线性表和树</li>
+<li>线性表局限于一个直接前驱和一个直接后继的关系</li>
+<li>树也只能有一个直接前驱也就是父节点</li>
+<li>当我们需要表示多对多的关系时， 这里我们就用到了图</li>
+</ol>
+<h4 id="图的举例说明"><a href="#图的举例说明" class="headerlink" title="图的举例说明"></a><strong>图的举例说明</strong></h4><p>图是一种数据结构，其中结点可以具有零个或多个相邻元素。两个结点之间的连接称为边。 结点也可以称为顶点。如图：</p>
+<p><img src="https://s1.ax1x.com/2020/08/27/d4z25j.png" srcset="/img/loading.gif" alt="d4z25j.png"></p>
+<h3 id="图的常用概念"><a href="#图的常用概念" class="headerlink" title="图的常用概念"></a>图的常用概念</h3><p><img src="https://s1.ax1x.com/2020/08/27/d5SeQP.png" srcset="/img/loading.gif" alt="d5SeQP.png"></p>
+<p>1)顶点(vertex)</p>
+<p>2)边(edge)</p>
+<p>3)路径</p>
+<p>4)无向图(上图)</p>
+<p>5)有向图</p>
+<p>6)带权图</p>
+<p><strong>无向图</strong>： 顶点之间的连接没有方向，比如A-B,</p>
+<p>即可以是 A-&gt; B 也可以 B-&gt;A .</p>
+<p><strong>路径: 比如从 D -&gt; C 的路径有</strong></p>
+<ol>
+<li>D-&gt;B-&gt;C</li>
+<li>D-&gt;A-&gt;B-&gt;C</li>
+</ol>
+<p><img src="https://s1.ax1x.com/2020/08/27/d5S4FH.png" srcset="/img/loading.gif" alt="d5S4FH.png"></p>
+<h3 id="图的表示方式"><a href="#图的表示方式" class="headerlink" title="图的表示方式"></a>图的表示方式</h3><p>图的表示方式有两种：二维数组表示（邻接矩阵）；链表表示（邻接表）。</p>
+<h4 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a><strong>邻接矩阵</strong></h4><p>邻接矩阵是表示图形中顶点之间相邻关系的矩阵，对于n个顶点的图而言，矩阵是的row和col表示的是1….n个点。</p>
+<p><img src="https://s1.ax1x.com/2020/08/27/d5pK6x.png" srcset="/img/loading.gif" alt="d5pK6x.png"></p>
+<h4 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a><strong>邻接表</strong></h4><p>1)邻接矩阵需要为每个顶点都分配n个边的空间，其实有很多边都是不存在,会造成空间的一定损失.</p>
+<p>2)邻接表的实现只关心存在的边，不关心不存在的边。因此没有空间浪费，邻接表由数组+链表组成<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/d5pdjP"><img src="https://s1.ax1x.com/2020/08/27/d5pdjP.png" srcset="/img/loading.gif" alt="d5pdjP.png"></a></p>
+<p>Ø说明:</p>
+<p>1)标号为0的结点的相关联的结点为 1 2 3 4</p>
+<p>2)标号为1的结点的相关联结点为0 4，</p>
+<p>3)标号为2的结点相关联的结点为 0 4 5</p>
+<p>4)….</p>
+<p><img src="https://s1.ax1x.com/2020/08/27/d5pq3R.png" srcset="/img/loading.gif" alt="d5pq3R.png"></p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.Arrays;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Graph</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> ArrayList&lt;String&gt; vertexList;<span class="hljs-comment">//存储顶点集合</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[][] edges;<span class="hljs-comment">//存储图对应的邻接矩阵</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> numOfEdges;<span class="hljs-comment">//表示边的数目</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> n = <span class="hljs-number">5</span>;<span class="hljs-comment">//节点的个数</span><br>        String[] vertexs = &#123;<span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-string">&quot;B&quot;</span>, <span class="hljs-string">&quot;C&quot;</span>, <span class="hljs-string">&quot;D&quot;</span>, <span class="hljs-string">&quot;E&quot;</span>&#125;;<br>        <span class="hljs-comment">//创建图对象</span><br>        Graph graph = <span class="hljs-keyword">new</span> Graph(n);<br>        <span class="hljs-comment">//循环添加顶点</span><br>        <span class="hljs-keyword">for</span> (String value : vertexs) &#123;<br>            graph.insertVertex(value);<br>        &#125;<br>        <span class="hljs-comment">//添加边</span><br>        graph.insertEdge(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br>        graph.insertEdge(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);<br>        graph.insertEdge(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);<br>        graph.insertEdge(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>);<br>        graph.insertEdge(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>);<br><br>        graph.showGraph();<br>    &#125;<br><br>    <span class="hljs-comment">//构造器</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Graph</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>        <span class="hljs-comment">//初始化矩阵和vertexList</span><br>        edges = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n][n];<br>        vertexList = <span class="hljs-keyword">new</span> ArrayList&lt;String&gt;(n);<br>        numOfEdges = <span class="hljs-number">0</span>;<br>    &#125;<br><br>    <span class="hljs-comment">//图中常用的方法</span><br><br>    <span class="hljs-comment">//显示图对应的矩阵</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">showGraph</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] link : edges) &#123;<br>            System.out.println(Arrays.toString(link));<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//返回节点的个数</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getNumOfVertex</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> vertexList.size();<br>    &#125;<br><br>    <span class="hljs-comment">//得到边的数目</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getNumOfEdges</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> numOfEdges;<br>    &#125;<br><br>    <span class="hljs-comment">//返回节点i（下标）对应的数据0-&gt;&quot;A&quot;  1-&gt;&quot;B&quot;</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getValueByIndex</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> vertexList.get(i);<br>    &#125;<br><br>    <span class="hljs-comment">//返回v1和v2的权值</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getWeight</span><span class="hljs-params">(<span class="hljs-keyword">int</span> v1, <span class="hljs-keyword">int</span> v2)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> edges[v1][v2];<br>    &#125;<br><br>    <span class="hljs-comment">//插入节点</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">insertVertex</span><span class="hljs-params">(String vertex)</span> </span>&#123;<br>        vertexList.add(vertex);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 添加边</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> v1     表示点的下标，即第几个顶点</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> v2</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> weight 权值</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">insertEdge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> v1, <span class="hljs-keyword">int</span> v2, <span class="hljs-keyword">int</span> weight)</span> </span>&#123;<br>        edges[v1][v2] = weight;<br>        edges[v2][v1] = weight;<br>        numOfEdges++;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="图的深度优先遍历介绍"><a href="#图的深度优先遍历介绍" class="headerlink" title="图的深度优先遍历介绍"></a><strong>图的深度优先遍历介绍</strong></h3><h4 id="图遍历介绍"><a href="#图遍历介绍" class="headerlink" title="图遍历介绍"></a><strong>图遍历介绍</strong></h4><p>所谓图的遍历，即是对结点的访问。一个图有那么多个结点，如何遍历这些结点，需要特定策略，一般有两种访问策略: (1)深度优先遍历 (2)广度优先遍历</p>
+<h4 id="深度优先遍历基本思想"><a href="#深度优先遍历基本思想" class="headerlink" title="深度优先遍历基本思想"></a><strong>深度优先遍历基本思想</strong></h4><p>图的深度优先搜索(Depth First Search) 。</p>
+<p>1)深度优先遍历，从初始访问结点出发，初始访问结点可能有多个邻接结点，深度优先遍历的策略就是首先访问第一个邻接结点，然后再以这个被访问的邻接结点作为初始结点，访问它的第一个邻接结点， 可以这样理解：每次都在访问完<strong>当前结点</strong>后首先访问<strong>当前结点的第一个邻接结点</strong>。</p>
+<p>2)我们可以看到，这样的访问策略是优先往纵向挖掘深入，而不是对一个结点的所有邻接结点进行横向访问。</p>
+<p>3)显然，深度优先搜索是一个递归的过程</p>
+<h4 id="深度优先遍历算法步骤"><a href="#深度优先遍历算法步骤" class="headerlink" title="深度优先遍历算法步骤"></a><strong>深度优先遍历算法步骤</strong></h4><p>1)访问初始结点v，并标记结点v为已访问。</p>
+<p>2)查找结点v的第一个邻接结点w。</p>
+<p>3)若w存在，则继续执行4，如果w不存在，则回到第1步，将从v的下一个结点继续。</p>
+<p>4)若w未被访问，对w进行深度优先遍历递归（即把w当做另一个v，然后进行步骤123）。</p>
+<p>5)查找结点v的w邻接结点的下一个邻接结点，转到步骤3。</p>
+<h3 id="图的遍历-深度优先遍历"><a href="#图的遍历-深度优先遍历" class="headerlink" title="图的遍历-深度优先遍历****"></a><strong>图</strong>的遍历-深度优先遍历****</h3><ol>
+<li>要求：对下图进行深度优先搜索, 从A 开始遍历.</li>
+</ol>
+<p><img src="https://s1.ax1x.com/2020/08/28/dI6F81.png" srcset="/img/loading.gif" alt="dI6F81.png"></p>
+<p>2)思路分析</p>
+<p>A B C D E</p>
+<p>A 0 1 1 0 0</p>
+<p>B 1 0 1 1 1</p>
+<p>C 1 1 0 0 0</p>
+<p>D 0 1 0 0 0</p>
+<p>E 0 1 0 0 0</p>
+<p>//说明</p>
+<p>//(1) 1 表示能够直接连接</p>
+<p>//(2) 0 表示不能直接连接</p>
+<h3 id="图的广度优先遍历"><a href="#图的广度优先遍历" class="headerlink" title="图的广度优先遍历"></a><strong>图的</strong>广度优先遍历</h3><h4 id="广度优先遍历基本思想"><a href="#广度优先遍历基本思想" class="headerlink" title="广度优先遍历基本思想"></a><strong>广度优先遍历基本思想</strong></h4><p>图的广度优先搜索(Broad First Search) 。</p>
+<p>类似于一个分层搜索的过程，广度优先遍历需要使用一个队列以保持访问过的结点的顺序，以便按这个顺序来访问这些结点的邻接结点</p>
+<h4 id="广度优先遍历算法步骤"><a href="#广度优先遍历算法步骤" class="headerlink" title="广度优先遍历算法步骤"></a>广度优先遍历算法步骤</h4><p>1)访问初始结点v并标记结点v为已访问。</p>
+<p>2)结点v入队列</p>
+<p>3)当队列非空时，继续执行，否则算法结束。</p>
+<p>4)出队列，取得队头结点u。</p>
+<p>5)查找结点u的第一个邻接结点w。</p>
+<p>6)若结点u的邻接结点w不存在，则转到步骤3；否则循环执行以下三个步骤：</p>
+<p> 6.1 若结点w尚未被访问，则访问结点w并标记为已访问。</p>
+<p> 6.2 结点w入队列</p>
+<p> 6.3 查找结点u的继w邻接结点后的下一个邻接结点w，转到步骤6。</p>
+<h3 id="图的深度优先VS广度优先"><a href="#图的深度优先VS广度优先" class="headerlink" title="图的深度优先VS广度优先"></a>图的深度优先VS广度优先</h3><h4 id="应用实例"><a href="#应用实例" class="headerlink" title="应用实例"></a>应用实例</h4><p><img src="https://s1.ax1x.com/2020/08/28/dIgU9s.png" srcset="/img/loading.gif" alt="dIgU9s.png"></p>
+<p>1)深度优先遍历顺序为 1-&gt;2-&gt;4-&gt;8-&gt;5-&gt;3-&gt;6-&gt;7</p>
+<p>2)广度优先算法的遍历顺序为：1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;6-&gt;7-&gt;8</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">graph.insertEdge(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br>graph.insertEdge(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);<br>graph.insertEdge(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>);<br>graph.insertEdge(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>);<br>graph.insertEdge(<span class="hljs-number">3</span>, <span class="hljs-number">7</span>, <span class="hljs-number">1</span>);<br>graph.insertEdge(<span class="hljs-number">4</span>, <span class="hljs-number">7</span>, <span class="hljs-number">1</span>);<br>graph.insertEdge(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>);<br>graph.insertEdge(<span class="hljs-number">2</span>, <span class="hljs-number">6</span>, <span class="hljs-number">1</span>);<br>graph.insertEdge(<span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">1</span>);<br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.Arrays;<br><span class="hljs-keyword">import</span> java.util.LinkedList;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Graph</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> ArrayList&lt;String&gt; vertexList;<span class="hljs-comment">//存储顶点集合</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[][] edges;<span class="hljs-comment">//存储图对应的邻接矩阵</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> numOfEdges;<span class="hljs-comment">//表示边的数目</span><br>    <span class="hljs-comment">//定义给数组boolean[],记录某个节点是否被访问</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span>[] isVisited;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> n = <span class="hljs-number">5</span>;<span class="hljs-comment">//节点的个数</span><br>        String[] vertexs = &#123;<span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-string">&quot;B&quot;</span>, <span class="hljs-string">&quot;C&quot;</span>, <span class="hljs-string">&quot;D&quot;</span>, <span class="hljs-string">&quot;E&quot;</span>&#125;;<br>        <span class="hljs-comment">//创建图对象</span><br>        Graph graph = <span class="hljs-keyword">new</span> Graph(n);<br>        <span class="hljs-comment">//循环添加顶点</span><br>        <span class="hljs-keyword">for</span> (String value : vertexs) &#123;<br>            graph.insertVertex(value);<br>        &#125;<br>        <span class="hljs-comment">//添加边</span><br>        graph.insertEdge(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br>        graph.insertEdge(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);<br>        graph.insertEdge(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);<br>        graph.insertEdge(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>);<br>        graph.insertEdge(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>);<br><br>        graph.showGraph();<br><br>        <span class="hljs-comment">//测试dfs</span><br>        System.out.println(<span class="hljs-string">&quot;深度遍历~&quot;</span>);<br>        graph.dfs();<br>        System.out.println();<br>        System.out.println(<span class="hljs-string">&quot;广度优先~&quot;</span>);<br>        graph.bfs();<br>    &#125;<br><br>    <span class="hljs-comment">//构造器</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Graph</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>        <span class="hljs-comment">//初始化矩阵和vertexList</span><br>        edges = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n][n];<br>        vertexList = <span class="hljs-keyword">new</span> ArrayList&lt;String&gt;(n);<br>        numOfEdges = <span class="hljs-number">0</span>;<br>    &#125;<br><br>    <span class="hljs-comment">//得到第一个邻接节点的下标w</span><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> index</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 如果存在就返回对应的下标，否则返回-1</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getFirstNeighbor</span><span class="hljs-params">(<span class="hljs-keyword">int</span> index)</span></span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>;j&lt;vertexList.size();j++)&#123;<br>            <span class="hljs-keyword">if</span>(edges[index][j]&gt;<span class="hljs-number">0</span>)&#123;<br>                <span class="hljs-keyword">return</span> j;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-comment">//根据前一个邻接节点的下标来获取下一个邻接节点</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getNextNeighbor</span><span class="hljs-params">(<span class="hljs-keyword">int</span> v1,<span class="hljs-keyword">int</span> v2)</span></span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=v2+<span class="hljs-number">1</span>;j&lt;vertexList.size();j++)&#123;<br>            <span class="hljs-keyword">if</span>(edges[v1][j]&gt;<span class="hljs-number">0</span>)&#123;<br>                <span class="hljs-keyword">return</span> j;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-comment">//深度优先遍历算法</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span>[] isVisited,<span class="hljs-keyword">int</span> i)</span></span>&#123;<br>        System.out.print(getValueByIndex(i)+<span class="hljs-string">&quot;-&gt;&quot;</span>);<br>        <span class="hljs-comment">//将该节点设置为已访问</span><br>        isVisited[i]=<span class="hljs-keyword">true</span>;<br>        <span class="hljs-comment">//查找节点i的第一个邻接节点</span><br>        <span class="hljs-keyword">int</span> w=getFirstNeighbor(i);<br>        <span class="hljs-keyword">while</span> (w!=-<span class="hljs-number">1</span>)&#123;<br>            <span class="hljs-keyword">if</span>(!isVisited[w])&#123;<br>                dfs(isVisited,w);<br>            &#125;<br>            <span class="hljs-comment">//如果w节点已经被访问过</span><br>            w=getNextNeighbor(i,w);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//对dfs进行重载,遍历所有的节点，并进行dfs</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">()</span></span>&#123;<br>        isVisited=<span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[vertexList.size()];<br>        <span class="hljs-comment">//遍历所有的节点，进行dfs[回溯]</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; getNumOfVertex(); i++) &#123;<br>            <span class="hljs-keyword">if</span>(!isVisited[i])&#123;<br>                dfs(isVisited,i);<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//对一个节点进行广度优先便利的方法</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span>  <span class="hljs-title">bfs</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span>[] isVisited,<span class="hljs-keyword">int</span> i)</span></span>&#123;<br>        <span class="hljs-keyword">int</span> u;<span class="hljs-comment">//表示队列的头节点对应的下标</span><br>        <span class="hljs-keyword">int</span> w;<span class="hljs-comment">//邻接节点w</span><br>        <span class="hljs-comment">//队列,记录节点访问的顺序</span><br>        LinkedList queue=<span class="hljs-keyword">new</span> LinkedList();<br>        <span class="hljs-comment">//访问节点，输出节点信息</span><br>        System.out.print(getValueByIndex(i)+<span class="hljs-string">&quot;-&gt;&quot;</span>);<br>        <span class="hljs-comment">//标记为已访问</span><br>        isVisited[i]=<span class="hljs-keyword">true</span>;<br>        <span class="hljs-comment">//将节点加入队列</span><br>        queue.addLast(i);<br><br>        <span class="hljs-keyword">while</span>(!queue.isEmpty())&#123;<br>            <span class="hljs-comment">//取出队列的头节点下标</span><br>            u=(Integer)queue.removeFirst();<br>            <span class="hljs-comment">//得到第一个邻接节点的下标</span><br>            w=getFirstNeighbor(u);<br>            <span class="hljs-keyword">while</span>(w!=-<span class="hljs-number">1</span>)&#123;<br>                <span class="hljs-comment">//是否访问过</span><br>                <span class="hljs-keyword">if</span>(!isVisited[w])&#123;<br>                    System.out.print(getValueByIndex(w)+<span class="hljs-string">&quot;-&gt;&quot;</span>);<br>                    <span class="hljs-comment">//标记已经访问</span><br>                    isVisited[w]=<span class="hljs-keyword">true</span>;<br>                    <span class="hljs-comment">//入队列</span><br>                    queue.addLast(w);<br>                &#125;<br>                <span class="hljs-comment">//以u为前驱点，找w后面的下一个邻接节点</span><br>                w=getNextNeighbor(u,w);<span class="hljs-comment">//体现出广度优先</span><br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//遍历所有的节点，都进行广度优先搜索</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">bfs</span><span class="hljs-params">()</span></span>&#123;<br>        isVisited=<span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[vertexList.size()];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; getNumOfVertex(); i++) &#123;<br>            <span class="hljs-keyword">if</span>(!isVisited[i])&#123;<br>                bfs(isVisited,i);<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//图中常用的方法</span><br><br>    <span class="hljs-comment">//显示图对应的矩阵</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">showGraph</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] link : edges) &#123;<br>            System.out.println(Arrays.toString(link));<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//返回节点的个数</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getNumOfVertex</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> vertexList.size();<br>    &#125;<br><br>    <span class="hljs-comment">//得到边的数目</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getNumOfEdges</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> numOfEdges;<br>    &#125;<br><br>    <span class="hljs-comment">//返回节点i（下标）对应的数据0-&gt;&quot;A&quot;  1-&gt;&quot;B&quot;</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getValueByIndex</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> vertexList.get(i);<br>    &#125;<br><br>    <span class="hljs-comment">//返回v1和v2的权值</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getWeight</span><span class="hljs-params">(<span class="hljs-keyword">int</span> v1, <span class="hljs-keyword">int</span> v2)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> edges[v1][v2];<br>    &#125;<br><br>    <span class="hljs-comment">//插入节点</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">insertVertex</span><span class="hljs-params">(String vertex)</span> </span>&#123;<br>        vertexList.add(vertex);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 添加边</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> v1     表示点的下标，即第几个顶点</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> v2</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> weight 权值</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">insertEdge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> v1, <span class="hljs-keyword">int</span> v2, <span class="hljs-keyword">int</span> weight)</span> </span>&#123;<br>        edges[v1][v2] = weight;<br>        edges[v2][v1] = weight;<br>        numOfEdges++;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%9B%BE/">图</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/850f2080.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">哈希表</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/aad2137f.html">
+                        <span class="hidden-mobile">查找算法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "YVoeWdQs8oEPqmQBFWkV2m2u-gzGzoHsz",
+          app_key: "FUxImjP5RO4j7uOOAeBKAVtJ",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="/img/wechat.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:120px; height:120px;"><img src="/img/alipay.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:120px; height:120px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a target="_blank" href="https://www.xiaojia521.cn" rel="nofollow noopener noopener"><span>小贾</span></a> <i class="iconfont icon-love"></i> <a target="_blank" href="https://www.xiaojia521.cn" rel="nofollow noopener noopener"><span>个人博客</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?65ec8a1f3fda6260ef20740c571d6461";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

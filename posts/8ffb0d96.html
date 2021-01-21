@@ -1,0 +1,572 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.jpg">
+  <link rel="icon" type="image/png" href="/img/avatar.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="xiaojia">
+  <meta name="keywords" content="">
+  <title>单向环形链表 - xiaojia&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/dracula.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"xiaojia521.cn","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":false,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"65ec8a1f3fda6260ef20740c571d6461","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>xiaojia's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/30.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="单向环形链表">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      xiaojia
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-09-17 16:42" pubdate>
+        2020年9月17日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">单向环形链表</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：14 天前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="单向环形链表"><a href="#单向环形链表" class="headerlink" title="单向环形链表"></a>单向环形链表</h1><h3 id="单向环形链表-1"><a href="#单向环形链表-1" class="headerlink" title="单向环形链表"></a>单向环形链表</h3><h4 id="Josephu（约瑟夫）问题"><a href="#Josephu（约瑟夫）问题" class="headerlink" title="Josephu（约瑟夫）问题"></a>Josephu（约瑟夫）问题</h4><p>Josephu问题为：设编号为1,2,3，…，n的n个人围坐在一全圈，约定编号为k（1&lt;=k&lt;=n）的人从1开始报数，数到m的那个人出列，它的下一位又从1开始报数，数到m的那个人又出列，以此类推，直到所有人出列为止，由此产生一个出队编号的序列</p>
+<p><strong>提示</strong>：用一个不带头节点的循环链表来处理Josephu问题：先构成一个有n个节点单循环链表，然后由k节点起从1开始计数，计到m时，对应节点从链表中删除，然后再从被删除的节点的下一个节点又从1开始计数，直到最后一个节点从链表中删除，算法结束</p>
+<h5 id="构建一个单向环形链表思路"><a href="#构建一个单向环形链表思路" class="headerlink" title="构建一个单向环形链表思路"></a>构建一个单向环形链表思路</h5><ul>
+<li>先构建第一个节点，让first指向该节点，并形成环形</li>
+<li>后面当我们每创建一个节点，就把该节点，加入到已有的环形链表中即可</li>
+</ul>
+<h5 id="遍历该环形链表"><a href="#遍历该环形链表" class="headerlink" title="遍历该环形链表"></a>遍历该环形链表</h5><ul>
+<li>先让一个辅助指针（变量）curBoy，指向first节点</li>
+<li>然后通过一个while循环遍历该环形链表即可，curBoy.next=first结束</li>
+</ul>
+<h5 id="出圈思路"><a href="#出圈思路" class="headerlink" title="出圈思路"></a>出圈思路</h5><ul>
+<li>需要创建一个辅助指针（变量）helper，事先应该指向环形链表的最后这个节点</li>
+<li>补充：小孩报数前，先让first和helper移动k-1次</li>
+<li>当小孩报数时，让first和helper指针同时移动m-1次</li>
+<li>这时就可以将first指向的小孩节点出圈</li>
+<li>first=first.next</li>
+<li>helper.next=first</li>
+<li>原来first指向的节点就没有任何引用，就会被回收</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Josephu</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">// 测试构建和遍历</span><br>        CircleSingleLinkedList circleSingleLinkedList = <span class="hljs-keyword">new</span> CircleSingleLinkedList();<br>        <span class="hljs-keyword">int</span> nums = <span class="hljs-number">25</span>;<br>        circleSingleLinkedList.addBoy(nums);<br>        circleSingleLinkedList.showBoy();<br><br>        <span class="hljs-comment">// 测试出圈</span><br>        circleSingleLinkedList.countBoy(<span class="hljs-number">8</span>, <span class="hljs-number">2</span>, nums);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//创建一个环形单向链表</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CircleSingleLinkedList</span> </span>&#123;<br>    <span class="hljs-comment">// 创建一个first节点，当前没有编号</span><br>    <span class="hljs-keyword">private</span> Boy first = <span class="hljs-keyword">null</span>;<br><br>    <span class="hljs-comment">// 添加节点，构建成一个环形链表</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addBoy</span><span class="hljs-params">(<span class="hljs-keyword">int</span> nums)</span> </span>&#123;<br>        <span class="hljs-comment">// 对nums做一个数据校验</span><br>        <span class="hljs-keyword">if</span> (nums &lt; <span class="hljs-number">1</span>) &#123;<br>            System.out.println(<span class="hljs-string">&quot;nums的值不正确~~~&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        Boy curBoy = <span class="hljs-keyword">null</span>;<span class="hljs-comment">// 辅助指针，帮助构建环形链表</span><br>        <span class="hljs-comment">// 使用for来创建环形链表</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= nums; i++) &#123;<br>            <span class="hljs-comment">// 根据编号，创建节点</span><br>            Boy boy = <span class="hljs-keyword">new</span> Boy(i);<br>            <span class="hljs-comment">// 如果是第一个节点</span><br>            <span class="hljs-keyword">if</span> (i == <span class="hljs-number">1</span>) &#123;<br>                first = boy;<br>                first.setNext(first);<br>                curBoy = first;<span class="hljs-comment">// 让curBoy指向第一个节点</span><br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                curBoy.setNext(boy);<br>                boy.setNext(first);<br>                curBoy = boy;<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 遍历当前的环形链表</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">showBoy</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">// 判断链表是否为空</span><br>        <span class="hljs-keyword">if</span> (first == <span class="hljs-keyword">null</span>) &#123;<br>            System.out.println(<span class="hljs-string">&quot;链表为空~~~&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-comment">// 因为first不能动，因此我们仍然使用一个辅助指针完成遍历</span><br>        Boy curBoy = first;<br>        <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) &#123;<br>            System.out.printf(<span class="hljs-string">&quot;小孩的编号  %d\n&quot;</span>, curBoy.getNo());<br>            <span class="hljs-keyword">if</span> (curBoy.getNext() == first) &#123;<span class="hljs-comment">// 遍历完毕</span><br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            curBoy = curBoy.getNext();<span class="hljs-comment">// curBoy后移</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 根据用户的输入，计算出小孩出圈的顺序</span><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> startNo  表示从第几个小孩开始数</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> countNum 表示数几下</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> nums     表示最初有多少个小孩在圈</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">countBoy</span><span class="hljs-params">(<span class="hljs-keyword">int</span> startNo, <span class="hljs-keyword">int</span> countNum, <span class="hljs-keyword">int</span> nums)</span> </span>&#123;<br>        <span class="hljs-comment">// 先对数据进行校验</span><br>        <span class="hljs-keyword">if</span> (first == <span class="hljs-keyword">null</span> || startNo &lt; <span class="hljs-number">1</span> || startNo &gt; nums) &#123;<br>            System.out.println(<span class="hljs-string">&quot;参数输入有误~~~&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-comment">// 创建一个辅助指针，帮助小孩出圈</span><br>        Boy helper = first;<br>        <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-keyword">if</span> (helper.getNext() == first) &#123;<span class="hljs-comment">// 说明helper指向最后</span><br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            helper = helper.getNext();<br>        &#125;<br>        <span class="hljs-comment">// 小孩报数前，先让first和helper移动k-1次</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; startNo - <span class="hljs-number">1</span>; i++) &#123;<br>            first = first.getNext();<br>            helper = helper.getNext();<br>        &#125;<br>        <span class="hljs-comment">// 当小孩报数时，让first和helper指针同时移动m-1次,然后出圈</span><br>        <span class="hljs-comment">// 循环，直到圈中只有一个节点</span><br>        <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) &#123;<br>            <span class="hljs-keyword">if</span> (helper == first) &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-comment">// 让first和helper指针同时移动countNum-1，然后出圈</span><br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; countNum - <span class="hljs-number">1</span>; j++) &#123;<br>                first = first.getNext();<br>                helper = helper.getNext();<br>            &#125;<br>            <span class="hljs-comment">// 这时first指向的节点，就是要出圈的小孩节点</span><br>            System.out.printf(<span class="hljs-string">&quot;小孩%d出圈\n&quot;</span>, first.getNo());<br>            <span class="hljs-comment">// 这时将first指向的小孩节点出圈</span><br>            first = first.getNext();<br>            helper.setNext(first);<br>        &#125;<br>        System.out.printf(<span class="hljs-string">&quot;最后留在圈中的小孩编号%d \n&quot;</span>, first.getNo());<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//创建一个Boy类，表示一个节点</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Boy</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> no;<span class="hljs-comment">// 编号</span><br>    <span class="hljs-keyword">private</span> Boy next;<span class="hljs-comment">// 指向下一个节点，默认null</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Boy</span><span class="hljs-params">(<span class="hljs-keyword">int</span> no)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.no = no;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getNo</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> no;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setNo</span><span class="hljs-params">(<span class="hljs-keyword">int</span> no)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.no = no;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Boy <span class="hljs-title">getNext</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> next;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setNext</span><span class="hljs-params">(Boy next)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.next = next;<br>    &#125;<br><br>&#125;<br></code></pre></div></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8D%95%E5%90%91%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/">单向环形链表</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/37fd9ed5.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">双向链表</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/850f2080.html">
+                        <span class="hidden-mobile">哈希表</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "YVoeWdQs8oEPqmQBFWkV2m2u-gzGzoHsz",
+          app_key: "FUxImjP5RO4j7uOOAeBKAVtJ",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="/img/wechat.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:120px; height:120px;"><img src="/img/alipay.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:120px; height:120px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a target="_blank" href="https://www.xiaojia521.cn" rel="nofollow noopener noopener"><span>小贾</span></a> <i class="iconfont icon-love"></i> <a target="_blank" href="https://www.xiaojia521.cn" rel="nofollow noopener noopener"><span>个人博客</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?65ec8a1f3fda6260ef20740c571d6461";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
