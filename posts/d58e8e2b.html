@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="xiaojia">
   <meta name="keywords" content="">
-  <title>Partition分区案例 - xiaojia&#39;s blog</title>
+  <title>WritableComparable分区内排序案例 - xiaojia&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -159,12 +159,12 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/39.jpg') no-repeat center center;
+         style="background: url('/img/42.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Partition分区案例">
+            <span class="h2" id="subtitle" title="WritableComparable分区内排序案例">
               
             </span>
 
@@ -179,8 +179,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-22 10:52" pubdate>
-        2021年1月22日 上午
+      <time datetime="2021-01-22 20:31" pubdate>
+        2021年1月22日 晚上
       </time>
     </span>
   
@@ -191,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      121 字
+      159 字
     </span>
   
 
@@ -239,16 +239,17 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Partition分区案例</h1>
+            <h1 style="display: none">WritableComparable分区内排序案例</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：12 小时前
+                  本文最后更新于：9 分钟前
                 
               </p>
             
             <div class="markdown-body">
-              <p>此案例是在<a href="https://xiaojia521.cn/posts/d49f6c54.html">MapReduce序列化案例 </a>基础上完成</p>
+              <p>此案例是在<a href="https://xiaojia521.cn/posts/852ddce9.html"> WritableComparable全排序案例 </a>基础上完成</p>
+<h5 id="FlowBean"><a href="#FlowBean" class="headerlink" title="FlowBean"></a>FlowBean</h5><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FlowBean</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">WritableComparable</span>&lt;<span class="hljs-title">FlowBean</span>&gt; </span>&#123;<br>    ······<br>        <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compareTo</span><span class="hljs-params">(FlowBean o)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.sumFlow!=o.getSumFlow()) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.sumFlow &gt; o.getSumFlow() ? -<span class="hljs-number">1</span> : <span class="hljs-number">1</span>;<br>        &#125;<span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>    &#125;<br>    ······<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <h5 id="CustomPartition"><a href="#CustomPartition" class="headerlink" title="CustomPartition"></a>CustomPartition</h5><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">package</span> flowsum2;<br><br><span class="hljs-keyword">import</span> org.apache.hadoop.io.Text;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.Partitioner;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomPartition</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Partitioner</span>&lt;<span class="hljs-title">Text</span>,<span class="hljs-title">FlowBean</span>&gt; </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getPartition</span><span class="hljs-params">(Text text, FlowBean flowBean, <span class="hljs-keyword">int</span> i)</span> </span>&#123;<br>        String line=text.toString();<br>        <span class="hljs-keyword">if</span>(line.startsWith(<span class="hljs-string">&quot;13&quot;</span>))&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(line.startsWith(<span class="hljs-string">&quot;14&quot;</span>))&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(line.startsWith(<span class="hljs-string">&quot;15&quot;</span>))&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;<br>        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(line.startsWith(<span class="hljs-string">&quot;17&quot;</span>))&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">4</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></div></td></tr></table></figure>
 <h5 id="FlowCountDriver"><a href="#FlowCountDriver" class="headerlink" title="FlowCountDriver"></a>FlowCountDriver</h5><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">job.setPartitionerClass(CustomPartition.class);<span class="hljs-comment">//自定义分区</span><br>job.setNumReduceTasks(<span class="hljs-number">5</span>);<span class="hljs-comment">//分区个数</span><br></code></pre></div></td></tr></table></figure>
 
@@ -268,9 +269,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/MapReduce/">MapReduce</a>
+                      <a class="hover-with-bg" href="/tags/WritableComparable/">WritableComparable</a>
                     
-                      <a class="hover-with-bg" href="/tags/partition/">partition</a>
+                      <a class="hover-with-bg" href="/tags/%E5%88%86%E5%8C%BA%E6%8E%92%E5%BA%8F/">分区排序</a>
                     
                   </div>
                 
@@ -283,9 +284,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/852ddce9.html">
+                      <a href="/posts/447063.html">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">WritableComparable全排序案例</span>
+                        <span class="hidden-mobile">MapReduce分组（辅助排序）</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -293,8 +294,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/4de7bec8.html">
-                        <span class="hidden-mobile">自定义InputFormat案例</span>
+                      <a href="/posts/852ddce9.html">
+                        <span class="hidden-mobile">WritableComparable全排序案例</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
