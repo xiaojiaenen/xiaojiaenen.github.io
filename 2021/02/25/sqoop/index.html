@@ -1,0 +1,1416 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>sqoop | 木槿昔年</title><meta name="keywords" content="sqoop"><meta name="author" content="小贾嗯嗯"><meta name="copyright" content="小贾嗯嗯"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="sqoop"><meta name="application-name" content="sqoop"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="sqoop"><meta property="og:url" content="http://mujxn.cn/2021/02/25/sqoop/index.html"><meta property="og:site_name" content="木槿昔年"><meta property="og:description" content="第1章 Sqoop简介Sqoop是一款开源的工具，主要用于在Hadoop(Hive)与传统的数据库(mysql、postgresql…)间进行数据的传递，可以将一个关系型数据库（例如 ： MySQL ,Oracle ,Postgres等）中的数据导进到Hadoop的HDFS中，也可以将HDFS的数据"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://api-storage.4ce.cn/v1/40db8f38e40474b736691890affebab8.jpg"><meta property="article:author" content="小贾嗯嗯"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://api-storage.4ce.cn/v1/40db8f38e40474b736691890affebab8.jpg"><meta name="description" content="第1章 Sqoop简介Sqoop是一款开源的工具，主要用于在Hadoop(Hive)与传统的数据库(mysql、postgresql…)间进行数据的传递，可以将一个关系型数据库（例如 ： MySQL ,Oracle ,Postgres等）中的数据导进到Hadoop的HDFS中，也可以将HDFS的数据"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://mujxn.cn/2021/02/25/sqoop/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//static.cloudflareinsights.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.css" media="print" onload="this.media='all'"><script defer="defer" data-pjax="data-pjax" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;79b0a3daa779466aabaa3090599e6c74&quot;}"></script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2023/09/03/125766904/ee23df8517f3c3e3efc4145658269c06_5714860933110284659.png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 在坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋, 宝贝","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔。","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"距离上次更新已经","messageNext":"天了，文章内容可能已经过时了。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 小贾嗯嗯","link":"链接: ","source":"来源: 木槿昔年","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '木槿昔年',
+  title: 'sqoop',
+  postAI: '',
+  pageFillDescription: '第1章 Sqoop简介, 第2章 Sqoop原理, 第3章 Sqoop安装, 3.1 下载并解压, 3.2 修改配置文件, 3.3 拷贝JDBC驱动, 3.4 验证Sqoop, 3.5 测试Sqoop是否能够成功连接数据库, 第4章 Sqoop的简单使用案例, 4.1 导入数据, 4.1.1 RDBMS到HDFS, 4.1.2RDBMS到Hive, 4.1.3RDBMS到Hbase, 4.2、导出数据, 4.2.1 HIVEx2FHDFS到RDBMS, 4.3 脚本打包, 第5章 Sqoop一些常用命令及参数, 5.1 常用命令列举, 5.2 命令amp参数详解, 5.2.1 公用参数：数据库连接, 5.2.2 公用参数：import, 5.2.3 公用参数：export, 5.2.4 公用参数：hive, 5.2.5 命令amp参数：import, 5.2.6 命令amp参数：export, 5.2.7 命令amp参数：codegen, 5.2.8 命令amp参数：create-hive-table, 5.2.9 命令amp参数：eval, 5.2.10 命令amp参数：import-all-tables, 5.2.11 命令amp参数：job, 5.2.12 命令amp参数：list-databases, 5.2.13 命令amp参数：list-tables, 5.2.14 命令amp参数：merge, 5.2.15 命令amp参数：metastore第章简介是一款开源的工具主要用于在与传统的数据库间进行数据的传递可以将一个关系型数据库例如等中的数据导进到的中也可以将的数据导进到关系型数据库中项目开始于年最早是作为的一个第三方模块存在后来为了让使用者能够快速部署也为了让开发人员能够更快速的迭代开发独立成为一个项目的最新版本是请注意与不兼容且特征不完整它并不打算用于生产部署第章原理将导入或导出命令翻译成程序来实现在翻译出的中主要是对和进行定制第章安装安装的前提是已经具备和的环境下载并解压下载地址上传安装包到虚拟机中解压安装包到指定目录如修改配置文件的配置文件与大多数大数据框架类似在根目录下的目录中重命名配置文件修改配置文件拷贝驱动拷贝驱动到的目录下如验证我们可以通过某一个来验证配置是否正确出现一些警告警告信息已省略并伴随着帮助命令的输出测试是否能够成功连接数据库出现如下输出第章的简单使用案例导入数据在中导入概念指从非大数据集群向大数据集群中传输数据叫做导入即使用关键字到确定服务开启正常在中新建一张表并插入一些数据导入数据全部导入查询导入提示如果后使用的是双引号则前必须加转义符防止识别为自己的变量导入指定列提示中如果涉及到多列用逗号分隔分隔时不要添加空格使用关键字筛选查询导入数据到提示该过程分为两步第一步将数据导入到第二步将导入到的数据迁移到仓库第一步默认的临时目录是表名到提示只支持之前的版本的自动创建表的功能解决方案手动创建表在中这张表得到如下内容导出数据在中导出概念指从大数据集群向非大数据集群中传输数据叫做导出即使用关键字到提示中如果表不存在不会自动创建脚本打包使用格式的文件打包命令然后执行创建一个文件编写脚本执行该脚本第章一些常用命令及参数常用命令列举这里给大家列出来了一部分操作时的常用参数以供参考需要深入学习的可以参看对应类的源代码序号命令类说明将数据导入到集群将集群数据导出获取数据库中某张表数据生成并打包创建表查看执行结果导入某个数据库下所有表到中用来生成一个的任务生成后该任务并不执行除非使用命令执行该任务列出所有数据库名列出某个数据库下所有表将中不同目录下面的数据合在一起并存放在指定的目录中记录的元数据信息如果不启动实例则默认的元数据存储目录为如果要更改存储目录可以在配置文件中进行更改打印帮助信息打印版本信息命令参数详解刚才列举了一些的常用命令对于不同的命令有不同的参数让我们来一一列举说明首先来我们来介绍一下公用的参数所谓公用参数就是大多数命令都支持的参数公用参数数据库连接序号参数说明连接关系型数据库的指定要使用的连接管理类根目录打印帮助信息连接数据库的密码连接数据库的用户名在控制台打印出详细信息公用参数序号参数说明给字段值前加上指定的字符对字段中的双引号加转义符设定每个字段是以什么符号作为结束默认为逗号设定每行记录之间的分隔符默认是默认的分隔符设置字段之间以逗号分隔行之间以分隔默认转义符是字段值以单引号包裹给带有双引号或单引号的字段值前后加上指定字符公用参数序号参数说明对字段值前后加上指定字符对含有转移符的字段做转义处理字段之间的分隔符行之间的分隔符给带有双引号或单引号的字段前后加上指定字符公用参数序号参数说明用自定义的字符串替换掉数据中的和等字符在导入数据到时去掉数据中的这样的字符生成表时可以更改生成字段的数据类型创建分区后面直接跟分区名分区字段的默认类型为导入数据时指定某个分区的值的安装目录可以通过该参数覆盖之前默认配置的目录将数据从关系数据库中导入到表中覆盖掉在表中已经存在的数据默认是即如果目标表已经存在了那么创建任务失败后面接要创建的表默认使用的表名指定关系数据库的表名公用参数介绍完之后我们来按照命令介绍命令对应的特有参数命令参数将关系型数据库中的数据导入到包括中如果导入的是那么当中没有对应表时则自动创建命令如导入数据到中如增量导入数据到中导入尖叫提示不能与等参数同时使用如增量导入数据到中先在中建表并插入几条数据先导入一部分数据再增量导入一部分数据尖叫提示使用方式导入数据要指定增量数据是要追加还是要合并尖叫提示指定的值是会包含于增量导入的数据中参数序号参数说明将数据追加到中已经存在的中如果使用该参数会把数据先导入到临时文件目录再合并将数据导入到一个数据文件中将数据导入到一个文件中将数据导入到一个普通文本文件中边界查询导入的数据为该参数的值一条语句所执行的结果区间内的数据指定要导入的字段直接导入模式使用的是关系数据库自带的导入导出工具以便加快导入导出过程在使用上面直接导入的基础上对导入的流按字节分块即达到该阈值就产生一个新的文件设定大对象数据类型的最大值或启动个来并行导入数据默认个或将查询结果的数据导入使用时必须伴随参如果查询中有条件则条件后必须加上关键字按照某一列来切分表的工作单元不能与连用请参考官方文档关系数据库的表名指定路径与参数不能同时使用导入数据到时指定的目录从关系数据库导入数据时的查询条件或允许压缩指定压缩编码类默认为类型的列如果替换为指定字符串非类型的列如果替换为指定字符串作为增量导入判断的列名或指定某一个值用于标记增量导入的位置命令参数从包括和中奖数据导出到关系型数据库中命令如参数序号参数说明利用数据库自带的导入导出工具以便于提高效率存放数据的的源目录或启动个来并行导入数据默认个指定导出到哪个中的表对某一列的字段进行更新操作默认请参考该类似参数说明请参考该类似参数说明创建一张临时表用于存放所有事务的结果然后将所有事务结果一次性导入到目标表中防止错误如果第个参数非空则可以在导出操作执行前清空临时事务结果表命令参数将关系型数据库中的表映射为一个类在该类中有各列对应的各个字段如序号参数说明指定生成的文件编译成的文件及将生成文件打包为的文件输出路径设定生成的文件指定的名称生成文件存放的路径包名如就会生成和两级目录在生成的文件中可以将字符串或者不存在的字符串设置为想要设定的值例如空字符串将字符串替换成想要替换的值一般与同时使用数据库字段在生成的文件中会映射成各种属性且默认的数据类型与数据库类型保持对应关系该参数可以改变默认类型例如在生成文件时可以将不存在或者的字符串设置为其他值在生成文件时将字符串设置为其他值一般与同时使用对应关系数据库中的表名生成的文件中的各个属性与该表的各个字段一一对应命令参数生成与关系数据库表结构对应的表结构命令如参数序号参数说明的安装目录可以通过该参数覆盖掉默认的目录覆盖掉在表中已经存在的数据默认是如果目标表已经存在了那么创建任务会失败后面接要创建的表指定关系数据库的表名命令参数可以快速的使用语句对关系型数据库进行操作经常用于在数据之前了解一下语句是否正确数据是否正常并可以将结果显示在控制台命令如参数序号参数说明或后跟查询的语句命令参数可以将中的所有表导入到中每一个表都对应一个目录命令如参数序号参数说明这些参数的含义均和对应的含义一致或或命令参数用来生成一个任务生成后不会立即执行需要手动执行命令如尖叫提示注意和它左边的之间有一个空格尖叫提示如果需要连接则参数序号参数说明创建参数删除一个执行一个显示帮助显示列表用来连接服务显示一个的信息打印命令运行时的详细信息尖叫提示在执行一个时如果需要手动输入数据库密码可以做如下优化命令参数命令如参数与公用参数一样命令参数命令如参数与公用参数一样命令参数将中不同目录下面的数据合并在一起并放入指定目录中数据环境尖叫提示上边数据的列之间的分隔符应该为行与行之间的分割符为如果直接复制请检查之命令如创建开始合并结果参数序号参数说明待合并的数据目录合并后在新的数据集中保留合并后重复的部分在新的数据集中被覆盖合并键一般是主键合并时引入的包该包是通过工具生成的包对应的表名或对象名该类是包含在包中的合并后的数据在里存放的目录命令参数记录了的元数据信息如果不启动该服务那么默认元数据的存储目录为可在中修改命令如启动的服务参数序号参数说明关闭',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-27 23:32:44',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">木槿昔年</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://typora-notes-xiaojia.oss-cn-beijing.aliyuncs.com/mujxn.cn/WechatIMG47.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://typora-notes-xiaojia.oss-cn-beijing.aliyuncs.com/mujxn.cn/WechatIMG47.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://typora-notes-xiaojia.oss-cn-beijing.aliyuncs.com/mujxn.cn/WechatIMG46.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://typora-notes-xiaojia.oss-cn-beijing.aliyuncs.com/mujxn.cn/WechatIMG46.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url">大数据</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/sqoop/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>sqoop</span></a></span></div></div><h1 class="post-title" itemprop="name headline">sqoop</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2021-02-25T07:46:11.000Z" title="发表于 2021-02-25 15:46:11">2021-02-25</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2022-09-27T15:32:44.000Z" title="更新于 2022-09-27 23:32:44">2022-09-27</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="sqoop"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为新乡"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>新乡</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://api-storage.4ce.cn/v1/40db8f38e40474b736691890affebab8.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://mujxn.cn/2021/02/25/sqoop/"><header><a class="post-meta-categories" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url">大数据</a><a href="/tags/sqoop/" tabindex="-1" itemprop="url">sqoop</a><h1 id="CrawlerTitle" itemprop="name headline">sqoop</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">小贾嗯嗯</span><time itemprop="dateCreated datePublished" datetime="2021-02-25T07:46:11.000Z" title="发表于 2021-02-25 15:46:11">2021-02-25</time><time itemprop="dateCreated datePublished" datetime="2022-09-27T15:32:44.000Z" title="更新于 2022-09-27 23:32:44">2022-09-27</time></header><h1 id="第1章-Sqoop简介"><a href="#第1章-Sqoop简介" class="headerlink" title="第1章 Sqoop简介"></a>第1章 Sqoop简介</h1><p>Sqoop是一款开源的工具，主要用于在Hadoop(Hive)与传统的数据库(mysql、postgresql…)间进行数据的传递，可以将一个关系型数据库（例如 ： MySQL ,Oracle ,Postgres等）中的数据导进到Hadoop的HDFS中，也可以将HDFS的数据导进到关系型数据库中。</p>
+<p>Sqoop项目开始于2009年，最早是作为Hadoop的一个第三方模块存在，后来为了让使用者能够快速部署，也为了让开发人员能够更快速的迭代开发，Sqoop独立成为一个<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Apache/6265">Apache</a>项目。</p>
+<p>Sqoop2的最新版本是1.99.7。请注意，2与1不兼容，且特征不完整，它并不打算用于生产部署。</p>
+<h1 id="第2章-Sqoop原理"><a href="#第2章-Sqoop原理" class="headerlink" title="第2章 Sqoop原理"></a>第2章 Sqoop原理</h1><p>将导入或导出命令翻译成mapreduce程序来实现。</p>
+<p>在翻译出的mapreduce中主要是对inputformat和outputformat进行定制。</p>
+<h1 id="第3章-Sqoop安装"><a href="#第3章-Sqoop安装" class="headerlink" title="第3章 Sqoop安装"></a>第3章 Sqoop安装</h1><p>安装Sqoop的前提是已经具备Java和Hadoop的环境。</p>
+<h2 id="3-1-下载并解压"><a href="#3-1-下载并解压" class="headerlink" title="3.1 下载并解压"></a>3.1 下载并解压</h2><ol>
+<li><p>下载地址：<a target="_blank" rel="noopener" href="http://mirrors.hust.edu.cn/apache/sqoop/1.4.6/">http://mirrors.hust.edu.cn/apache/sqoop/1.4.6/</a></p>
+</li>
+<li><p>上传安装包sqoop-1.4.6.bin__hadoop-2.0.4-alpha.tar.gz到虚拟机中</p>
+</li>
+<li><p>解压sqoop安装包到指定目录，如：</p>
+</li>
+</ol>
+<p>$ tar -zxf sqoop-1.4.6.bin__hadoop-2.0.4-alpha.tar.gz -C &#x2F;opt&#x2F;module&#x2F;</p>
+<h2 id="3-2-修改配置文件"><a href="#3-2-修改配置文件" class="headerlink" title="3.2 修改配置文件"></a>3.2 修改配置文件</h2><p>Sqoop的配置文件与大多数大数据框架类似，在sqoop根目录下的conf目录中。</p>
+<ol>
+<li>重命名配置文件</li>
+</ol>
+<p><code>$ mv sqoop-env-template.sh sqoop-env.sh</code></p>
+<ol start="2">
+<li>修改配置文件</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># sqoop-env.sh</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> HADOOP_COMMON_HOME=/opt/module/hadoop-2.7.2</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> HADOOP_MAPRED_HOME=/opt/module/hadoop-2.7.2</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> HIVE_HOME=/opt/module/hive</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> ZOOKEEPER_HOME=/opt/module/zookeeper-3.4.10</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> ZOOCFGDIR=/opt/module/zookeeper-3.4.10</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> HBASE_HOME=/opt/module/hbase</span><br><span class="line"></span><br><span class="line"><span class="comment">## </span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-3-拷贝JDBC驱动"><a href="#3-3-拷贝JDBC驱动" class="headerlink" title="3.3 拷贝JDBC驱动"></a>3.3 拷贝JDBC驱动</h2><p>拷贝jdbc驱动到sqoop的lib目录下，如：</p>
+<p>$ cp mysql-connector-java-5.1.27-bin.jar &#x2F;opt&#x2F;module&#x2F;sqoop-1.4.6.bin__hadoop-2.0.4-alpha&#x2F;lib&#x2F;</p>
+<h2 id="3-4-验证Sqoop"><a href="#3-4-验证Sqoop" class="headerlink" title="3.4 验证Sqoop"></a>3.4 验证Sqoop</h2><p>我们可以通过某一个command来验证sqoop配置是否正确：</p>
+<p><code>$ bin/sqoop help</code></p>
+<p>出现一些Warning警告（警告信息已省略），并伴随着帮助命令的输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">Available commands:</span><br><span class="line"></span><br><span class="line"> codegen       Generate code to interact with database records</span><br><span class="line"></span><br><span class="line"> create-hive-table   Import a table definition into Hive</span><br><span class="line"></span><br><span class="line"> eval        Evaluate a SQL statement and display the results</span><br><span class="line"></span><br><span class="line"> export       Export an HDFS directory to a database table</span><br><span class="line"></span><br><span class="line"> help        List available commands</span><br><span class="line"></span><br><span class="line"> import       Import a table from a database to HDFS</span><br><span class="line"></span><br><span class="line"> import-all-tables   Import tables from a database to HDFS</span><br><span class="line"></span><br><span class="line"> import-mainframe   Import datasets from a mainframe server to HDFS</span><br><span class="line"></span><br><span class="line"> job         Work with saved jobs</span><br><span class="line"></span><br><span class="line"> list-databases     List available databases on a server</span><br><span class="line"></span><br><span class="line"> list-tables      List available tables in a database</span><br><span class="line"></span><br><span class="line"> merge        Merge results of incremental imports</span><br><span class="line"></span><br><span class="line"> metastore      Run a standalone Sqoop metastore</span><br><span class="line"></span><br><span class="line"> version       Display version information</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-5-测试Sqoop是否能够成功连接数据库"><a href="#3-5-测试Sqoop是否能够成功连接数据库" class="headerlink" title="3.5 测试Sqoop是否能够成功连接数据库"></a>3.5 测试Sqoop是否能够成功连接数据库</h2><p><code>$ bin/sqoop list-databases --connect jdbc:mysql://hadoop01:3306/ --username root --password 123456</code></p>
+<p>出现如下输出：</p>
+<p>information_schema</p>
+<p>metastore</p>
+<p>mysql</p>
+<p>oozie</p>
+<p>performance_schema</p>
+<h1 id="第4章-Sqoop的简单使用案例"><a href="#第4章-Sqoop的简单使用案例" class="headerlink" title="第4章 Sqoop的简单使用案例"></a>第4章 Sqoop的简单使用案例</h1><h2 id="4-1-导入数据"><a href="#4-1-导入数据" class="headerlink" title="4.1 导入数据"></a>4.1 导入数据</h2><p>在Sqoop中，“导入”概念指：从非大数据集群（RDBMS）向大数据集群（HDFS，HIVE，HBASE）中传输数据，叫做：导入，即使用import关键字。</p>
+<h3 id="4-1-1-RDBMS到HDFS"><a href="#4-1-1-RDBMS到HDFS" class="headerlink" title="4.1.1 RDBMS到HDFS"></a>4.1.1 RDBMS到HDFS</h3><ol>
+<li><p>确定Mysql服务开启正常</p>
+</li>
+<li><p>在Mysql中新建一张表并插入一些数据</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ mysql -uroot -p123456</span><br><span class="line"></span><br><span class="line">mysql&gt; create database company;</span><br><span class="line"></span><br><span class="line">mysql&gt; create table company.staff(id int(4) primary key not null auto_increment, name varchar(255), sex varchar(255));</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into company.staff(name, sex) values(&#x27;Thomas&#x27;, &#x27;Male&#x27;);</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into company.staff(name, sex) values(&#x27;Catalina&#x27;, &#x27;FeMale&#x27;);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ol start="3">
+<li>导入数据</li>
+</ol>
+<p>​	（1）全部导入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop import \</span><br><span class="line"></span><br><span class="line">--connect jdbc:mysql://hadoop01:3306/company \</span><br><span class="line"></span><br><span class="line">--username root \</span><br><span class="line"></span><br><span class="line">--password 123456 \</span><br><span class="line"></span><br><span class="line">--table staff \</span><br><span class="line"></span><br><span class="line">--target-dir /user/company \</span><br><span class="line"></span><br><span class="line">--delete-target-dir \</span><br><span class="line"></span><br><span class="line">--num-mappers 1 \</span><br><span class="line"></span><br><span class="line">--fields-terminated-by &quot;\t&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>​	（2）查询导入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop import \</span><br><span class="line"></span><br><span class="line">--connect jdbc:mysql://hadoop01:3306/company \</span><br><span class="line"></span><br><span class="line">--username root \</span><br><span class="line"></span><br><span class="line">--password 123456 \</span><br><span class="line"></span><br><span class="line">--target-dir /user/company \</span><br><span class="line"></span><br><span class="line">--delete-target-dir \</span><br><span class="line"></span><br><span class="line">--num-mappers 1 \</span><br><span class="line"></span><br><span class="line">--fields-terminated-by &quot;\t&quot; \</span><br><span class="line"></span><br><span class="line">--query &#x27;select name,sex from staff where id &lt;=1 and $CONDITIONS;&#x27;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>提示</strong>：<strong>must contain ‘$CONDITIONS’ in WHERE clause.</strong></p>
+<p><strong>如果query后使用的是双引号，则$CONDITIONS前必须加转义符，防止shell识别为自己的变量。</strong></p>
+<p>​	（3）导入指定列</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop import \</span><br><span class="line"></span><br><span class="line">--connect jdbc:mysql://hadoop01:3306/company \</span><br><span class="line"></span><br><span class="line">--username root \</span><br><span class="line"></span><br><span class="line">--password 123456 \</span><br><span class="line"></span><br><span class="line">--target-dir /user/company \</span><br><span class="line"></span><br><span class="line">--delete-target-dir \</span><br><span class="line"></span><br><span class="line">--num-mappers 1 \</span><br><span class="line"></span><br><span class="line">--fields-terminated-by &quot;\t&quot; \</span><br><span class="line"></span><br><span class="line">--columns id,sex \</span><br><span class="line"></span><br><span class="line">--table staff</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>提示：columns中如果涉及到多列，用逗号分隔，分隔时不要添加空格</p>
+<p>​	（4）使用sqoop关键字筛选查询导入数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop import \</span><br><span class="line"></span><br><span class="line">--connect jdbc:mysql://hadoop01:3306/company \</span><br><span class="line"></span><br><span class="line">--username root \</span><br><span class="line"></span><br><span class="line">--password 123456 \</span><br><span class="line"></span><br><span class="line">--target-dir /user/company \</span><br><span class="line"></span><br><span class="line">--delete-target-dir \</span><br><span class="line"></span><br><span class="line">--num-mappers 1 \</span><br><span class="line"></span><br><span class="line">--fields-terminated-by &quot;\t&quot; \</span><br><span class="line"></span><br><span class="line">--table staff \</span><br><span class="line"></span><br><span class="line">--where &quot;id=1&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-1-2RDBMS到Hive"><a href="#4-1-2RDBMS到Hive" class="headerlink" title="4.1.2RDBMS到Hive"></a>4.1.2RDBMS到Hive</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop import \</span><br><span class="line"></span><br><span class="line">--connect jdbc:mysql://hadoop01:3306/company \</span><br><span class="line"></span><br><span class="line">--username root \</span><br><span class="line"></span><br><span class="line">--password 123456 \</span><br><span class="line"></span><br><span class="line">--table staff \</span><br><span class="line"></span><br><span class="line">--num-mappers 1 \</span><br><span class="line"></span><br><span class="line">--hive-import \</span><br><span class="line"></span><br><span class="line">--fields-terminated-by &quot;\t&quot; \</span><br><span class="line"></span><br><span class="line">--hive-overwrite \</span><br><span class="line"></span><br><span class="line">--hive-table staff_hive</span><br></pre></td></tr></table></figure>
+
+
+
+<p>提示：该过程分为两步，第一步将数据导入到HDFS，第二步将导入到HDFS的数据迁移到Hive仓库，第一步默认的临时目录是&#x2F;user&#x2F;atguigu&#x2F;表名</p>
+<h3 id="4-1-3RDBMS到Hbase"><a href="#4-1-3RDBMS到Hbase" class="headerlink" title="4.1.3RDBMS到Hbase"></a>4.1.3RDBMS到Hbase</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop import \</span><br><span class="line"></span><br><span class="line">--connect jdbc:mysql://hadoop01:3306/company \</span><br><span class="line"></span><br><span class="line">--username root \</span><br><span class="line"></span><br><span class="line">--password 123456 \</span><br><span class="line"></span><br><span class="line">--table company \</span><br><span class="line"></span><br><span class="line">--columns &quot;id,name,sex&quot; \</span><br><span class="line"></span><br><span class="line">--column-family &quot;info&quot; \</span><br><span class="line"></span><br><span class="line">--hbase-create-table \</span><br><span class="line"></span><br><span class="line">--hbase-row-key &quot;id&quot; \</span><br><span class="line"></span><br><span class="line">--hbase-table &quot;hbase_company&quot; \</span><br><span class="line"></span><br><span class="line">--num-mappers 1 \</span><br><span class="line"></span><br><span class="line">--split-by id</span><br></pre></td></tr></table></figure>
+
+
+
+<p>提示：sqoop1.4.6只支持HBase1.0.1之前的版本的自动创建HBase表的功能</p>
+<p>解决方案：手动创建HBase表</p>
+<p><code>hbase&gt; create &#39;hbase_company,&#39;info&#39;</code></p>
+<p>(5) 在HBase中scan这张表得到如下内容\</p>
+<p><code>hbase&gt; scan ‘hbase_company’</code></p>
+<h2 id="4-2、导出数据"><a href="#4-2、导出数据" class="headerlink" title="4.2、导出数据"></a>4.2、导出数据</h2><p>在Sqoop中，“导出”概念指：从大数据集群（HDFS，HIVE，HBASE）向非大数据集群（RDBMS）中传输数据，叫做：导出，即使用export关键字。</p>
+<h3 id="4-2-1-HIVE-HDFS到RDBMS"><a href="#4-2-1-HIVE-HDFS到RDBMS" class="headerlink" title="4.2.1 HIVE&#x2F;HDFS到RDBMS"></a>4.2.1 HIVE&#x2F;HDFS到RDBMS</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ bin/sqoop export \</span><br><span class="line"></span><br><span class="line">--connect jdbc:mysql://hadoop01:3306/company \</span><br><span class="line"></span><br><span class="line">--username root \</span><br><span class="line"></span><br><span class="line">--password 123456 \</span><br><span class="line"></span><br><span class="line">--table staff \</span><br><span class="line"></span><br><span class="line">--num-mappers 1 \</span><br><span class="line"></span><br><span class="line">--export-dir /user/hive/warehouse/staff_hive \</span><br><span class="line"></span><br><span class="line">--input-fields-terminated-by &quot;\t&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>提示：Mysql中如果表不存在，不会自动创建</p>
+<h2 id="4-3-脚本打包"><a href="#4-3-脚本打包" class="headerlink" title="4.3 脚本打包"></a>4.3 脚本打包</h2><p>使用opt格式的文件打包sqoop命令，然后执行</p>
+<ol>
+<li>创建一个.opt文件\</li>
+</ol>
+<p><code>$ mkdir opt</code></p>
+<p><code>$ touch opt/job_HDFS2RDBMS.opt</code></p>
+<ol start="2">
+<li>编写sqoop脚本\</li>
+</ol>
+<p><code>$ vi opt/job_HDFS2RDBMS.opt</code></p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">export</span><br><span class="line"></span><br><span class="line">--connect</span><br><span class="line"></span><br><span class="line">jdbc:mysql://hadoop01:3306/company</span><br><span class="line"></span><br><span class="line">--username</span><br><span class="line"></span><br><span class="line">root</span><br><span class="line"></span><br><span class="line">--password</span><br><span class="line"></span><br><span class="line">123456</span><br><span class="line"></span><br><span class="line">--table</span><br><span class="line"></span><br><span class="line">staff</span><br><span class="line"></span><br><span class="line">--num-mappers</span><br><span class="line"></span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">--export-dir</span><br><span class="line"></span><br><span class="line">/user/hive/warehouse/staff_hive</span><br><span class="line"></span><br><span class="line">--input-fields-terminated-by</span><br><span class="line"></span><br><span class="line">&quot;\t&quot;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>3)执行该脚本\</p>
+<p><code>$ bin/sqoop --options-file opt/job_HDFS2RDBMS.opt</code></p>
+<h1 id="第5章-Sqoop一些常用命令及参数"><a href="#第5章-Sqoop一些常用命令及参数" class="headerlink" title="第5章 Sqoop一些常用命令及参数"></a>第5章 Sqoop一些常用命令及参数</h1><h2 id="5-1-常用命令列举"><a href="#5-1-常用命令列举" class="headerlink" title="5.1 常用命令列举"></a>5.1 常用命令列举</h2><p>这里给大家列出来了一部分Sqoop操作时的常用参数，以供参考，需要深入学习的可以参看对应类的源代码。</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>命令</th>
+<th>类</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>import</td>
+<td>ImportTool</td>
+<td>将数据导入到集群</td>
+</tr>
+<tr>
+<td>2</td>
+<td>export</td>
+<td>ExportTool</td>
+<td>将集群数据导出</td>
+</tr>
+<tr>
+<td>3</td>
+<td>codegen</td>
+<td>CodeGenTool</td>
+<td>获取数据库中某张表数据生成Java并打包Jar</td>
+</tr>
+<tr>
+<td>4</td>
+<td>create-hive-table</td>
+<td>CreateHiveTableTool</td>
+<td>创建Hive表</td>
+</tr>
+<tr>
+<td>5</td>
+<td>eval</td>
+<td>EvalSqlTool</td>
+<td>查看SQL执行结果</td>
+</tr>
+<tr>
+<td>6</td>
+<td>import-all-tables</td>
+<td>ImportAllTablesTool</td>
+<td>导入某个数据库下所有表到HDFS中</td>
+</tr>
+<tr>
+<td>7</td>
+<td>job</td>
+<td>JobTool</td>
+<td>用来生成一个sqoop的任务，生成后，该任务并不执行，除非使用命令执行该任务。</td>
+</tr>
+<tr>
+<td>8</td>
+<td>list-databases</td>
+<td>ListDatabasesTool</td>
+<td>列出所有数据库名</td>
+</tr>
+<tr>
+<td>9</td>
+<td>list-tables</td>
+<td>ListTablesTool</td>
+<td>列出某个数据库下所有表</td>
+</tr>
+<tr>
+<td>10</td>
+<td>merge</td>
+<td>MergeTool</td>
+<td>将HDFS中不同目录下面的数据合在一起，并存放在指定的目录中</td>
+</tr>
+<tr>
+<td>11</td>
+<td>metastore</td>
+<td>MetastoreTool</td>
+<td>记录sqoop job的元数据信息，如果不启动metastore实例，则默认的元数据存储目录为：~&#x2F;.sqoop，如果要更改存储目录，可以在配置文件sqoop-site.xml中进行更改。</td>
+</tr>
+<tr>
+<td>12</td>
+<td>help</td>
+<td>HelpTool</td>
+<td>打印sqoop帮助信息</td>
+</tr>
+<tr>
+<td>13</td>
+<td>version</td>
+<td>VersionTool</td>
+<td>打印sqoop版本信息</td>
+</tr>
+</tbody></table>
+<h2 id="5-2-命令-参数详解"><a href="#5-2-命令-参数详解" class="headerlink" title="5.2 命令&amp;参数详解"></a>5.2 命令&amp;参数详解</h2><p>刚才列举了一些Sqoop的常用命令，对于不同的命令，有不同的参数，让我们来一一列举说明。</p>
+<p>首先来我们来介绍一下公用的参数，所谓公用参数，就是大多数命令都支持的参数。</p>
+<h3 id="5-2-1-公用参数：数据库连接"><a href="#5-2-1-公用参数：数据库连接" class="headerlink" title="5.2.1 公用参数：数据库连接"></a>5.2.1 公用参数：数据库连接</h3><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>–connect</td>
+<td>连接关系型数据库的URL</td>
+</tr>
+<tr>
+<td>2</td>
+<td>–connection-manager</td>
+<td>指定要使用的连接管理类</td>
+</tr>
+<tr>
+<td>3</td>
+<td>–driver</td>
+<td>Hadoop根目录</td>
+</tr>
+<tr>
+<td>4</td>
+<td>–help</td>
+<td>打印帮助信息</td>
+</tr>
+<tr>
+<td>5</td>
+<td>–password</td>
+<td>连接数据库的密码</td>
+</tr>
+<tr>
+<td>6</td>
+<td>–username</td>
+<td>连接数据库的用户名</td>
+</tr>
+<tr>
+<td>7</td>
+<td>–verbose</td>
+<td>在控制台打印出详细信息</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-2-公用参数：import"><a href="#5-2-2-公用参数：import" class="headerlink" title="5.2.2 公用参数：import"></a>5.2.2 公用参数：import</h3><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>–enclosed-by <char></td>
+<td>给字段值前加上指定的字符</td>
+</tr>
+<tr>
+<td>2</td>
+<td>–escaped-by <char></td>
+<td>对字段中的双引号加转义符</td>
+</tr>
+<tr>
+<td>3</td>
+<td>–fields-terminated-by <char></td>
+<td>设定每个字段是以什么符号作为结束，默认为逗号</td>
+</tr>
+<tr>
+<td>4</td>
+<td>–lines-terminated-by <char></td>
+<td>设定每行记录之间的分隔符，默认是\n</td>
+</tr>
+<tr>
+<td>5</td>
+<td>–mysql-delimiters</td>
+<td>Mysql默认的分隔符设置，字段之间以逗号分隔，行之间以\n分隔，默认转义符是\，字段值以单引号包裹。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>–optionally-enclosed-by <char></td>
+<td>给带有双引号或单引号的字段值前后加上指定字符。</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-3-公用参数：export"><a href="#5-2-3-公用参数：export" class="headerlink" title="5.2.3 公用参数：export"></a>5.2.3 公用参数：export</h3><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>–input-enclosed-by <char></td>
+<td>对字段值前后加上指定字符</td>
+</tr>
+<tr>
+<td>2</td>
+<td>–input-escaped-by <char></td>
+<td>对含有转移符的字段做转义处理</td>
+</tr>
+<tr>
+<td>3</td>
+<td>–input-fields-terminated-by <char></td>
+<td>字段之间的分隔符</td>
+</tr>
+<tr>
+<td>4</td>
+<td>–input-lines-terminated-by <char></td>
+<td>行之间的分隔符</td>
+</tr>
+<tr>
+<td>5</td>
+<td>–input-optionally-enclosed-by <char></td>
+<td>给带有双引号或单引号的字段前后加上指定字符</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-4-公用参数：hive"><a href="#5-2-4-公用参数：hive" class="headerlink" title="5.2.4 公用参数：hive"></a>5.2.4 公用参数：hive</h3><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>–hive-delims-replacement <arg></td>
+<td>用自定义的字符串替换掉数据中的\r\n和\013 \010等字符</td>
+</tr>
+<tr>
+<td>2</td>
+<td>–hive-drop-import-delims</td>
+<td>在导入数据到hive时，去掉数据中的\r\n\013\010这样的字符</td>
+</tr>
+<tr>
+<td>3</td>
+<td>–map-column-hive <arg></td>
+<td>生成hive表时，可以更改生成字段的数据类型</td>
+</tr>
+<tr>
+<td>4</td>
+<td>–hive-partition-key</td>
+<td>创建分区，后面直接跟分区名，分区字段的默认类型为string</td>
+</tr>
+<tr>
+<td>5</td>
+<td>–hive-partition-value <v></td>
+<td>导入数据时，指定某个分区的值</td>
+</tr>
+<tr>
+<td>6</td>
+<td>–hive-home <dir></td>
+<td>hive的安装目录，可以通过该参数覆盖之前默认配置的目录</td>
+</tr>
+<tr>
+<td>7</td>
+<td>–hive-import</td>
+<td>将数据从关系数据库中导入到hive表中</td>
+</tr>
+<tr>
+<td>8</td>
+<td>–hive-overwrite</td>
+<td>覆盖掉在hive表中已经存在的数据</td>
+</tr>
+<tr>
+<td>9</td>
+<td>–create-hive-table</td>
+<td>默认是false，即，如果目标表已经存在了，那么创建任务失败。</td>
+</tr>
+<tr>
+<td>10</td>
+<td>–hive-table</td>
+<td>后面接要创建的hive表,默认使用MySQL的表名</td>
+</tr>
+<tr>
+<td>11</td>
+<td>–table</td>
+<td>指定关系数据库的表名</td>
+</tr>
+</tbody></table>
+<p>公用参数介绍完之后，我们来按照命令介绍命令对应的特有参数。</p>
+<h3 id="5-2-5-命令-参数：import"><a href="#5-2-5-命令-参数：import" class="headerlink" title="5.2.5 命令&amp;参数：import"></a>5.2.5 命令&amp;参数：import</h3><p>将关系型数据库中的数据导入到HDFS（包括Hive，HBase）中，如果导入的是Hive，那么当Hive中没有对应表时，则自动创建。</p>
+<ol>
+<li>命令：</li>
+</ol>
+<p>如：导入数据到hive中</p>
+<p><code>$ bin/sqoop import --connect jdbc:mysql://hadoop01:3306/company --username root --password 123456 --table staff --hive-import</code></p>
+<p>如：增量导入数据到hive中，mode&#x3D;append</p>
+<p>append导入：<code>$ bin/sqoop import --connect jdbc:mysql://hadoop01:3306/company --username root --password 123456 --table staff --num-mappers 1 --fields-terminated-by &quot;\t&quot; --target-dir /user/hive/warehouse/staff_hive --check-column id --incremental append --last-value 3</code></p>
+<p>尖叫提示：append不能与–hive-等参数同时使用（Append mode for hive imports is not yet supported. Please remove the parameter –append-mode）</p>
+<p>如：增量导入数据到hdfs中，mode&#x3D;lastmodified</p>
+<p>先在mysql中建表并插入几条数据：<code>mysql&gt; create table company.staff_timestamp(id int(4), name varchar(255), sex varchar(255), last_modified timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);mysql&gt; insert into company.staff_timestamp (id, name, sex) values(1, &#39;AAA&#39;, &#39;female&#39;);mysql&gt; insert into company.staff_timestamp (id, name, sex) values(2, &#39;BBB&#39;, &#39;female&#39;);</code></p>
+<p>先导入一部分数据：<code>$ bin/sqoop import --connect jdbc:mysql://hadoop01:3306/company --username root --password 123456 --table staff_timestamp --delete-target-dir --m 1</code></p>
+<p>再增量导入一部分数据：<code>mysql&gt; insert into company.staff_timestamp (id, name, sex) values(3, &#39;CCC&#39;, &#39;female&#39;);</code></p>
+<p><code>$ bin/sqoop import --connect jdbc:mysql://hadoop01:3306/company --username root --password 123456 --table staff_timestamp --check-column last_modified --incremental lastmodified --last-value &quot;2017-09-28 22:20:38&quot; --m 1 --append</code></p>
+<p>尖叫提示：使用lastmodified方式导入数据要指定增量数据是要–append（追加）还是要–merge-key（合并）</p>
+<p>尖叫提示：last-value指定的值是会包含于增量导入的数据中</p>
+<ol start="2">
+<li>参数：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>–append</td>
+<td>将数据追加到HDFS中已经存在的DataSet中，如果使用该参数，sqoop会把数据先导入到临时文件目录，再合并。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>–as-avrodatafile</td>
+<td>将数据导入到一个Avro数据文件中</td>
+</tr>
+<tr>
+<td>3</td>
+<td>–as-sequencefile</td>
+<td>将数据导入到一个sequence文件中</td>
+</tr>
+<tr>
+<td>4</td>
+<td>–as-textfile</td>
+<td>将数据导入到一个普通文本文件中</td>
+</tr>
+<tr>
+<td>5</td>
+<td>–boundary-query <statement></td>
+<td>边界查询，导入的数据为该参数的值（一条sql语句）所执行的结果区间内的数据。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>–columns &lt;col1, col2, col3&gt;</td>
+<td>指定要导入的字段</td>
+</tr>
+<tr>
+<td>7</td>
+<td>–direct</td>
+<td>直接导入模式，使用的是关系数据库自带的导入导出工具，以便加快导入导出过程。</td>
+</tr>
+<tr>
+<td>8</td>
+<td>–direct-split-size</td>
+<td>在使用上面direct直接导入的基础上，对导入的流按字节分块，即达到该阈值就产生一个新的文件</td>
+</tr>
+<tr>
+<td>9</td>
+<td>–inline-lob-limit</td>
+<td>设定大对象数据类型的最大值</td>
+</tr>
+<tr>
+<td>10</td>
+<td>–m或–num-mappers</td>
+<td>启动N个map来并行导入数据，默认4个。</td>
+</tr>
+<tr>
+<td>11</td>
+<td>–query或–e <statement></td>
+<td>将查询结果的数据导入，使用时必须伴随参–target-dir，–hive-table，如果查询中有where条件，则条件后必须加上$CONDITIONS关键字</td>
+</tr>
+<tr>
+<td>12</td>
+<td>–split-by <column-name></td>
+<td>按照某一列来切分表的工作单元，不能与–autoreset-to-one-mapper连用（请参考官方文档）</td>
+</tr>
+<tr>
+<td>13</td>
+<td>–table <table-name></td>
+<td>关系数据库的表名</td>
+</tr>
+<tr>
+<td>14</td>
+<td>–target-dir <dir></td>
+<td>指定HDFS路径</td>
+</tr>
+<tr>
+<td>15</td>
+<td>–warehouse-dir <dir></td>
+<td>与14参数不能同时使用，导入数据到HDFS时指定的目录</td>
+</tr>
+<tr>
+<td>16</td>
+<td>–where</td>
+<td>从关系数据库导入数据时的查询条件</td>
+</tr>
+<tr>
+<td>17</td>
+<td>–z或–compress</td>
+<td>允许压缩</td>
+</tr>
+<tr>
+<td>18</td>
+<td>–compression-codec</td>
+<td>指定hadoop压缩编码类，默认为gzip(Use Hadoop codec default gzip)</td>
+</tr>
+<tr>
+<td>19</td>
+<td>–null-string <null-string></td>
+<td>string类型的列如果null，替换为指定字符串</td>
+</tr>
+<tr>
+<td>20</td>
+<td>–null-non-string <null-string></td>
+<td>非string类型的列如果null，替换为指定字符串</td>
+</tr>
+<tr>
+<td>21</td>
+<td>–check-column <col></td>
+<td>作为增量导入判断的列名</td>
+</tr>
+<tr>
+<td>22</td>
+<td>–incremental <mode></td>
+<td>mode：append或lastmodified</td>
+</tr>
+<tr>
+<td>23</td>
+<td>–last-value <value></td>
+<td>指定某一个值，用于标记增量导入的位置</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-6-命令-参数：export"><a href="#5-2-6-命令-参数：export" class="headerlink" title="5.2.6 命令&amp;参数：export"></a>5.2.6 命令&amp;参数：export</h3><p>从HDFS（包括Hive和HBase）中奖数据导出到关系型数据库中。</p>
+<ol>
+<li>命令：</li>
+</ol>
+<p>如：</p>
+<p>$ bin&#x2F;sqoop export –connect jdbc:mysql:&#x2F;&#x2F;hadoop01:3306&#x2F;company –username root –password 123456 –table staff –export-dir &#x2F;user&#x2F;company –input-fields-terminated-by “\t” –num-mappers 1</p>
+<ol start="2">
+<li>参数：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>–direct</td>
+<td>利用数据库自带的导入导出工具，以便于提高效率</td>
+</tr>
+<tr>
+<td>2</td>
+<td>–export-dir <dir></td>
+<td>存放数据的HDFS的源目录</td>
+</tr>
+<tr>
+<td>3</td>
+<td>-m或–num-mappers <n></td>
+<td>启动N个map来并行导入数据，默认4个</td>
+</tr>
+<tr>
+<td>4</td>
+<td>–table <table-name></td>
+<td>指定导出到哪个RDBMS中的表</td>
+</tr>
+<tr>
+<td>5</td>
+<td>–update-key <col-name></td>
+<td>对某一列的字段进行更新操作</td>
+</tr>
+<tr>
+<td>6</td>
+<td>–update-mode <mode></td>
+<td>updateonlyallowinsert(默认)</td>
+</tr>
+<tr>
+<td>7</td>
+<td>–input-null-string <null-string></td>
+<td>请参考import该类似参数说明</td>
+</tr>
+<tr>
+<td>8</td>
+<td>–input-null-non-string <null-string></td>
+<td>请参考import该类似参数说明</td>
+</tr>
+<tr>
+<td>9</td>
+<td>–staging-table <staging-table-name></td>
+<td>创建一张临时表，用于存放所有事务的结果，然后将所有事务结果一次性导入到目标表中，防止错误。</td>
+</tr>
+<tr>
+<td>10</td>
+<td>–clear-staging-table</td>
+<td>如果第9个参数非空，则可以在导出操作执行前，清空临时事务结果表</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-7-命令-参数：codegen"><a href="#5-2-7-命令-参数：codegen" class="headerlink" title="5.2.7 命令&amp;参数：codegen"></a>5.2.7 命令&amp;参数：codegen</h3><p>将关系型数据库中的表映射为一个Java类，在该类中有各列对应的各个字段。</p>
+<p>如：</p>
+<p>$ bin&#x2F;sqoop codegen –connect jdbc:mysql:&#x2F;&#x2F;hadoop01:3306&#x2F;company –username root –password 123456 –table staff –bindir &#x2F;home&#x2F;admin&#x2F;Desktop&#x2F;staff –class-name Staff –fields-terminated-by “\t”</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>–bindir <dir></td>
+<td>指定生成的Java文件、编译成的class文件及将生成文件打包为jar的文件输出路径</td>
+</tr>
+<tr>
+<td>2</td>
+<td>–class-name <name></td>
+<td>设定生成的Java文件指定的名称</td>
+</tr>
+<tr>
+<td>3</td>
+<td>–outdir <dir></td>
+<td>生成Java文件存放的路径</td>
+</tr>
+<tr>
+<td>4</td>
+<td>–package-name <name></td>
+<td>包名，如com.z，就会生成com和z两级目录</td>
+</tr>
+<tr>
+<td>5</td>
+<td>–input-null-non-string <null-str></td>
+<td>在生成的Java文件中，可以将null字符串或者不存在的字符串设置为想要设定的值（例如空字符串）</td>
+</tr>
+<tr>
+<td>6</td>
+<td>–input-null-string <null-str></td>
+<td>将null字符串替换成想要替换的值（一般与5同时使用）</td>
+</tr>
+<tr>
+<td>7</td>
+<td>–map-column-java <arg></td>
+<td>数据库字段在生成的Java文件中会映射成各种属性，且默认的数据类型与数据库类型保持对应关系。该参数可以改变默认类型，例如：–map-column-java id&#x3D;long, name&#x3D;String</td>
+</tr>
+<tr>
+<td>8</td>
+<td>–null-non-string <null-str></td>
+<td>在生成Java文件时，可以将不存在或者null的字符串设置为其他值</td>
+</tr>
+<tr>
+<td>9</td>
+<td>–null-string <null-str></td>
+<td>在生成Java文件时，将null字符串设置为其他值（一般与8同时使用）</td>
+</tr>
+<tr>
+<td>10</td>
+<td>–table <table-name></td>
+<td>对应关系数据库中的表名，生成的Java文件中的各个属性与该表的各个字段一一对应</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-8-命令-参数：create-hive-table"><a href="#5-2-8-命令-参数：create-hive-table" class="headerlink" title="5.2.8 命令&amp;参数：create-hive-table"></a>5.2.8 命令&amp;参数：create-hive-table</h3><p>生成与关系数据库表结构对应的hive表结构。</p>
+<p>命令：</p>
+<p>如：</p>
+<p>$ bin&#x2F;sqoop create-hive-table –connect jdbc:mysql:&#x2F;&#x2F;hadoop01:3306&#x2F;company –username root –password 123456 –table staff –hive-table hive_staff</p>
+<p>参数：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>–hive-home <dir></td>
+<td>Hive的安装目录，可以通过该参数覆盖掉默认的Hive目录</td>
+</tr>
+<tr>
+<td>2</td>
+<td>–hive-overwrite</td>
+<td>覆盖掉在Hive表中已经存在的数据</td>
+</tr>
+<tr>
+<td>3</td>
+<td>–create-hive-table</td>
+<td>默认是false，如果目标表已经存在了，那么创建任务会失败</td>
+</tr>
+<tr>
+<td>4</td>
+<td>–hive-table</td>
+<td>后面接要创建的hive表</td>
+</tr>
+<tr>
+<td>5</td>
+<td>–table</td>
+<td>指定关系数据库的表名</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-9-命令-参数：eval"><a href="#5-2-9-命令-参数：eval" class="headerlink" title="5.2.9 命令&amp;参数：eval"></a>5.2.9 命令&amp;参数：eval</h3><p>可以快速的使用SQL语句对关系型数据库进行操作，经常用于在import数据之前，了解一下SQL语句是否正确，数据是否正常，并可以将结果显示在控制台。</p>
+<p>命令：</p>
+<p>如：</p>
+<p><code>$ bin/sqoop eval --connect jdbc:mysql://hadoop01:3306/company --username root --password 123456 --query &quot;SELECT * FROM staff&quot;</code></p>
+<p>参数：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>–query或–e</td>
+<td>后跟查询的SQL语句</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-10-命令-参数：import-all-tables"><a href="#5-2-10-命令-参数：import-all-tables" class="headerlink" title="5.2.10 命令&amp;参数：import-all-tables"></a>5.2.10 命令&amp;参数：import-all-tables</h3><p>可以将RDBMS中的所有表导入到HDFS中，每一个表都对应一个HDFS目录</p>
+<p>命令：</p>
+<p>如：</p>
+<p><code>$ bin/sqoop import-all-tables --connect jdbc:mysql://hadoop01:3306/company --username root --password 123456 --warehouse-dir /all_tables</code></p>
+<p>参数：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>–as-avrodatafile</td>
+<td>这些参数的含义均和import对应的含义一致</td>
+</tr>
+<tr>
+<td>2</td>
+<td>–as-sequencefile</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>–as-textfile</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>–direct</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>–direct-split-size <n></td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>–inline-lob-limit <n></td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>–m或—num-mappers <n></td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>–warehouse-dir <dir></td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>-z或–compress</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>–compression-codec</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="5-2-11-命令-参数：job"><a href="#5-2-11-命令-参数：job" class="headerlink" title="5.2.11 命令&amp;参数：job"></a>5.2.11 命令&amp;参数：job</h3><p>用来生成一个sqoop任务，生成后不会立即执行，需要手动执行。</p>
+<p>命令：</p>
+<p>如：</p>
+<p><code>$ bin/sqoop job --create myjob -- import-all-tables --connect jdbc:mysql://hadoop01:3306/company --username root --password 123456$ bin/sqoop job --list$ bin/sqoop job --exec myjob</code></p>
+<p>尖叫提示：注意import-all-tables和它左边的–之间有一个空格</p>
+<p>尖叫提示：如果需要连接metastore，则–meta-connect jdbc:hsqldb:hsql:&#x2F;&#x2F;linux01:16000&#x2F;sqoop</p>
+<p>参数：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>–create <job-id></td>
+<td>创建job参数</td>
+</tr>
+<tr>
+<td>2</td>
+<td>–delete <job-id></td>
+<td>删除一个job</td>
+</tr>
+<tr>
+<td>3</td>
+<td>–exec <job-id></td>
+<td>执行一个job</td>
+</tr>
+<tr>
+<td>4</td>
+<td>–help</td>
+<td>显示job帮助</td>
+</tr>
+<tr>
+<td>5</td>
+<td>–list</td>
+<td>显示job列表</td>
+</tr>
+<tr>
+<td>6</td>
+<td>–meta-connect <jdbc-uri></td>
+<td>用来连接metastore服务</td>
+</tr>
+<tr>
+<td>7</td>
+<td>–show <job-id></td>
+<td>显示一个job的信息</td>
+</tr>
+<tr>
+<td>8</td>
+<td>–verbose</td>
+<td>打印命令运行时的详细信息</td>
+</tr>
+</tbody></table>
+<p>尖叫提示：在执行一个job时，如果需要手动输入数据库密码，可以做如下优化</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>sqoop.metastore.client.record.password<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>If true, allow saved passwords in the metastore.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5-2-12-命令-参数：list-databases"><a href="#5-2-12-命令-参数：list-databases" class="headerlink" title="5.2.12 命令&amp;参数：list-databases"></a>5.2.12 命令&amp;参数：list-databases</h3><p>命令：</p>
+<p>如：</p>
+<p><code>$ bin/sqoop list-databases --connect jdbc:mysql://hadoop01:3306/ --username root --password 123456</code></p>
+<p>参数：与公用参数一样</p>
+<h3 id="5-2-13-命令-参数：list-tables"><a href="#5-2-13-命令-参数：list-tables" class="headerlink" title="5.2.13 命令&amp;参数：list-tables"></a>5.2.13 命令&amp;参数：list-tables</h3><p>命令：</p>
+<p>如：</p>
+<p><code>$ bin/sqoop list-tables --connect jdbc:mysql://hadoop01:3306/company --username root --password 123456</code></p>
+<p>参数：与公用参数一样</p>
+<h3 id="5-2-14-命令-参数：merge"><a href="#5-2-14-命令-参数：merge" class="headerlink" title="5.2.14 命令&amp;参数：merge"></a>5.2.14 命令&amp;参数：merge</h3><p>将HDFS中不同目录下面的数据合并在一起并放入指定目录中</p>
+<p>数据环境：</p>
+<p>new_staff1    AAA   male2    BBB   male3    CCC   male4    DDD   maleold_staff1    AAA   female2    CCC   female3    BBB   female6    DDD   female</p>
+<p>尖叫提示：上边数据的列之间的分隔符应该为\t，行与行之间的分割符为\n，如果直接复制，请检查之。</p>
+<p>命令：</p>
+<p>如：</p>
+<p>创建JavaBean：<code>$ bin/sqoop codegen --connect jdbc:mysql://hadoop01:3306/company --username root --password 123456 --table staff --bindir /home/admin/Desktop/staff --class-name Staff --fields-terminated-by &quot;\t&quot; </code></p>
+<p>开始合并：<code>$ bin/sqoop merge --new-data /test/new/ --onto /test/old/ --target-dir /test/merged --jar-file /home/admin/Desktop/staff/Staff.jar --class-name Staff --merge-key id</code></p>
+<p>结果：1	AAA	MALE2	BBB	MALE3	CCC	MALE4	DDD	MALE6	DDD	FEMALE</p>
+<p>参数：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>–new-data <path></td>
+<td>HDFS 待合并的数据目录，合并后在新的数据集中保留</td>
+</tr>
+<tr>
+<td>2</td>
+<td>–onto <path></td>
+<td>HDFS合并后，重复的部分在新的数据集中被覆盖</td>
+</tr>
+<tr>
+<td>3</td>
+<td>–merge-key <col></td>
+<td>合并键，一般是主键ID</td>
+</tr>
+<tr>
+<td>4</td>
+<td>–jar-file <file></td>
+<td>合并时引入的jar包，该jar包是通过Codegen工具生成的jar包</td>
+</tr>
+<tr>
+<td>5</td>
+<td>–class-name <class></td>
+<td>对应的表名或对象名，该class类是包含在jar包中的</td>
+</tr>
+<tr>
+<td>6</td>
+<td>–target-dir <path></td>
+<td>合并后的数据在HDFS里存放的目录</td>
+</tr>
+</tbody></table>
+<h3 id="5-2-15-命令-参数：metastore"><a href="#5-2-15-命令-参数：metastore" class="headerlink" title="5.2.15 命令&amp;参数：metastore"></a>5.2.15 命令&amp;参数：metastore</h3><p>记录了Sqoop job的元数据信息，如果不启动该服务，那么默认job元数据的存储目录为~&#x2F;.sqoop，可在sqoop-site.xml中修改。</p>
+<p>命令：</p>
+<p>如：启动sqoop的metastore服务</p>
+<p><code>$ bin/sqoop metastore</code></p>
+<p>参数：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>–shutdown</td>
+<td>关闭metastore</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">小贾嗯嗯</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://mujxn.cn/2021/02/25/sqoop/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://mujxn.cn/2021/02/25/sqoop/')">sqoop</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://typora-notes-xiaojia.oss-cn-beijing.aliyuncs.com/mujxn.cn/WechatIMG47.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://typora-notes-xiaojia.oss-cn-beijing.aliyuncs.com/mujxn.cn/WechatIMG47.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://typora-notes-xiaojia.oss-cn-beijing.aliyuncs.com/mujxn.cn/WechatIMG46.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://typora-notes-xiaojia.oss-cn-beijing.aliyuncs.com/mujxn.cn/WechatIMG46.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://mujxn.cn/2021/02/25/sqoop/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=sqoop&amp;url=http://mujxn.cn/2021/02/25/sqoop/&amp;pic=https://api-storage.4ce.cn/v1/40db8f38e40474b736691890affebab8.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://mujxn.cn" target="_blank">木槿昔年</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/sqoop/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>sqoop<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://api-storage.4ce.cn/v1/2944ce41e5c0a55f6ec86ca99c5cd91d.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/02/25/WordCloud/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://api-storage.4ce.cn/v1/e53cc3a9dbae4c66dca185b20465d03e.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">WordCloud</div></div></a></div><div class="next-post pull-right"><a href="/2021/02/25/python%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%88%AC%E8%99%AB/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://api-storage.4ce.cn/v1/532dfd2fff9aa67e3111e3b05cd0ea1a.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">python多线程爬虫</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div><div class="comment-barrage"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description"></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">小贾嗯嗯</h1><div class="author-info__desc"></div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/xiaojiaenen" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a><a class="social-icon faa-parent animated-hover" href="https://space.bilibili.com/626120309" target="_blank" title="BiliBili"><i class="anzhiyufont anzhiyu-icon-bilibili"></i></a></div></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC1%E7%AB%A0-Sqoop%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">第1章 Sqoop简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC2%E7%AB%A0-Sqoop%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">第2章 Sqoop原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC3%E7%AB%A0-Sqoop%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text">第3章 Sqoop安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E4%B8%8B%E8%BD%BD%E5%B9%B6%E8%A7%A3%E5%8E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 下载并解压</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 修改配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E6%8B%B7%E8%B4%9DJDBC%E9%A9%B1%E5%8A%A8"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 拷贝JDBC驱动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E9%AA%8C%E8%AF%81Sqoop"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 验证Sqoop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-%E6%B5%8B%E8%AF%95Sqoop%E6%98%AF%E5%90%A6%E8%83%BD%E5%A4%9F%E6%88%90%E5%8A%9F%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 测试Sqoop是否能够成功连接数据库</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC4%E7%AB%A0-Sqoop%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-number">4.</span> <span class="toc-text">第4章 Sqoop的简单使用案例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 导入数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-1-RDBMS%E5%88%B0HDFS"><span class="toc-number">4.1.1.</span> <span class="toc-text">4.1.1 RDBMS到HDFS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-2RDBMS%E5%88%B0Hive"><span class="toc-number">4.1.2.</span> <span class="toc-text">4.1.2RDBMS到Hive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-3RDBMS%E5%88%B0Hbase"><span class="toc-number">4.1.3.</span> <span class="toc-text">4.1.3RDBMS到Hbase</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2%E3%80%81%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE"><span class="toc-number">4.2.</span> <span class="toc-text">4.2、导出数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-1-HIVE-HDFS%E5%88%B0RDBMS"><span class="toc-number">4.2.1.</span> <span class="toc-text">4.2.1 HIVE&#x2F;HDFS到RDBMS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E8%84%9A%E6%9C%AC%E6%89%93%E5%8C%85"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 脚本打包</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC5%E7%AB%A0-Sqoop%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E5%8F%82%E6%95%B0"><span class="toc-number">5.</span> <span class="toc-text">第5章 Sqoop一些常用命令及参数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%88%97%E4%B8%BE"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 常用命令列举</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E5%91%BD%E4%BB%A4-%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 命令&amp;参数详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-1-%E5%85%AC%E7%94%A8%E5%8F%82%E6%95%B0%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5"><span class="toc-number">5.2.1.</span> <span class="toc-text">5.2.1 公用参数：数据库连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-2-%E5%85%AC%E7%94%A8%E5%8F%82%E6%95%B0%EF%BC%9Aimport"><span class="toc-number">5.2.2.</span> <span class="toc-text">5.2.2 公用参数：import</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-3-%E5%85%AC%E7%94%A8%E5%8F%82%E6%95%B0%EF%BC%9Aexport"><span class="toc-number">5.2.3.</span> <span class="toc-text">5.2.3 公用参数：export</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-4-%E5%85%AC%E7%94%A8%E5%8F%82%E6%95%B0%EF%BC%9Ahive"><span class="toc-number">5.2.4.</span> <span class="toc-text">5.2.4 公用参数：hive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-5-%E5%91%BD%E4%BB%A4-%E5%8F%82%E6%95%B0%EF%BC%9Aimport"><span class="toc-number">5.2.5.</span> <span class="toc-text">5.2.5 命令&amp;参数：import</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-6-%E5%91%BD%E4%BB%A4-%E5%8F%82%E6%95%B0%EF%BC%9Aexport"><span class="toc-number">5.2.6.</span> <span class="toc-text">5.2.6 命令&amp;参数：export</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-7-%E5%91%BD%E4%BB%A4-%E5%8F%82%E6%95%B0%EF%BC%9Acodegen"><span class="toc-number">5.2.7.</span> <span class="toc-text">5.2.7 命令&amp;参数：codegen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-8-%E5%91%BD%E4%BB%A4-%E5%8F%82%E6%95%B0%EF%BC%9Acreate-hive-table"><span class="toc-number">5.2.8.</span> <span class="toc-text">5.2.8 命令&amp;参数：create-hive-table</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-9-%E5%91%BD%E4%BB%A4-%E5%8F%82%E6%95%B0%EF%BC%9Aeval"><span class="toc-number">5.2.9.</span> <span class="toc-text">5.2.9 命令&amp;参数：eval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-10-%E5%91%BD%E4%BB%A4-%E5%8F%82%E6%95%B0%EF%BC%9Aimport-all-tables"><span class="toc-number">5.2.10.</span> <span class="toc-text">5.2.10 命令&amp;参数：import-all-tables</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-11-%E5%91%BD%E4%BB%A4-%E5%8F%82%E6%95%B0%EF%BC%9Ajob"><span class="toc-number">5.2.11.</span> <span class="toc-text">5.2.11 命令&amp;参数：job</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-12-%E5%91%BD%E4%BB%A4-%E5%8F%82%E6%95%B0%EF%BC%9Alist-databases"><span class="toc-number">5.2.12.</span> <span class="toc-text">5.2.12 命令&amp;参数：list-databases</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-13-%E5%91%BD%E4%BB%A4-%E5%8F%82%E6%95%B0%EF%BC%9Alist-tables"><span class="toc-number">5.2.13.</span> <span class="toc-text">5.2.13 命令&amp;参数：list-tables</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-14-%E5%91%BD%E4%BB%A4-%E5%8F%82%E6%95%B0%EF%BC%9Amerge"><span class="toc-number">5.2.14.</span> <span class="toc-text">5.2.14 命令&amp;参数：merge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-15-%E5%91%BD%E4%BB%A4-%E5%8F%82%E6%95%B0%EF%BC%9Ametastore"><span class="toc-number">5.2.15.</span> <span class="toc-text">5.2.15 命令&amp;参数：metastore</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/11/01/%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="全连接神经网络"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://api-storage.4ce.cn/v1/2944ce41e5c0a55f6ec86ca99c5cd91d.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="全连接神经网络"/></a><div class="content"><a class="title" href="/2022/11/01/%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="全连接神经网络">全连接神经网络</a><time datetime="2022-11-01T08:12:03.000Z" title="发表于 2022-11-01 16:12:03">2022-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/01/Hadoop3.x%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="Hadoop3.x配置文件"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://api-storage.4ce.cn/v1/829001528d5ed270d1292fe1651fb98d.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hadoop3.x配置文件"/></a><div class="content"><a class="title" href="/2022/10/01/Hadoop3.x%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="Hadoop3.x配置文件">Hadoop3.x配置文件</a><time datetime="2022-10-01T04:52:52.000Z" title="发表于 2022-10-01 12:52:52">2022-10-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/07/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" title="大数据集群搭建"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://api-storage.4ce.cn/v1/93e25452df9633f3dda65e780192c014.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="大数据集群搭建"/></a><div class="content"><a class="title" href="/2022/05/07/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" title="大数据集群搭建">大数据集群搭建</a><time datetime="2022-05-07T12:29:10.000Z" title="发表于 2022-05-07 20:29:10">2022-05-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/23/centos7%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEmysql5.7/" title="centos7安装配置mysql5.7"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://api-storage.4ce.cn/v1/6b60d18f4da498d082f257bed8cbbff6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="centos7安装配置mysql5.7"/></a><div class="content"><a class="title" href="/2021/11/23/centos7%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEmysql5.7/" title="centos7安装配置mysql5.7">centos7安装配置mysql5.7</a><time datetime="2021-11-23T14:20:22.000Z" title="发表于 2021-11-23 22:20:22">2021-11-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/04/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" title="数据分析"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://api-storage.4ce.cn/v1/86dfacae4546d75d0ccf60ccfdb00d08.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据分析"/></a><div class="content"><a class="title" href="/2021/07/04/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" title="数据分析">数据分析</a><time datetime="2021-07-04T10:11:03.000Z" title="发表于 2021-07-04 18:11:03">2021-07-04</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2023 By <a class="footer-bar-link" href="/" title="小贾嗯嗯" target="_blank">小贾嗯嗯</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">69</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">48</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">9</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/ajax/" style="font-size: 0.88rem;">ajax<sup>1</sup></a><a href="/tags/centos6-yum-error/" style="font-size: 0.88rem;">centos6, yum, error<sup>1</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/echarts-%E7%8E%AB%E7%91%B0%E8%8A%B1%E5%9B%BE-%E5%8F%AF%E8%A7%86%E5%8C%96/" style="font-size: 0.88rem;">echarts, 玫瑰花图, 可视化<sup>1</sup></a><a href="/tags/error/" style="font-size: 0.88rem;">error<sup>5</sup></a><a href="/tags/error-SparkStreaming/" style="font-size: 0.88rem;">error, SparkStreaming<sup>1</sup></a><a href="/tags/error-flink/" style="font-size: 0.88rem;">error, flink<sup>1</sup></a><a href="/tags/error-hadoop/" style="font-size: 0.88rem;">error, hadoop<sup>1</sup></a><a href="/tags/flink-kafka/" style="font-size: 0.88rem;">flink, kafka<sup>1</sup></a><a href="/tags/git/" style="font-size: 0.88rem;">git<sup>1</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>1</sup></a><a href="/tags/hadoop-%E9%AB%98%E5%8F%AF%E7%94%A8/" style="font-size: 0.88rem;">hadoop, 高可用<sup>1</sup></a><a href="/tags/hdfs-hadoop/" style="font-size: 0.88rem;">hdfs, hadoop<sup>1</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/jieba/" style="font-size: 0.88rem;">jieba<sup>1</sup></a><a href="/tags/js/" style="font-size: 0.88rem;">js<sup>2</sup></a><a href="/tags/mapreduce/" style="font-size: 0.88rem;">mapreduce<sup>15</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>1</sup></a><a href="/tags/mysql-centos7/" style="font-size: 0.88rem;">mysql, centos7<sup>1</sup></a><a href="/tags/numpy/" style="font-size: 0.88rem;">numpy<sup>2</sup></a><a href="/tags/numpy-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-pandas-matplotlib/" style="font-size: 0.88rem;">numpy, 数据分析, pandas, matplotlib<sup>1</sup></a><a href="/tags/pandas/" style="font-size: 0.88rem;">pandas<sup>1</sup></a><a href="/tags/scala-%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2/" style="font-size: 0.88rem;">scala, 隐式转换<sup>1</sup></a><a href="/tags/sqoop/" style="font-size: 0.88rem;">sqoop<sup>1</sup></a><a href="/tags/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8-%E9%93%BE%E8%A1%A8/" style="font-size: 0.88rem;">双向链表, 链表<sup>1</sup></a><a href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96-%E7%88%AC%E8%99%AB/" style="font-size: 0.88rem;">可视化, 爬虫<sup>1</sup></a><a href="/tags/%E5%93%88%E5%B8%8C/" style="font-size: 0.88rem;">哈希<sup>1</sup></a><a href="/tags/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9-%E7%88%AC%E8%99%AB-%E5%8F%AF%E8%A7%86%E5%8C%96/" style="font-size: 0.88rem;">哔哩哔哩, 爬虫, 可视化<sup>1</sup></a><a href="/tags/%E5%9B%BE/" style="font-size: 0.88rem;">图<sup>1</sup></a><a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B-%E7%88%AC%E8%99%AB/" style="font-size: 0.88rem;">多线程, 爬虫<sup>1</sup></a><a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" style="font-size: 0.88rem;">大数据, 集群搭建<sup>1</sup></a><a href="/tags/%E6%8E%92%E5%BA%8F-%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">排序, 算法<sup>1</sup></a><a href="/tags/%E6%A0%88/" style="font-size: 0.88rem;">栈<sup>1</sup></a><a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 0.88rem;">爬虫<sup>1</sup></a><a href="/tags/%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-%E9%93%BE%E8%A1%A8/" style="font-size: 0.88rem;">环形链表, 链表<sup>1</sup></a><a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">神经网络<sup>1</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>1</sup></a><a href="/tags/%E7%AE%97%E6%B3%95-%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法, 查找算法<sup>1</sup></a><a href="/tags/%E9%93%BE%E8%A1%A8-%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8/" style="font-size: 0.88rem;">链表, 单向链表<sup>1</sup></a><a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 0.88rem;">随笔<sup>1</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.4/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.cbd.int/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("08/13/2020 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.8",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 小贾嗯嗯 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'ZaTIDM5CkSSMvRBB3xW3OAno-gzGzoHsz',
+      appKey: 'WoMTzDyuYVpPWU0x65bOlLhb',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: {"tv_doge":"6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png","tv_亲亲":"a8111ad55953ef5e3be3327ef94eb4a39d535d06.png","tv_偷笑":"bb690d4107620f1c15cff29509db529a73aee261.png","tv_再见":"180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png","tv_冷漠":"b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png","tv_发怒":"34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png","tv_发财":"34db290afd2963723c6eb3c4560667db7253a21a.png","tv_可爱":"9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png","tv_吐血":"09dd16a7aa59b77baa1155d47484409624470c77.png","tv_呆":"fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png","tv_呕吐":"9f996894a39e282ccf5e66856af49483f81870f3.png","tv_困":"241ee304e44c0af029adceb294399391e4737ef2.png","tv_坏笑":"1f0b87f731a671079842116e0991c91c2c88645a.png","tv_大佬":"093c1e2c490161aca397afc45573c877cdead616.png","tv_大哭":"23269aeb35f99daee28dda129676f6e9ea87934f.png","tv_委屈":"d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png","tv_害羞":"a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png","tv_尴尬":"7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png","tv_微笑":"70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png","tv_思考":"90cf159733e558137ed20aa04d09964436f618a1.png","tv_惊吓":"0d15c7e2ee58e935adc6a7193ee042388adc22af.png"},
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.cbd.int/valine@1.5.1/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) anzhiyu.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script src="https://cdn.cbd.int/blueimp-md5@2.19.0/js/md5.min.js"></script><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getIcon = (icon, mail) => {
+    if (icon) return icon
+    let defaultIcon = '?d=mp'
+    let iconUrl = `https://gravatar.loli.net/avatar/${md5(mail.toLowerCase()) + defaultIcon}`
+    return iconUrl
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = () => {
+    const serverURL = 'https://ZaTIDM5C.api.lncldglobal.com'
+
+    var settings = {
+      "method": "GET",
+      "headers": {
+        "X-LC-Id": 'ZaTIDM5CkSSMvRBB3xW3OAno-gzGzoHsz',
+        "X-LC-Key": 'WoMTzDyuYVpPWU0x65bOlLhb',
+        "Content-Type": "application/json"
+      },
+    }
+
+    fetch(`${serverURL}/1.1/classes/Comment?limit=6&order=-createdAt`,settings)
+      .then(response => response.json())
+      .then(data => {
+        const valineArray = data.results.map(function (e) {
+          return {
+            'avatar': getIcon(e.QQAvatar, e.mail),
+            'content': changeContent(e.comment),
+            'nick': e.nick,
+            'url': e.url + '#' + e.objectId,
+            'date': e.updatedAt,
+          }
+        })
+        saveToLocal.set('valine-newest-comments', JSON.stringify(valineArray), 10/(60*24))
+        generateHtml(valineArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+      }) 
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('valine-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "visitor@anheyu.com";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
